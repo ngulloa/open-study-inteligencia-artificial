@@ -1,0 +1,126 @@
+---
+title: "SVM multiclase y Exemplar-SVM"
+description: "One-vs-rest, one-vs-one, aprendizaje conjunto multiclase, k-NN y clasificadores por ejemplar."
+---
+
+<div class="concept-section">
+<div class="concept-label">Conceptos clave</div>
+<div class="concept-tags">
+<span class="concept-tag">One-vs-rest</span>
+<span class="concept-tag">One-vs-one</span>
+<span class="concept-tag">Puntaje multiclase</span>
+<span class="concept-tag">k-NN</span>
+<span class="concept-tag">Exemplar-SVM</span>
+</div>
+</div>
+
+## Del caso binario al multiclase
+
+La formulación básica de SVM distingue dos clases, $y\in\{-1,+1\}$. Para $K>2$ categorías se pueden combinar clasificadores binarios o aprender varios puntajes de manera conjunta.
+
+### One-vs-rest
+
+Se entrenan $K$ clasificadores. El clasificador $k$ separa la clase $k$ de todas las demás. En inferencia se comparan sus puntajes:
+
+$$
+\widehat y=\arg\max_{k\in\{1,\ldots,K\}} f_k(x).
+$$
+
+Es simple y requiere $K$ modelos, pero cada problema binario puede quedar desbalanceado y los puntajes entrenados de forma independiente no siempre son directamente comparables.
+
+### One-vs-one
+
+Se entrena un clasificador para cada par de clases, es decir,
+
+$$
+\binom{K}{2}=\frac{K(K-1)}{2}
+$$
+
+clasificadores. La predicción combina sus decisiones, por ejemplo mediante votación. Cada modelo usa solo ejemplos de dos clases, pero la cantidad de modelos crece cuadráticamente con $K$.
+
+## Aprendizaje conjunto
+
+Otra estrategia aprende un vector $w_k$ por clase y define
+
+$$
+f_k(x)=w_k^\top x.
+$$
+
+Para cada ejemplo $(x_i,y_i)$ se exige que el puntaje de la clase correcta supere el de cualquier clase incorrecta por un margen, permitiendo una violación $\xi_i$:
+
+$$
+w_{y_i}^\top x_i-w_k^\top x_i\ge1-\xi_i,
+\qquad k\ne y_i.
+$$
+
+Una formulación regularizada es
+
+$$
+\begin{aligned}
+\min_{\{w_k\},\xi}\quad &
+\frac{1}{2}\sum_{k=1}^{K}\|w_k\|^2+C\sum_{i=1}^{N}\xi_i\\
+\text{sujeto a}\quad &
+w_{y_i}^\top x_i-w_k^\top x_i\ge1-\xi_i,
+\quad k\ne y_i,\\
+&\xi_i\ge0.
+\end{aligned}
+$$
+
+La predicción usa el mayor puntaje. Como los clasificadores se ajustan conjuntamente, las comparaciones forman parte del mismo objetivo.
+
+## Punto de comparación: k vecinos más cercanos
+
+El clasificador **k-NN** no ajusta una frontera global: conserva los ejemplos y predice mediante las etiquetas de los $k$ vecinos más cercanos.
+
+- entrenamiento: principalmente almacenar y organizar datos;
+- inferencia: calcular distancias y combinar votos;
+- supuesto inductivo: cercanía en la representación implica similitud de clase.
+
+Este supuesto puede fallar si la distancia pondera componentes irrelevantes o si la representación no captura la identidad que interesa. Escalamiento y elección de características resultan decisivos.
+
+## Exemplar-SVM
+
+Una Exemplar-SVM aprende un clasificador especializado para un ejemplo positivo $x_E$, contrastándolo con un conjunto amplio de negativos $\mathcal N_E$. Una forma del objetivo es
+
+$$
+\mathcal L(w,b)
+=\frac{1}{2}\|w\|^2
++C_E\xi_E
++C_N\sum_{i\in\mathcal N_E}\xi_i.
+$$
+
+$C_E$ y $C_N$ permiten ponderar de manera distinta el ejemplar positivo y los negativos. En vez de asumir que toda cercanía geométrica es pertinente, el clasificador aprende una dirección discriminativa específica para separar ese ejemplar.
+
+Para reconocer múltiples ejemplares se evalúan varios clasificadores y se comparan sus salidas. Si se necesitan probabilidades, los puntajes de margen requieren una calibración adicional: una SVM no produce probabilidades calibradas por definición.
+
+## Comparación
+
+| Estrategia | Modelos | Idea de decisión | Consideración principal |
+|---|---:|---|---|
+| One-vs-rest | $K$ | mayor puntaje | desbalance y comparabilidad |
+| One-vs-one | $K(K-1)/2$ | votación o agregación | costo al crecer $K$ |
+| SVM conjunta | un objetivo con $K$ puntajes | margen frente a todas las clases | optimización más acoplada |
+| k-NN | modelo basado en instancias | voto local | costo de inferencia y métrica |
+| Exemplar-SVM | uno por ejemplar | separación especializada | calibración y número de modelos |
+
+::: {.callout-warning title="No comparar puntajes como si fueran probabilidades"}
+La magnitud de $f_k(x)$ es un puntaje de decisión. Compararlo puede ser parte del método, pero interpretarlo como probabilidad requiere un procedimiento de calibración validado.
+:::
+
+::: {.summary-box}
+### Resumen
+
+- One-vs-rest y one-vs-one reducen multiclase a problemas binarios.
+- Una SVM conjunta aprende puntajes comparables bajo restricciones compartidas.
+- k-NN usa similitud local; su comportamiento depende de la representación y la distancia.
+- Exemplar-SVM aprende un separador especializado por ejemplo.
+- Todos estos enfoques agregan múltiples comparaciones durante la predicción.
+:::
+
+::: {.related-links}
+## Conceptos relacionados
+
+- [SVM y máximo margen](svm-margen.qmd)
+- [Kernels y fronteras no lineales](svm-kernels.qmd)
+- [Representación de datos](../datos/representacion.qmd)
+:::

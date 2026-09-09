@@ -1,0 +1,67 @@
+project:
+  type: website
+  output-dir: docs
+
+lang: es
+bibliography: references.bib
+
+website:
+  title: "Inteligencia Artificial I"
+  search: true
+  page-navigation: true
+  back-to-top-navigation: true
+  sidebar:
+    style: docked
+    collapse-level: 1
+    contents:
+      - href: index.qmd
+        text: Inicio
+      - section: "Fundamentos"
+        contents:
+          - href: fundamentos/ia-aprendizaje.qmd
+            text: IA y aprendizaje de máquina
+          - href: fundamentos/sistema-ml.qmd
+            text: Anatomía de un sistema de ML
+      - section: "Datos y generalización"
+        contents:
+          - href: datos/representacion.qmd
+            text: Representación de datos
+          - href: datos/generalizacion.qmd
+            text: Generalización y selección de modelos
+      - section: "Aprendizaje supervisado"
+        contents:
+          - href: supervisado/arboles-decision.qmd
+            text: Árboles de decisión
+          - href: supervisado/svm-margen.qmd
+            text: SVM y máximo margen
+          - href: supervisado/svm-kernels.qmd
+            text: Kernels y fronteras no lineales
+          - href: supervisado/svm-multiclase.qmd
+            text: SVM multiclase y Exemplar-SVM
+      - section: "Aprendizaje por refuerzo"
+        contents:
+          - href: refuerzo/fundamentos.qmd
+            text: Agentes, recompensas y políticas
+  page-footer:
+    left: "Inteligencia Artificial I · OpenStudy"
+    right: "Sitio de estudio construido con Quarto"
+
+format:
+  html:
+    theme:
+      - cosmo
+      - theme.scss
+    css:
+      - styles/base.css
+      - styles/layout.css
+      - styles/components.css
+      - styles/concepts.css
+      - styles/responsive.css
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    code-copy: true
+    code-overflow: wrap
+    html-math-method: mathjax
+    link-external-newwindow: true
+    smooth-scroll: true

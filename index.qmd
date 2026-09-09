@@ -1,0 +1,74 @@
+---
+title: "Inteligencia Artificial I"
+description: "Material de estudio sobre fundamentos de aprendizaje de máquina, generalización, árboles de decisión, máquinas de vectores de soporte y aprendizaje por refuerzo."
+toc: false
+---
+
+:::: {.hero-ai}
+## De los datos a las decisiones inteligentes
+
+OpenStudy presenta una ruta autocontenida por los fundamentos de la **inteligencia artificial** cubiertos hasta ahora: aprendizaje inductivo, representación de datos, generalización, árboles de decisión, máquinas de vectores de soporte y una introducción al aprendizaje por refuerzo.
+
+::: {.hero-actions}
+[Comenzar a estudiar](fundamentos/ia-aprendizaje.qmd){.btn .btn-primary}
+[Explorar los temas](#mapa-de-contenidos){.btn .btn-outline-primary}
+:::
+
+Cada página combina intuición, formulación matemática, procedimientos, ejemplos breves y advertencias. El orden sugerido va desde la estructura general de un sistema de aprendizaje hasta modelos supervisados y agentes que aprenden mediante recompensas.
+::::
+
+## Mapa de contenidos
+
+:::: {.topic-grid}
+::: {.topic-card}
+### Fundamentos
+
+IA clásica y aprendizaje inductivo; tarea, experiencia, rendimiento, hipótesis, pérdida, regularización y búsqueda.
+
+[Ir a fundamentos](fundamentos/ia-aprendizaje.qmd)
+:::
+
+::: {.topic-card}
+### Datos y generalización
+
+Vectores de características, etiquetas, particiones de datos, sesgo-varianza, sobreajuste y validación cruzada.
+
+[Ir a datos y generalización](datos/representacion.qmd)
+:::
+
+::: {.topic-card}
+### Aprendizaje supervisado
+
+Árboles de decisión, entropía, ganancia de información, SVM de margen duro y suave, kernels y extensiones multiclase.
+
+[Ir a árboles de decisión](supervisado/arboles-decision.qmd)
+:::
+
+::: {.topic-card}
+### Aprendizaje por refuerzo
+
+Agente, entorno, estados, acciones, recompensas, transición, retorno, política y exploración-explotación.
+
+[Ir a aprendizaje por refuerzo](refuerzo/fundamentos.qmd)
+:::
+::::
+
+## Ruta recomendada
+
+1. Comprender qué distingue la [programación directa del aprendizaje](fundamentos/ia-aprendizaje.qmd).
+2. Identificar los componentes de un [sistema de aprendizaje de máquina](fundamentos/sistema-ml.qmd).
+3. Separar correctamente [características, etiquetas e identificadores](datos/representacion.qmd).
+4. Entender por qué el error de entrenamiento no basta para medir [generalización](datos/generalizacion.qmd).
+5. Estudiar dos familias supervisadas: [árboles](supervisado/arboles-decision.qmd) y [SVM](supervisado/svm-margen.qmd).
+6. Contrastar el aprendizaje supervisado con el [aprendizaje por refuerzo](refuerzo/fundamentos.qmd).
+
+::: {.callout-note title="Alcance actual"}
+El sitio se limita deliberadamente a los temas desarrollados en el material disponible. Su organización admite incorporar más adelante aprendizaje profundo, programación lógica y búsqueda sin alterar esta ruta inicial.
+:::
+
+## Convenciones
+
+- Los ejemplos son ficticios y se mantienen pequeños para hacer visible el procedimiento.
+- En aprendizaje supervisado, un ejemplo se denota por $(x_i,y_i)$, con características $x_i$ y etiqueta $y_i$.
+- Los conjuntos de entrenamiento, validación y prueba cumplen funciones diferentes; no se intercambian después de observar resultados.
+- Las referencias bibliográficas respaldan los conceptos, pero la exposición y la notación se mantienen autocontenidas. [@mitchell1997; @russell2010; @bishop2006]

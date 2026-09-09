@@ -1,0 +1,118 @@
+---
+title: "Anatomía de un sistema de aprendizaje de máquina"
+description: "Datos, hipótesis, sesgo inductivo, pérdida, regularización y búsqueda."
+---
+
+<div class="concept-section">
+<div class="concept-label">Conceptos clave</div>
+<div class="concept-tags">
+<span class="concept-tag">Espacio de hipótesis</span>
+<span class="concept-tag">Sesgo inductivo</span>
+<span class="concept-tag">Pérdida</span>
+<span class="concept-tag">Regularización</span>
+<span class="concept-tag">Optimización</span>
+</div>
+</div>
+
+## Esquema general
+
+En aprendizaje supervisado, los datos de entrenamiento alimentan un **algoritmo de aprendizaje**. El algoritmo busca un modelo predictivo dentro de un espacio de alternativas y devuelve una función que se utilizará sobre datos nuevos.
+
+::: {.schema-box}
+**Datos de entrenamiento** $\longrightarrow$ **algoritmo de aprendizaje**  
+$\phantom{Datos de entrenamiento}\quad$ hipótesis + pérdida + búsqueda + sesgo inductivo  
+$\phantom{Datos de entrenamiento}\longrightarrow$ **modelo entrenado** $\longrightarrow$ **predicción**
+:::
+
+Esta estructura permite distinguir dos fases:
+
+- **entrenamiento**: se eligen los parámetros usando datos y una función objetivo;
+- **inferencia**: con los parámetros ya fijados, el modelo transforma una entrada nueva en una predicción.
+
+## Modelo y espacio de hipótesis
+
+Un **modelo predictivo** es una función parametrizada $f(x;W)$, donde $x$ es la entrada y $W$ reúne los parámetros ajustables. El **espacio de hipótesis** $\mathcal H$ contiene las funciones que el procedimiento puede representar:
+
+$$
+\mathcal H=\{f(\cdot;W):W\in\Omega\}.
+$$
+
+Elegir $\mathcal H$ restringe de antemano las soluciones posibles. Un clasificador lineal solo puede crear fronteras lineales en la representación original; un árbol profundo puede expresar reglas mucho más específicas.
+
+El **sesgo inductivo** es el conjunto de preferencias o supuestos que permite escoger una generalización entre muchas compatibles con los datos. Puede aparecer en la forma del modelo, en la regularización o en la estrategia de búsqueda. Sin algún sesgo inductivo, los ejemplos observados no determinan por sí solos qué ocurrirá fuera de ellos. [@mitchell1997]
+
+## Pérdida empírica
+
+Sea el conjunto de entrenamiento
+
+$$
+\mathcal D=\{(x_i,y_i)\}_{i=1}^{N}.
+$$
+
+Una función de pérdida $\mathcal L(f(x_i;W),y_i)$ cuantifica el desacuerdo entre predicción y etiqueta. El riesgo empírico promedio es
+
+$$
+\widehat R(W)=\frac{1}{N}\sum_{i=1}^{N}\mathcal L(f(x_i;W),y_i).
+$$
+
+La pérdida debe corresponder a la tarea. En regresión es habitual penalizar distancias numéricas; en clasificación interesa penalizar decisiones o márgenes incorrectos. Una métrica de evaluación y una pérdida de entrenamiento pueden estar relacionadas sin ser idénticas.
+
+## Regularización
+
+Minimizar solo la pérdida de entrenamiento puede favorecer una solución excesivamente compleja. Una formulación general añade un regularizador:
+
+$$
+W^*=\arg\min_W
+\left[
+\lambda\,\mathcal R(W)
++\sum_{i=1}^{N}\mathcal L(f(x_i;W),y_i)
+\right].
+$$
+
+- $\mathcal R(W)$ penaliza propiedades no deseadas de los parámetros;
+- $\lambda\ge 0$ controla el peso relativo de esa preferencia;
+- la suma mide el ajuste a los ejemplos observados.
+
+El regularizador no «descubre» automáticamente la complejidad correcta. Su forma y su intensidad son decisiones que deben contrastarse mediante [validación](../datos/generalizacion.qmd). En SVM, la norma de los pesos y las violaciones del margen materializan esta tensión.
+
+## Técnica de búsqueda
+
+Definir el objetivo no indica todavía cómo encontrar su mínimo. La **técnica de búsqueda u optimización** determina cómo se exploran los parámetros o hipótesis. Según el modelo, puede ser un algoritmo recursivo que elige divisiones, un programa cuadrático o un método iterativo basado en gradientes.
+
+Por tanto, conviene no confundir:
+
+| Elemento | Pregunta que responde |
+|---|---|
+| Representación | ¿Cómo describimos cada ejemplo? |
+| Espacio de hipótesis | ¿Qué funciones podemos expresar? |
+| Pérdida | ¿Qué errores penalizamos? |
+| Regularización | ¿Qué soluciones preferimos? |
+| Búsqueda | ¿Cómo encontramos una buena solución? |
+| Evaluación | ¿Cómo estimamos su rendimiento futuro? |
+
+## Ciclo de vida
+
+Un sistema de ML no termina al entrenar. Debe vigilarse si cambian los datos, la población o el contexto de uso. El rendimiento estimado durante el desarrollo solo es informativo mientras la distribución de evaluación sea relevante para el uso real.
+
+::: {.callout-warning title="Error frecuente: evaluar con los datos de entrenamiento"}
+El conjunto usado para ajustar $W$ no entrega una estimación independiente del rendimiento. Para medir generalización se reservan datos que no intervinieron en el ajuste ni en la selección de hiperparámetros.
+:::
+
+::: {.summary-box}
+### Resumen
+
+- El modelo $f(x;W)$ pertenece a un espacio de hipótesis.
+- La pérdida mide ajuste; la regularización expresa una preferencia inductiva.
+- El algoritmo de aprendizaje busca parámetros que optimicen el objetivo.
+- Entrenamiento e inferencia son fases distintas.
+- La evaluación independiente y el monitoreo completan el ciclo del sistema.
+:::
+
+::: {.related-links}
+## Conceptos relacionados
+
+- [IA y aprendizaje de máquina](ia-aprendizaje.qmd)
+- [Representación de datos](../datos/representacion.qmd)
+- [Generalización y selección de modelos](../datos/generalizacion.qmd)
+- [SVM y máximo margen](../supervisado/svm-margen.qmd)
+:::

@@ -1,0 +1,149 @@
+---
+title: "Kernels y fronteras no lineales"
+description: "Transformaciones de características, kernel trick, kernel polinomial, RBF y selección de hiperparámetros."
+---
+
+<div class="concept-section">
+<div class="concept-label">Conceptos clave</div>
+<div class="concept-tags">
+<span class="concept-tag">Mapa de características</span>
+<span class="concept-tag">Kernel trick</span>
+<span class="concept-tag">Kernel polinomial</span>
+<span class="concept-tag">RBF</span>
+<span class="concept-tag">Similitud</span>
+</div>
+</div>
+
+## De una frontera lineal a una no lineal
+
+Una SVM lineal solo separa mediante un hiperplano en el espacio de entrada. Podemos transformar los datos con un mapa
+
+$$
+\phi:\mathcal X\to\mathcal F
+$$
+
+y construir un clasificador lineal en $\mathcal F$:
+
+$$
+f(x)=w^\top\phi(x)+b.
+$$
+
+La frontera es lineal en el espacio transformado, pero puede ser no lineal vista desde el espacio original.
+
+## Kernel trick
+
+El dual de la SVM y su función de decisión usan los datos solo mediante productos punto. Un **kernel** calcula
+
+$$
+K(x,z)=\phi(x)^\top\phi(z)
+$$
+
+sin exigir que construyamos explícitamente cada vector $\phi(x)$. Entonces el dual queda
+
+$$
+\max_{\alpha}
+\left[
+\sum_{i=1}^{N}\alpha_i-
+\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}
+\alpha_i\alpha_jy_iy_jK(x_i,x_j)
+\right],
+$$
+
+y la función de decisión es
+
+$$
+f(x)=\sum_{i=1}^{N}\alpha_i y_i K(x,x_i)+b.
+$$
+
+En la suma efectiva solo aparecen vectores de soporte, porque los demás tienen $\alpha_i=0$. [@bishop2006]
+
+::: {.callout-note title="Condición sobre el kernel"}
+No cualquier función de dos argumentos sirve. Para un conjunto finito de puntos, la matriz de Gram $G_{ij}=K(x_i,x_j)$ debe ser positiva semidefinida para corresponder a un producto interno en algún espacio de características.
+:::
+
+## Ejemplo polinomial
+
+Para $x,z\in\mathbb R^2$, el kernel homogéneo de grado dos es
+
+$$
+K(x,z)=(x^\top z)^2.
+$$
+
+Como
+
+$$
+(x_1z_1+x_2z_2)^2
+=x_1^2z_1^2+2x_1x_2z_1z_2+x_2^2z_2^2,
+$$
+
+corresponde al producto punto generado por
+
+$$
+\phi(x)=
+\left(x_1^2,\sqrt2x_1x_2,x_2^2\right)^\top.
+$$
+
+El kernel obtiene ese producto sin almacenar explícitamente la transformación.
+
+## Kernel RBF
+
+El kernel de base radial gaussiana es
+
+$$
+K(x,z)=\exp\left(-\gamma\|x-z\|^2\right),
+\qquad \gamma>0.
+$$
+
+Puede interpretarse como una similitud:
+
+- si $x=z$, entonces $K(x,z)=1$;
+- si la distancia crece, el valor se aproxima a cero;
+- $\gamma$ controla qué tan local es la influencia.
+
+Con $\gamma$ pequeño, la similitud decrece lentamente y la frontera suele ser más suave. Con $\gamma$ grande, la influencia se vuelve local y la frontera puede ser más flexible.
+
+## Interacción entre $C$, $\gamma$ y la escala
+
+$C$ y $\gamma$ controlan aspectos distintos:
+
+| Hiperparámetro | Efecto principal |
+|---|---|
+| $C$ | penalización de violaciones del margen |
+| $\gamma$ | alcance espacial de cada ejemplo en RBF |
+
+No deben seleccionarse de forma aislada. Además, como RBF depende de $\|x-z\|^2$, una característica de gran escala puede dominar la distancia.
+
+Un flujo correcto es:
+
+1. dividir datos en entrenamiento y evaluación;
+2. ajustar el escalador solo dentro del entrenamiento de cada partición;
+3. entrenar combinaciones de $C$, kernel y $\gamma$;
+4. seleccionar mediante validación cruzada;
+5. evaluar una vez la configuración final en prueba.
+
+## Costos y límites
+
+El kernel permite representaciones muy ricas, pero no elimina el costo computacional. La matriz de Gram tiene $N\times N$ entradas y la predicción depende del número de vectores de soporte. En conjuntos grandes, memoria y tiempo pueden convertirse en restricciones importantes.
+
+::: {.callout-warning title="Kernel más flexible no significa modelo mejor"}
+Una representación rica puede reducir el error de entrenamiento y a la vez aumentar sobreajuste. Kernel, hiperparámetros, regularización y escalamiento forman un único procedimiento que debe validarse.
+:::
+
+::: {.summary-box}
+### Resumen
+
+- Un mapa $\phi$ vuelve lineal en otro espacio una separación no lineal en el original.
+- El kernel calcula productos punto transformados sin construir necesariamente $\phi(x)$.
+- El polinomial representa interacciones; RBF usa similitud basada en distancia.
+- $C$ controla violaciones y $\gamma$ controla localidad.
+- Escalamiento, validación y costo son partes esenciales del uso de kernels.
+:::
+
+::: {.related-links}
+## Conceptos relacionados
+
+- [SVM y máximo margen](svm-margen.qmd)
+- [SVM multiclase y Exemplar-SVM](svm-multiclase.qmd)
+- [Representación de datos](../datos/representacion.qmd)
+- [Generalización y selección de modelos](../datos/generalizacion.qmd)
+:::

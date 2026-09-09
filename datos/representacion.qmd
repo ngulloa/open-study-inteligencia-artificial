@@ -1,0 +1,102 @@
+---
+title: "Representación de datos"
+description: "Características, etiquetas, identificadores, espacio de características y escalamiento."
+---
+
+<div class="concept-section">
+<div class="concept-label">Conceptos clave</div>
+<div class="concept-tags">
+<span class="concept-tag">Feature</span>
+<span class="concept-tag">Label</span>
+<span class="concept-tag">Vector</span>
+<span class="concept-tag">Dimensionalidad</span>
+<span class="concept-tag">Escalamiento</span>
+</div>
+</div>
+
+## De objetos a vectores
+
+Los algoritmos no reciben «ciudades», «imágenes» o «personas» de manera abstracta: reciben una **representación** numérica o simbólica. Decidir qué información conservar es parte central del diseño.
+
+Cada ejemplo se describe mediante características (*features*, atributos, mediciones o variables). Si se usan $d$ características, el ejemplo se representa como
+
+$$
+x=(x_1,x_2,\ldots,x_d)^\top\in\mathcal X.
+$$
+
+El espacio $\mathcal X$ es el **espacio de características** y $d$ es su dimensionalidad. Todos los ejemplos que alimentan el mismo modelo deben seguir una estructura compatible.
+
+## Característica, etiqueta e identificador
+
+Considere un problema que predice demanda de bicicletas:
+
+| Campo | Rol | ¿Lo usa el modelo? |
+|---|---|---|
+| `registro_id` | identificador único | no, salvo justificación sustantiva |
+| temperatura | característica numérica | sí |
+| lluvia | característica binaria | sí |
+| tipo_dia | característica categórica | sí, después de codificarla |
+| viajes | etiqueta numérica | solo como objetivo durante entrenamiento y evaluación |
+
+La **etiqueta** $y$ es el valor que se desea predecir. En supervisado, un ejemplo es $(x_i,y_i)$. Desde una perspectiva estadística, las características cumplen el rol de variables explicativas y la etiqueta el de variable respuesta.
+
+::: {.callout-warning title="Un identificador no es una característica por defecto"}
+Un código único puede permitir memorizar ejemplos sin capturar una relación útil. Debe excluirse salvo que su estructura tenga significado predictivo justificable y que su uso sea válido en inferencia.
+:::
+
+## Tipos de características
+
+- **numéricas**: admiten operaciones métricas, aunque su escala y unidad importan;
+- **binarias**: expresan dos estados;
+- **categóricas nominales**: sus valores no poseen orden inherente;
+- **ordinales**: poseen orden, pero las distancias entre niveles no necesariamente son iguales;
+- **estructuradas**: texto, imágenes o secuencias requieren una transformación a una representación utilizable.
+
+Codificar categorías con enteros consecutivos puede introducir un orden y distancias ficticias. La codificación debe ser compatible con el modelo y el significado del dato.
+
+## Escala y distancia
+
+En métodos basados en distancias o productos punto, una característica con magnitud numérica grande puede dominar a las demás. Una estandarización típica usa estadísticas del entrenamiento:
+
+$$
+z_j=\frac{x_j-\mu_j^{\text{train}}}{\sigma_j^{\text{train}}}.
+$$
+
+Las mismas $\mu_j^{\text{train}}$ y $\sigma_j^{\text{train}}$ se aplican luego a validación, prueba y datos nuevos.
+
+::: {.callout-important title="Evitar fuga de información"}
+Calcular el escalamiento con el conjunto completo permite que validación o prueba influyan en el entrenamiento. Toda transformación aprendida de los datos debe ajustarse dentro de la partición de entrenamiento y quedar incorporada al *pipeline*.
+:::
+
+## Representación y sesgo inductivo
+
+Dos representaciones del mismo objeto pueden convertir un problema difícil en uno sencillo o viceversa. Un modelo lineal aplicado a características originales genera una frontera lineal; si se incorporan transformaciones no lineales, la misma familia puede expresar fronteras distintas. Los [kernels](../supervisado/svm-kernels.qmd) explotan esta idea sin construir siempre la transformación explícita. [@bishop2006]
+
+## Lista de comprobación
+
+Antes de entrenar:
+
+1. Definir qué representa una fila o ejemplo.
+2. Separar identificadores, características y etiqueta.
+3. Confirmar que las características estarán disponibles al predecir.
+4. Elegir una codificación coherente con su tipo.
+5. Ajustar transformaciones solo con entrenamiento.
+6. Conservar el mismo orden, significado y unidad en todas las particiones.
+
+::: {.summary-box}
+### Resumen
+
+- Un ejemplo vive en un espacio de características de dimensión $d$.
+- La etiqueta es la salida objetivo; el identificador no es una característica automáticamente.
+- La codificación introduce supuestos sobre orden, similitud y distancia.
+- Las transformaciones deben aprenderse solo con entrenamiento.
+- La representación determina qué regularidades puede explotar el modelo.
+:::
+
+::: {.related-links}
+## Conceptos relacionados
+
+- [Anatomía de un sistema de ML](../fundamentos/sistema-ml.qmd)
+- [Generalización y selección de modelos](generalizacion.qmd)
+- [Kernels y fronteras no lineales](../supervisado/svm-kernels.qmd)
+:::

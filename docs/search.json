@@ -1,0 +1,811 @@
+[
+  {
+    "objectID": "datos/generalizacion.html",
+    "href": "datos/generalizacion.html",
+    "title": "Generalización y selección de modelos",
+    "section": "",
+    "text": "Conceptos clave\n\n\nGeneralización Holdout Sesgo-varianza Overfitting Cross-validation",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#rendimiento-más-allá-del-entrenamiento",
+    "href": "datos/generalizacion.html#rendimiento-más-allá-del-entrenamiento",
+    "title": "Generalización y selección de modelos",
+    "section": "Rendimiento más allá del entrenamiento",
+    "text": "Rendimiento más allá del entrenamiento\nLa generalización es la capacidad de mantener buen rendimiento sobre datos nuevos procedentes de la situación de interés. El error de entrenamiento mide ajuste a ejemplos usados por el algoritmo; no es una estimación independiente del error futuro.\nEl método holdout separa datos disjuntos:\n\n\n\n\n\n\n\nConjunto\nFunción\n\n\n\n\nEntrenamiento\najustar parámetros del modelo\n\n\nValidación\nescoger hiperparámetros, representación o complejidad\n\n\nPrueba (test)\nestimar una sola vez el rendimiento del procedimiento ya escogido\n\n\n\nSi se consulta repetidamente el conjunto de prueba para tomar decisiones, deja de actuar como prueba independiente y se transforma, en la práctica, en otra fuente de validación.",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#sesgo-varianza-y-ruido",
+    "href": "datos/generalizacion.html#sesgo-varianza-y-ruido",
+    "title": "Generalización y selección de modelos",
+    "section": "Sesgo, varianza y ruido",
+    "text": "Sesgo, varianza y ruido\nEn regresión, supongamos\n\\[\nY=f(x)+\\varepsilon,\n\\qquad\n\\mathbb E[\\varepsilon]=0,\n\\qquad\n\\operatorname{Var}(\\varepsilon)=\\sigma^2.\n\\]\nSi \\(\\widehat f(x)\\) cambia según la muestra de entrenamiento, el error cuadrático esperado en un punto puede descomponerse como\n\\[\n\\mathbb E\\!\\left[(Y-\\widehat f(x))^2\\right]\n=\n\\underbrace{\\left(f(x)-\\mathbb E[\\widehat f(x)]\\right)^2}_{\\text{sesgo}^2}\n+\n\\underbrace{\\mathbb E\\!\\left[(\\widehat f(x)-\\mathbb E[\\widehat f(x)])^2\\right]}_{\\text{varianza}}\n+\n\\underbrace{\\sigma^2}_{\\text{error irreducible}}.\n\\]\n\nalto sesgo: el procedimiento es sistemáticamente poco flexible para el patrón relevante;\nalta varianza: pequeñas variaciones en los datos producen modelos muy distintos;\nerror irreducible: variabilidad que no puede eliminarse con la información disponible.\n\nEsta descomposición exacta corresponde a pérdida cuadrática y a los supuestos indicados. En clasificación, «sesgo-varianza» sigue siendo una intuición útil, pero no debe trasladarse mecánicamente como la misma identidad.",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#subajuste-y-sobreajuste",
+    "href": "datos/generalizacion.html#subajuste-y-sobreajuste",
+    "title": "Generalización y selección de modelos",
+    "section": "Subajuste y sobreajuste",
+    "text": "Subajuste y sobreajuste\nEl subajuste (underfitting) ocurre cuando el modelo no captura patrones relevantes: suelen ser altos tanto el error de entrenamiento como el de validación.\nEl sobreajuste (overfitting) ocurre cuando el modelo captura particularidades o ruido del entrenamiento que no se sostienen fuera de esa muestra. El error de entrenamiento puede seguir bajando mientras el error de validación empeora.\n\n\n\n\n\n\nAdvertenciaComplejidad no es solo número de parámetros\n\n\n\nProfundidad de un árbol, intensidad de regularización, elección del kernel y escala de sus parámetros son formas diferentes de controlar flexibilidad. La complejidad relevante depende de la familia de modelos y del procedimiento completo.",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#selección-mediante-validación",
+    "href": "datos/generalizacion.html#selección-mediante-validación",
+    "title": "Generalización y selección de modelos",
+    "section": "Selección mediante validación",
+    "text": "Selección mediante validación\nUn flujo correcto es:\n\nDefinir candidatos e hiperparámetros antes de mirar prueba.\nAjustar cada candidato con entrenamiento.\nCompararlos con la misma métrica en validación.\nElegir una configuración.\nCuando corresponda, reajustar con los datos destinados al desarrollo.\nEvaluar una vez en prueba.\n\nLa selección por validación busca equilibrar ajuste y capacidad de generalización. Russell y Norvig presentan la validación cruzada como una herramienta para comparar complejidad y bondad de ajuste; la regularización incorpora esa preferencia dentro del objetivo. (Russell y Norvig 2010)",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#validación-cruzada",
+    "href": "datos/generalizacion.html#validación-cruzada",
+    "title": "Generalización y selección de modelos",
+    "section": "Validación cruzada",
+    "text": "Validación cruzada\nEn validación cruzada de \\(K\\) particiones, el conjunto de desarrollo se divide en \\(K\\) bloques. Cada bloque actúa una vez como validación y los demás como entrenamiento. Si \\(M_k\\) es la métrica del bloque \\(k\\):\n\\[\n\\overline M_{CV}=\\frac{1}{K}\\sum_{k=1}^{K}M_k.\n\\]\nEsto reutiliza mejor datos limitados y muestra variabilidad entre particiones, pero requiere entrenar varias veces y no corrige por sí solo datos no representativos.",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#errores-frecuentes",
+    "href": "datos/generalizacion.html#errores-frecuentes",
+    "title": "Generalización y selección de modelos",
+    "section": "Errores frecuentes",
+    "text": "Errores frecuentes\n\npreprocesar antes de dividir los datos;\najustar hiperparámetros mirando prueba;\ncomparar modelos con particiones distintas sin control;\nreportar solo entrenamiento;\nmezclar registros relacionados entre particiones;\nasumir que más datos siempre compensan una etiqueta deficiente o un cambio de distribución.\n\n\nResumen\n\nGeneralizar es rendir bien en datos no usados para ajustar el procedimiento.\nEntrenamiento ajusta; validación selecciona; prueba estima el resultado final.\nEl equilibrio sesgo-varianza conecta flexibilidad, subajuste y sobreajuste.\nLa validación cruzada mejora el uso de datos, a cambio de más cómputo.\nEl preprocesamiento forma parte del entrenamiento y debe respetar las particiones.",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#conceptos-relacionados",
+    "href": "datos/generalizacion.html#conceptos-relacionados",
+    "title": "Generalización y selección de modelos",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nRepresentación de datos\nÁrboles de decisión\nSVM y máximo margen\nKernels y fronteras no lineales",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html",
+    "href": "fundamentos/ia-aprendizaje.html",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "",
+    "text": "Conceptos clave\n\n\nInteligencia artificial Aprendizaje inductivo Experiencia Generalización Supervisión",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#ia-como-campo",
+    "href": "fundamentos/ia-aprendizaje.html#ia-como-campo",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "IA como campo",
+    "text": "IA como campo\nLa inteligencia artificial (IA) estudia sistemas capaces de percibir, razonar, aprender o actuar para resolver tareas. Es un campo amplio: incluye aprendizaje de máquina, razonamiento lógico y probabilístico, visión por computador, procesamiento de lenguaje natural, planificación, recomendación y aprendizaje por refuerzo. Estas áreas se relacionan, pero no son sinónimos.\nUna distinción útil separa dos maneras de construir soluciones:\n\nprogramación directa: una persona formula explícitamente las reglas que transforman entradas en salidas;\naprendizaje: un algoritmo usa experiencia para seleccionar una regla o función dentro de un conjunto de alternativas.\n\nLa programación directa funciona bien cuando las reglas correctas pueden especificarse con precisión. El aprendizaje es especialmente útil cuando existe experiencia representativa y resulta difícil escribir todas las reglas, como en reconocimiento de imágenes o predicción a partir de muchas variables.\n\n\n\n\n\n\nAdvertenciaAprender no elimina el diseño humano\n\n\n\nAl usar aprendizaje de máquina todavía hay que definir la tarea, construir los datos, elegir una representación, una familia de modelos, una pérdida y un procedimiento de evaluación. El algoritmo automatiza parte de la búsqueda; no decide por sí solo qué problema vale la pena resolver.",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#qué-significa-aprender",
+    "href": "fundamentos/ia-aprendizaje.html#qué-significa-aprender",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "Qué significa aprender",
+    "text": "Qué significa aprender\nUna formulación operacional describe el aprendizaje mediante tres elementos: una clase de tareas \\(T\\), una medida de rendimiento \\(P\\) y una fuente de experiencia \\(E\\). Un sistema aprende si su rendimiento en \\(T\\), medido por \\(P\\), mejora con \\(E\\). (Mitchell 1997)\nPor ejemplo, para detectar vehículos:\n\n\\(T\\): clasificar una imagen como «vehículo» o «no vehículo»;\n\\(E\\): imágenes etiquetadas usadas para entrenar;\n\\(P\\): proporción de clasificaciones correctas o una medida que distinga tipos de error.\n\nLa idea central es inductiva: a partir de casos particulares se construye una regla que debe funcionar en casos nuevos. Que un modelo memorice el entrenamiento no basta; aprender exige generalizar.",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#formas-de-aprendizaje",
+    "href": "fundamentos/ia-aprendizaje.html#formas-de-aprendizaje",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "Formas de aprendizaje",
+    "text": "Formas de aprendizaje\n\nAprendizaje supervisado\nEl conjunto de entrenamiento contiene pares \\((x_i,y_i)\\):\n\n\\(x_i\\) es la representación del ejemplo;\n\\(y_i\\) es la etiqueta o salida deseada.\n\nEl objetivo es aprender una función \\(f:x\\mapsto y\\). Si \\(y\\) pertenece a un conjunto de categorías, hablamos de clasificación; si es numérico, de regresión. Los árboles de decisión pueden usarse en ambos casos y las SVM se estudian aquí principalmente como clasificadores.\n\n\nAprendizaje no supervisado\nLos datos no incluyen una etiqueta objetivo explícita. Se buscan regularidades de la representación, como grupos o estructuras latentes. Que no haya etiquetas no implica que no existan decisiones de diseño: la representación y el criterio usado para describir estructura siguen introduciendo supuestos.\n\n\nAprendizaje por refuerzo\nUn agente actúa, observa las consecuencias y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe descubrir una política que maximice recompensa acumulada. Los datos dejan de ser una tabla fija de ejemplos independientes, porque las acciones alteran la experiencia futura. (Russell y Norvig 2010)",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#especialización-y-alcance",
+    "href": "fundamentos/ia-aprendizaje.html#especialización-y-alcance",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "Especialización y alcance",
+    "text": "Especialización y alcance\nLos sistemas modernos suelen ser especializados: pueden superar ampliamente a una persona en una tarea concreta sin poseer competencia general en otras. El rendimiento depende del problema, los datos, la distribución en que se evalúa y la métrica escogida.\n\n\n\n\n\n\nImportanteTres preguntas antes de elegir un método\n\n\n\n\n¿Qué salida concreta debe producir el sistema?\n\n¿Qué experiencia estará disponible durante el aprendizaje?\n\n¿Cómo mediremos el rendimiento en casos no vistos?\n\n\n\n\nResumen\n\nIA es un campo más amplio que aprendizaje de máquina.\nAprender consiste en mejorar el rendimiento en una tarea mediante experiencia.\nEl aprendizaje inductivo busca generalizar desde casos observados a casos nuevos.\nSupervisado, no supervisado y por refuerzo difieren en la señal disponible y en la estructura del problema.\nDatos, representación y métrica forman parte del diseño del sistema.",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#conceptos-relacionados",
+    "href": "fundamentos/ia-aprendizaje.html#conceptos-relacionados",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nAnatomía de un sistema de ML\nRepresentación de datos\nGeneralización y selección de modelos\nFundamentos de aprendizaje por refuerzo",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-kernels.html",
+    "href": "supervisado/svm-kernels.html",
+    "title": "Kernels y fronteras no lineales",
+    "section": "",
+    "text": "Conceptos clave\n\n\nMapa de características Kernel trick Kernel polinomial RBF Similitud",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Kernels y fronteras no lineales"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-kernels.html#de-una-frontera-lineal-a-una-no-lineal",
+    "href": "supervisado/svm-kernels.html#de-una-frontera-lineal-a-una-no-lineal",
+    "title": "Kernels y fronteras no lineales",
+    "section": "De una frontera lineal a una no lineal",
+    "text": "De una frontera lineal a una no lineal\nUna SVM lineal solo separa mediante un hiperplano en el espacio de entrada. Podemos transformar los datos con un mapa\n\\[\n\\phi:\\mathcal X\\to\\mathcal F\n\\]\ny construir un clasificador lineal en \\(\\mathcal F\\):\n\\[\nf(x)=w^\\top\\phi(x)+b.\n\\]\nLa frontera es lineal en el espacio transformado, pero puede ser no lineal vista desde el espacio original.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Kernels y fronteras no lineales"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-kernels.html#kernel-trick",
+    "href": "supervisado/svm-kernels.html#kernel-trick",
+    "title": "Kernels y fronteras no lineales",
+    "section": "Kernel trick",
+    "text": "Kernel trick\nEl dual de la SVM y su función de decisión usan los datos solo mediante productos punto. Un kernel calcula\n\\[\nK(x,z)=\\phi(x)^\\top\\phi(z)\n\\]\nsin exigir que construyamos explícitamente cada vector \\(\\phi(x)\\). Entonces el dual queda\n\\[\n\\max_{\\alpha}\n\\left[\n\\sum_{i=1}^{N}\\alpha_i-\n\\frac{1}{2}\\sum_{i=1}^{N}\\sum_{j=1}^{N}\n\\alpha_i\\alpha_jy_iy_jK(x_i,x_j)\n\\right],\n\\]\ny la función de decisión es\n\\[\nf(x)=\\sum_{i=1}^{N}\\alpha_i y_i K(x,x_i)+b.\n\\]\nEn la suma efectiva solo aparecen vectores de soporte, porque los demás tienen \\(\\alpha_i=0\\). (Bishop 2006)\n\n\n\n\n\n\nNotaCondición sobre el kernel\n\n\n\nNo cualquier función de dos argumentos sirve. Para un conjunto finito de puntos, la matriz de Gram \\(G_{ij}=K(x_i,x_j)\\) debe ser positiva semidefinida para corresponder a un producto interno en algún espacio de características.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Kernels y fronteras no lineales"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-kernels.html#ejemplo-polinomial",
+    "href": "supervisado/svm-kernels.html#ejemplo-polinomial",
+    "title": "Kernels y fronteras no lineales",
+    "section": "Ejemplo polinomial",
+    "text": "Ejemplo polinomial\nPara \\(x,z\\in\\mathbb R^2\\), el kernel homogéneo de grado dos es\n\\[\nK(x,z)=(x^\\top z)^2.\n\\]\nComo\n\\[\n(x_1z_1+x_2z_2)^2\n=x_1^2z_1^2+2x_1x_2z_1z_2+x_2^2z_2^2,\n\\]\ncorresponde al producto punto generado por\n\\[\n\\phi(x)=\n\\left(x_1^2,\\sqrt2x_1x_2,x_2^2\\right)^\\top.\n\\]\nEl kernel obtiene ese producto sin almacenar explícitamente la transformación.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Kernels y fronteras no lineales"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-kernels.html#kernel-rbf",
+    "href": "supervisado/svm-kernels.html#kernel-rbf",
+    "title": "Kernels y fronteras no lineales",
+    "section": "Kernel RBF",
+    "text": "Kernel RBF\nEl kernel de base radial gaussiana es\n\\[\nK(x,z)=\\exp\\left(-\\gamma\\|x-z\\|^2\\right),\n\\qquad \\gamma&gt;0.\n\\]\nPuede interpretarse como una similitud:\n\nsi \\(x=z\\), entonces \\(K(x,z)=1\\);\nsi la distancia crece, el valor se aproxima a cero;\n\\(\\gamma\\) controla qué tan local es la influencia.\n\nCon \\(\\gamma\\) pequeño, la similitud decrece lentamente y la frontera suele ser más suave. Con \\(\\gamma\\) grande, la influencia se vuelve local y la frontera puede ser más flexible.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Kernels y fronteras no lineales"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-kernels.html#interacción-entre-c-gamma-y-la-escala",
+    "href": "supervisado/svm-kernels.html#interacción-entre-c-gamma-y-la-escala",
+    "title": "Kernels y fronteras no lineales",
+    "section": "Interacción entre \\(C\\), \\(\\gamma\\) y la escala",
+    "text": "Interacción entre \\(C\\), \\(\\gamma\\) y la escala\n\\(C\\) y \\(\\gamma\\) controlan aspectos distintos:\n\n\n\nHiperparámetro\nEfecto principal\n\n\n\n\n\\(C\\)\npenalización de violaciones del margen\n\n\n\\(\\gamma\\)\nalcance espacial de cada ejemplo en RBF\n\n\n\nNo deben seleccionarse de forma aislada. Además, como RBF depende de \\(\\|x-z\\|^2\\), una característica de gran escala puede dominar la distancia.\nUn flujo correcto es:\n\ndividir datos en entrenamiento y evaluación;\najustar el escalador solo dentro del entrenamiento de cada partición;\nentrenar combinaciones de \\(C\\), kernel y \\(\\gamma\\);\nseleccionar mediante validación cruzada;\nevaluar una vez la configuración final en prueba.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Kernels y fronteras no lineales"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-kernels.html#costos-y-límites",
+    "href": "supervisado/svm-kernels.html#costos-y-límites",
+    "title": "Kernels y fronteras no lineales",
+    "section": "Costos y límites",
+    "text": "Costos y límites\nEl kernel permite representaciones muy ricas, pero no elimina el costo computacional. La matriz de Gram tiene \\(N\\times N\\) entradas y la predicción depende del número de vectores de soporte. En conjuntos grandes, memoria y tiempo pueden convertirse en restricciones importantes.\n\n\n\n\n\n\nAdvertenciaKernel más flexible no significa modelo mejor\n\n\n\nUna representación rica puede reducir el error de entrenamiento y a la vez aumentar sobreajuste. Kernel, hiperparámetros, regularización y escalamiento forman un único procedimiento que debe validarse.\n\n\n\nResumen\n\nUn mapa \\(\\phi\\) vuelve lineal en otro espacio una separación no lineal en el original.\nEl kernel calcula productos punto transformados sin construir necesariamente \\(\\phi(x)\\).\nEl polinomial representa interacciones; RBF usa similitud basada en distancia.\n\\(C\\) controla violaciones y \\(\\gamma\\) controla localidad.\nEscalamiento, validación y costo son partes esenciales del uso de kernels.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Kernels y fronteras no lineales"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-kernels.html#conceptos-relacionados",
+    "href": "supervisado/svm-kernels.html#conceptos-relacionados",
+    "title": "Kernels y fronteras no lineales",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nSVM y máximo margen\nSVM multiclase y Exemplar-SVM\nRepresentación de datos\nGeneralización y selección de modelos",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Kernels y fronteras no lineales"
+    ]
+  },
+  {
+    "objectID": "supervisado/arboles-decision.html",
+    "href": "supervisado/arboles-decision.html",
+    "title": "Árboles de decisión",
+    "section": "",
+    "text": "Conceptos clave\n\n\nÁrbol Entropía Ganancia de información Poda Sesgo inductivo",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Árboles de decisión"
+    ]
+  },
+  {
+    "objectID": "supervisado/arboles-decision.html#modelo-e-inferencia",
+    "href": "supervisado/arboles-decision.html#modelo-e-inferencia",
+    "title": "Árboles de decisión",
+    "section": "Modelo e inferencia",
+    "text": "Modelo e inferencia\nUn árbol de decisión aprende reglas explícitas a partir de datos supervisados. Puede resolver clasificación y regresión y admite pruebas sobre características binarias, categóricas o numéricas.\nEn clasificación:\n\ncada nodo interno aplica una prueba sobre una característica;\ncada arista representa un resultado posible de la prueba;\ncada hoja entrega una clase o una distribución de clases.\n\nPara predecir, un ejemplo viaja desde la raíz siguiendo los resultados de las pruebas hasta alcanzar una hoja. El camino completo equivale a una conjunción de condiciones.\n\nEjemplo: decidir si realizar una actividad al aire libre.\nSi lluvia = sí \\(\\rightarrow\\) no salir.\nSi lluvia = no y temperatura &gt; 30 \\(\\rightarrow\\) no salir.\nEn otro caso \\(\\rightarrow\\) salir.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Árboles de decisión"
+    ]
+  },
+  {
+    "objectID": "supervisado/arboles-decision.html#construcción-recursiva",
+    "href": "supervisado/arboles-decision.html#construcción-recursiva",
+    "title": "Árboles de decisión",
+    "section": "Construcción recursiva",
+    "text": "Construcción recursiva\nUn esquema básico de inducción de árboles es:\n\nSi todos los ejemplos del nodo tienen la misma clase, crear una hoja con esa clase.\nSi no quedan pruebas útiles, crear una hoja con la clase más frecuente.\nEn otro caso:\n\nelegir la mejor prueba;\ncrear un nodo interno;\ndividir los ejemplos según el resultado de la prueba;\nrepetir el procedimiento en cada subconjunto.\n\n\nSi una rama no recibe ejemplos, se usa una regla de respaldo, típicamente la clase mayoritaria del conjunto padre. El detalle exacto depende del algoritmo.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Árboles de decisión"
+    ]
+  },
+  {
+    "objectID": "supervisado/arboles-decision.html#impureza-de-un-nodo",
+    "href": "supervisado/arboles-decision.html#impureza-de-un-nodo",
+    "title": "Árboles de decisión",
+    "section": "Impureza de un nodo",
+    "text": "Impureza de un nodo\nPara un conjunto \\(S\\) con proporciones de clase \\(p_1,\\ldots,p_K\\), la entropía es\n\\[\nH(S)=-\\sum_{k=1}^{K}p_k\\log_2 p_k,\n\\]\ncon la convención \\(0\\log_2 0=0\\).\n\n\\(H(S)=0\\) si todos los ejemplos pertenecen a una clase;\npara \\(K\\) clases, la entropía es máxima cuando \\(p_k=1/K\\) para todas ellas;\nuna entropía alta indica mayor mezcla de clases.\n\nOtra medida habitual es el índice de Gini:\n\\[\nG(S)=1-\\sum_{k=1}^{K}p_k^2.\n\\]\nAmbas miden impureza, aunque no son idénticas y pueden escoger divisiones distintas.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Árboles de decisión"
+    ]
+  },
+  {
+    "objectID": "supervisado/arboles-decision.html#ganancia-de-información",
+    "href": "supervisado/arboles-decision.html#ganancia-de-información",
+    "title": "Árboles de decisión",
+    "section": "Ganancia de información",
+    "text": "Ganancia de información\nSea una prueba \\(F\\) que divide \\(S\\) en subconjuntos \\(S_v\\), uno por cada resultado \\(v\\). La entropía esperada después de dividir es\n\\[\nH(S\\mid F)=\n\\sum_{v}\\frac{|S_v|}{|S|}H(S_v).\n\\]\nLa ganancia de información es la reducción de entropía:\n\\[\nIG(S,F)=H(S)-\\sum_{v}\\frac{|S_v|}{|S|}H(S_v).\n\\]\nEl algoritmo elige la prueba con mayor ganancia entre las candidatas. Este criterio favorece divisiones que dejan subconjuntos más puros. (Mitchell 1997; Russell y Norvig 2010)\n\nEjemplo breve\nUn nodo contiene 8 ejemplos: 4 positivos y 4 negativos, por lo que \\(H(S)=1\\). Una prueba genera:\n\n\\(S_a\\): 4 positivos y 0 negativos, \\(H(S_a)=0\\);\n\\(S_b\\): 0 positivos y 4 negativos, \\(H(S_b)=0\\).\n\nEntonces\n\\[\nIG(S,F)=1-\\left(\\frac{4}{8}0+\\frac{4}{8}0\\right)=1.\n\\]\nLa prueba separa perfectamente las clases en ese nodo. Si ambas ramas mantuvieran proporción \\(1/2\\) y \\(1/2\\), la ganancia sería cero.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Árboles de decisión"
+    ]
+  },
+  {
+    "objectID": "supervisado/arboles-decision.html#características-numéricas",
+    "href": "supervisado/arboles-decision.html#características-numéricas",
+    "title": "Árboles de decisión",
+    "section": "Características numéricas",
+    "text": "Características numéricas\nPara una característica numérica puede evaluarse una prueba del tipo \\(x_j\\le t\\). Cada umbral candidato crea dos subconjuntos, y se elige el que maximiza el criterio. Los algoritmos prácticos evitan probar infinitos valores: consideran umbrales derivados de los valores observados.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Árboles de decisión"
+    ]
+  },
+  {
+    "objectID": "supervisado/arboles-decision.html#sobreajuste-y-sesgo-inductivo",
+    "href": "supervisado/arboles-decision.html#sobreajuste-y-sesgo-inductivo",
+    "title": "Árboles de decisión",
+    "section": "Sobreajuste y sesgo inductivo",
+    "text": "Sobreajuste y sesgo inductivo\nUn árbol sin restricciones puede continuar hasta capturar excepciones o ruido. Aunque cada división reduzca la impureza del entrenamiento, el rendimiento de validación puede empeorar.\nDos familias de control son:\n\npre-poda: detener el crecimiento usando profundidad máxima, mínimo de ejemplos por nodo o mejora mínima;\npost-poda: construir un árbol mayor y reemplazar subárboles cuando su complejidad no se justifica con datos reservados o un criterio penalizado.\n\nEl algoritmo expresa un sesgo hacia árboles que logran separaciones informativas tempranas; preferir árboles más pequeños es una forma adicional de controlar complejidad.\n\n\n\n\n\n\nAdvertenciaMayor ganancia local no garantiza el árbol globalmente óptimo\n\n\n\nLa construcción voraz escoge la mejor división en el nodo actual. Una elección localmente óptima puede impedir una estructura global mejor; el procedimiento no explora todos los árboles posibles.\n\n\n\nResumen\n\nUn árbol representa una secuencia de pruebas y una predicción en cada hoja.\nLa inducción divide recursivamente los ejemplos.\nEntropía y Gini cuantifican impureza.\nLa ganancia de información resta la impureza ponderada posterior a la inicial.\nPoda y restricciones de crecimiento ayudan a controlar sobreajuste.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Árboles de decisión"
+    ]
+  },
+  {
+    "objectID": "supervisado/arboles-decision.html#conceptos-relacionados",
+    "href": "supervisado/arboles-decision.html#conceptos-relacionados",
+    "title": "Árboles de decisión",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nGeneralización y selección de modelos\nRepresentación de datos\nSVM y máximo margen",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "Árboles de decisión"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Inteligencia Artificial I",
+    "section": "",
+    "text": "OpenStudy presenta una ruta autocontenida por los fundamentos de la inteligencia artificial cubiertos hasta ahora: aprendizaje inductivo, representación de datos, generalización, árboles de decisión, máquinas de vectores de soporte y una introducción al aprendizaje por refuerzo.\n\nComenzar a estudiar Explorar los temas\n\nCada página combina intuición, formulación matemática, procedimientos, ejemplos breves y advertencias. El orden sugerido va desde la estructura general de un sistema de aprendizaje hasta modelos supervisados y agentes que aprenden mediante recompensas.",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
+    "objectID": "index.html#de-los-datos-a-las-decisiones-inteligentes",
+    "href": "index.html#de-los-datos-a-las-decisiones-inteligentes",
+    "title": "Inteligencia Artificial I",
+    "section": "",
+    "text": "OpenStudy presenta una ruta autocontenida por los fundamentos de la inteligencia artificial cubiertos hasta ahora: aprendizaje inductivo, representación de datos, generalización, árboles de decisión, máquinas de vectores de soporte y una introducción al aprendizaje por refuerzo.\n\nComenzar a estudiar Explorar los temas\n\nCada página combina intuición, formulación matemática, procedimientos, ejemplos breves y advertencias. El orden sugerido va desde la estructura general de un sistema de aprendizaje hasta modelos supervisados y agentes que aprenden mediante recompensas.",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
+    "objectID": "index.html#mapa-de-contenidos",
+    "href": "index.html#mapa-de-contenidos",
+    "title": "Inteligencia Artificial I",
+    "section": "Mapa de contenidos",
+    "text": "Mapa de contenidos\n\n\nFundamentos\nIA clásica y aprendizaje inductivo; tarea, experiencia, rendimiento, hipótesis, pérdida, regularización y búsqueda.\nIr a fundamentos\n\n\nDatos y generalización\nVectores de características, etiquetas, particiones de datos, sesgo-varianza, sobreajuste y validación cruzada.\nIr a datos y generalización\n\n\nAprendizaje supervisado\nÁrboles de decisión, entropía, ganancia de información, SVM de margen duro y suave, kernels y extensiones multiclase.\nIr a árboles de decisión\n\n\nAprendizaje por refuerzo\nAgente, entorno, estados, acciones, recompensas, transición, retorno, política y exploración-explotación.\nIr a aprendizaje por refuerzo",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
+    "objectID": "index.html#ruta-recomendada",
+    "href": "index.html#ruta-recomendada",
+    "title": "Inteligencia Artificial I",
+    "section": "Ruta recomendada",
+    "text": "Ruta recomendada\n\nComprender qué distingue la programación directa del aprendizaje.\nIdentificar los componentes de un sistema de aprendizaje de máquina.\nSeparar correctamente características, etiquetas e identificadores.\nEntender por qué el error de entrenamiento no basta para medir generalización.\nEstudiar dos familias supervisadas: árboles y SVM.\nContrastar el aprendizaje supervisado con el aprendizaje por refuerzo.\n\n\n\n\n\n\n\nNotaAlcance actual\n\n\n\nEl sitio se limita deliberadamente a los temas desarrollados en el material disponible. Su organización admite incorporar más adelante aprendizaje profundo, programación lógica y búsqueda sin alterar esta ruta inicial.",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
+    "objectID": "index.html#convenciones",
+    "href": "index.html#convenciones",
+    "title": "Inteligencia Artificial I",
+    "section": "Convenciones",
+    "text": "Convenciones\n\nLos ejemplos son ficticios y se mantienen pequeños para hacer visible el procedimiento.\nEn aprendizaje supervisado, un ejemplo se denota por \\((x_i,y_i)\\), con características \\(x_i\\) y etiqueta \\(y_i\\).\nLos conjuntos de entrenamiento, validación y prueba cumplen funciones diferentes; no se intercambian después de observar resultados.\nLas referencias bibliográficas respaldan los conceptos, pero la exposición y la notación se mantienen autocontenidas. (Mitchell 1997; Russell y Norvig 2010; Bishop 2006)",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
+    "objectID": "refuerzo/fundamentos.html",
+    "href": "refuerzo/fundamentos.html",
+    "title": "Fundamentos de aprendizaje por refuerzo",
+    "section": "",
+    "text": "Conceptos clave\n\n\nAgente Estado Recompensa MDP Política Retorno",
+    "crumbs": [
+      "Aprendizaje por refuerzo",
+      "Agentes, recompensas y políticas"
+    ]
+  },
+  {
+    "objectID": "refuerzo/fundamentos.html#aprender-mediante-interacción",
+    "href": "refuerzo/fundamentos.html#aprender-mediante-interacción",
+    "title": "Fundamentos de aprendizaje por refuerzo",
+    "section": "Aprender mediante interacción",
+    "text": "Aprender mediante interacción\nEl aprendizaje por refuerzo estudia agentes que aprenden a tomar decisiones al interactuar con un entorno. En cada paso, el agente recibe información, elige una acción y obtiene una recompensa junto con una nueva situación.\nSe diferencia del aprendizaje supervisado en tres aspectos:\n\nno se entrega una etiqueta con la acción correcta para cada estado;\nla recompensa puede ser diferida: una acción actual afecta resultados futuros;\nlos datos no son independientes e idénticamente distribuidos, porque la política del agente determina qué experiencias genera.\n\nEl objetivo no es maximizar solo la recompensa inmediata, sino el retorno acumulado.",
+    "crumbs": [
+      "Aprendizaje por refuerzo",
+      "Agentes, recompensas y políticas"
+    ]
+  },
+  {
+    "objectID": "refuerzo/fundamentos.html#interacción-agente-entorno",
+    "href": "refuerzo/fundamentos.html#interacción-agente-entorno",
+    "title": "Fundamentos de aprendizaje por refuerzo",
+    "section": "Interacción agente-entorno",
+    "text": "Interacción agente-entorno\nEn el instante \\(t\\):\n\nel entorno se encuentra en un estado \\(S_t\\);\nel agente selecciona una acción \\(A_t\\) usando su política;\nel entorno transita a \\(S_{t+1}\\);\nel agente recibe una recompensa \\(R(S_t,A_t,S_{t+1})\\).\n\nUna política estocástica se escribe\n\\[\n\\pi(a\\mid s)=\\Pr(A_t=a\\mid S_t=s).\n\\]\nSi el estado no es observable directamente, el agente puede elegir usando una observación \\(O_t\\):\n\\[\n\\pi(a\\mid o)=\\Pr(A_t=a\\mid O_t=o).\n\\]\nNo debe confundirse estado con observación. El estado reúne la información necesaria para describir la dinámica; la observación es la información que efectivamente recibe el agente.",
+    "crumbs": [
+      "Aprendizaje por refuerzo",
+      "Agentes, recompensas y políticas"
+    ]
+  },
+  {
+    "objectID": "refuerzo/fundamentos.html#proceso-de-decisión-markoviano",
+    "href": "refuerzo/fundamentos.html#proceso-de-decisión-markoviano",
+    "title": "Fundamentos de aprendizaje por refuerzo",
+    "section": "Proceso de decisión markoviano",
+    "text": "Proceso de decisión markoviano\nUn proceso de decisión markoviano (MDP) queda definido por:\n\n\\(\\mathcal S\\): conjunto de estados;\n\\(\\mathcal A\\): conjunto de acciones;\n\\(p(s'\\mid s,a)\\): probabilidad de transición;\n\\(r(s,a,s')\\): recompensa asociada a la transición.\n\nLa propiedad de Markov establece que, dados el estado y la acción actuales, el siguiente estado no depende de la historia anterior:\n\\[\n\\Pr(S_{t+1}=s'\\mid S_t=s,A_t=a,\\text{historia})\n=p(s'\\mid s,a).\n\\]\nEsta propiedad es una condición sobre la representación del estado. Si una variable pasada sigue siendo necesaria para predecir el futuro, la representación elegida no es markoviana.",
+    "crumbs": [
+      "Aprendizaje por refuerzo",
+      "Agentes, recompensas y políticas"
+    ]
+  },
+  {
+    "objectID": "refuerzo/fundamentos.html#recompensa-y-retorno",
+    "href": "refuerzo/fundamentos.html#recompensa-y-retorno",
+    "title": "Fundamentos de aprendizaje por refuerzo",
+    "section": "Recompensa y retorno",
+    "text": "Recompensa y retorno\nPara un horizonte finito \\(H\\), el retorno descontado desde el inicio es\n\\[\nG_0=\\sum_{t=0}^{H}\\gamma^t R(S_t,A_t,S_{t+1}),\n\\]\ndonde \\(0\\le\\gamma\\le1\\) controla la importancia relativa de recompensas futuras. El objetivo es encontrar\n\\[\n\\pi^*=\\arg\\max_{\\pi}\n\\mathbb E_{\\pi}\\!\\left[\n\\sum_{t=0}^{H}\\gamma^t R(S_t,A_t,S_{t+1})\n\\right].\n\\]\nLa esperanza incorpora la aleatoriedad de la política y de las transiciones. En problemas de horizonte infinito suele usarse \\(\\gamma&lt;1\\) bajo condiciones apropiadas para mantener finito el retorno. (Russell y Norvig 2010)\n\n\n\n\n\n\nAdvertenciaLa recompensa define el comportamiento buscado\n\n\n\nEl agente optimiza la señal especificada, no la intención informal del diseñador. Una recompensa incompleta puede incentivar atajos o conductas no deseadas; su diseño y evaluación son parte del problema.",
+    "crumbs": [
+      "Aprendizaje por refuerzo",
+      "Agentes, recompensas y políticas"
+    ]
+  },
+  {
+    "objectID": "refuerzo/fundamentos.html#exploración-y-explotación",
+    "href": "refuerzo/fundamentos.html#exploración-y-explotación",
+    "title": "Fundamentos de aprendizaje por refuerzo",
+    "section": "Exploración y explotación",
+    "text": "Exploración y explotación\nEl agente enfrenta una tensión:\n\nexplotación: escoger acciones que parecen buenas según la experiencia actual;\nexploración: probar acciones para obtener información que puede mejorar decisiones futuras.\n\nExplotar siempre puede fijar una política prematuramente; explorar siempre impide aprovechar lo aprendido. El equilibrio depende del problema, el horizonte y el costo de experimentar.",
+    "crumbs": [
+      "Aprendizaje por refuerzo",
+      "Agentes, recompensas y políticas"
+    ]
+  },
+  {
+    "objectID": "refuerzo/fundamentos.html#planificación-y-aprendizaje",
+    "href": "refuerzo/fundamentos.html#planificación-y-aprendizaje",
+    "title": "Fundamentos de aprendizaje por refuerzo",
+    "section": "Planificación y aprendizaje",
+    "text": "Planificación y aprendizaje\nHay dos escenarios conceptualmente distintos para buscar una política óptima:\n\n\n\n\n\n\n\n\nEscenario\nInformación disponible\nEjemplo de método\n\n\n\n\nPlanificación\nse conocen \\(p(s'\\mid s,a)\\) y \\(r(s,a,s')\\)\niteración de valores\n\n\nAprendizaje\nel modelo no se conoce y se obtienen transiciones al interactuar\nQ-learning\n\n\n\nAmbos persiguen una política de alto retorno, pero parten de información diferente. La planificación calcula usando un modelo conocido; el aprendizaje estima qué hacer a partir de experiencia.",
+    "crumbs": [
+      "Aprendizaje por refuerzo",
+      "Agentes, recompensas y políticas"
+    ]
+  },
+  {
+    "objectID": "refuerzo/fundamentos.html#ejemplo-inventario",
+    "href": "refuerzo/fundamentos.html#ejemplo-inventario",
+    "title": "Fundamentos de aprendizaje por refuerzo",
+    "section": "Ejemplo: inventario",
+    "text": "Ejemplo: inventario\nEn un problema simplificado:\n\nestado: nivel actual de inventario;\nacción: cantidad a comprar;\ntransición: inventario después de demanda y compra;\nrecompensa: ingreso menos costos de compra y almacenamiento;\npolítica: regla que asigna una cantidad a cada estado.\n\nComprar poco puede causar ventas perdidas; comprar demasiado eleva costos. La mejor acción depende de sus consecuencias futuras, no solo del beneficio del paso actual.\n\nResumen\n\nUn agente aprende una política mediante interacción con el entorno.\nEstado y observación no son necesariamente lo mismo.\nUn MDP especifica estados, acciones, transiciones y recompensas.\nLa política busca maximizar retorno esperado, no solo recompensa inmediata.\nExploración y explotación compiten.\nCon modelo conocido se puede planificar; sin él, se aprende desde transiciones.",
+    "crumbs": [
+      "Aprendizaje por refuerzo",
+      "Agentes, recompensas y políticas"
+    ]
+  },
+  {
+    "objectID": "refuerzo/fundamentos.html#conceptos-relacionados",
+    "href": "refuerzo/fundamentos.html#conceptos-relacionados",
+    "title": "Fundamentos de aprendizaje por refuerzo",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nIA y aprendizaje de máquina\nAnatomía de un sistema de ML\nGeneralización y selección de modelos",
+    "crumbs": [
+      "Aprendizaje por refuerzo",
+      "Agentes, recompensas y políticas"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-margen.html",
+    "href": "supervisado/svm-margen.html",
+    "title": "Máquinas de vectores de soporte y máximo margen",
+    "section": "",
+    "text": "Conceptos clave\n\n\nHiperplano Margen Vector de soporte Variable slack KKT",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM y máximo margen"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-margen.html#clasificador-lineal",
+    "href": "supervisado/svm-margen.html#clasificador-lineal",
+    "title": "Máquinas de vectores de soporte y máximo margen",
+    "section": "Clasificador lineal",
+    "text": "Clasificador lineal\nPara etiquetas \\(y_i\\in\\{-1,+1\\}\\), un clasificador lineal predice\n\\[\n\\widehat y=\\operatorname{sgn}(w^\\top x+b).\n\\]\nLa frontera de decisión es el hiperplano \\(w^\\top x+b=0\\). El vector \\(w\\) es perpendicular a la frontera. La distancia de un punto \\(x\\) al hiperplano es\n\\[\n\\frac{|w^\\top x+b|}{\\|w\\|}.\n\\]\nSi los datos son separables, muchos hiperplanos pueden clasificarlos correctamente. La SVM escoge el que maximiza la distancia a los ejemplos más cercanos.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM y máximo margen"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-margen.html#margen-funcional-y-geométrico",
+    "href": "supervisado/svm-margen.html#margen-funcional-y-geométrico",
+    "title": "Máquinas de vectores de soporte y máximo margen",
+    "section": "Margen funcional y geométrico",
+    "text": "Margen funcional y geométrico\nPara un ejemplo \\((x_i,y_i)\\), el valor\n\\[\ny_i(w^\\top x_i+b)\n\\]\nes positivo si está correctamente clasificado. Como multiplicar \\((w,b)\\) por una constante no cambia la frontera, fijamos una escala canónica imponiendo\n\\[\ny_i(w^\\top x_i+b)\\ge 1.\n\\]\nCon esta normalización, las fronteras del margen son \\(w^\\top x+b=\\pm1\\) y su ancho total es \\(2/\\|w\\|\\).",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM y máximo margen"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-margen.html#svm-de-margen-duro",
+    "href": "supervisado/svm-margen.html#svm-de-margen-duro",
+    "title": "Máquinas de vectores de soporte y máximo margen",
+    "section": "SVM de margen duro",
+    "text": "SVM de margen duro\nMaximizar el margen equivale a resolver\n\\[\n\\begin{aligned}\n\\min_{w,b}\\quad & \\frac{1}{2}\\|w\\|^2\\\\\n\\text{sujeto a}\\quad & y_i(w^\\top x_i+b)\\ge 1,\n\\quad i=1,\\ldots,N.\n\\end{aligned}\n\\]\nEste problema exige separabilidad lineal. Su Lagrangiano es\n\\[\nL(w,b,\\alpha)=\n\\frac{1}{2}\\|w\\|^2-\n\\sum_{i=1}^{N}\\alpha_i\\left[y_i(w^\\top x_i+b)-1\\right],\n\\qquad \\alpha_i\\ge0.\n\\]\nAl eliminar \\(w\\) y \\(b\\) se obtiene el dual:\n\\[\n\\begin{aligned}\n\\max_{\\alpha}\\quad &\n\\sum_{i=1}^{N}\\alpha_i-\n\\frac{1}{2}\\sum_{i=1}^{N}\\sum_{j=1}^{N}\n\\alpha_i\\alpha_j y_i y_j x_i^\\top x_j\\\\\n\\text{sujeto a}\\quad &\n\\alpha_i\\ge0,\n\\qquad\n\\sum_{i=1}^{N}\\alpha_i y_i=0.\n\\end{aligned}\n\\]\nAdemás,\n\\[\nw=\\sum_{i=1}^{N}\\alpha_i y_i x_i.\n\\]\nLa condición de complementariedad KKT es\n\\[\n\\alpha_i\\left[y_i(w^\\top x_i+b)-1\\right]=0.\n\\]\nPor tanto, solo los ejemplos con \\(\\alpha_i&gt;0\\) participan directamente en la solución: son los vectores de soporte. En margen duro se ubican sobre las fronteras del margen. (Bishop 2006)",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM y máximo margen"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-margen.html#svm-de-margen-suave",
+    "href": "supervisado/svm-margen.html#svm-de-margen-suave",
+    "title": "Máquinas de vectores de soporte y máximo margen",
+    "section": "SVM de margen suave",
+    "text": "SVM de margen suave\nSi las clases se solapan o hay ruido, se introducen variables \\(\\xi_i\\ge0\\):\n\\[\ny_i(w^\\top x_i+b)\\ge1-\\xi_i.\n\\]\nEl problema pasa a ser\n\\[\n\\begin{aligned}\n\\min_{w,b,\\xi}\\quad &\n\\frac{1}{2}\\|w\\|^2+C\\sum_{i=1}^{N}\\xi_i\\\\\n\\text{sujeto a}\\quad &\ny_i(w^\\top x_i+b)\\ge1-\\xi_i,\n\\qquad \\xi_i\\ge0.\n\\end{aligned}\n\\]\nInterpretación de \\(\\xi_i\\):\n\n\\(\\xi_i=0\\): sobre el margen o en el lado correcto fuera de él;\n\\(0&lt;\\xi_i\\le1\\): dentro del margen, pero todavía en el lado correcto;\n\\(\\xi_i&gt;1\\): ejemplo mal clasificado.\n\nEl hiperparámetro \\(C&gt;0\\) controla la penalización de las violaciones:\n\n\\(C\\) grande penaliza con fuerza los errores de entrenamiento y tiende a aceptar un margen menor;\n\\(C\\) pequeño tolera más violaciones y da mayor peso relativo a un margen amplio.\n\nNo existe un \\(C\\) universalmente óptimo; debe elegirse con validación y en conjunto con el preprocesamiento.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM y máximo margen"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-margen.html#pérdida-bisagra",
+    "href": "supervisado/svm-margen.html#pérdida-bisagra",
+    "title": "Máquinas de vectores de soporte y máximo margen",
+    "section": "Pérdida bisagra",
+    "text": "Pérdida bisagra\nEl margen suave también puede escribirse como un objetivo regularizado con pérdida bisagra:\n\\[\n\\min_{w,b}\n\\frac{1}{2}\\|w\\|^2\n+C\\sum_{i=1}^{N}\n\\max\\left(0,1-y_i(w^\\top x_i+b)\\right).\n\\]\nLa primera parte controla la norma y, por tanto, el margen; la segunda penaliza ejemplos que no alcanzan margen funcional uno.\n\n\n\n\n\n\nAdvertenciaEl margen depende de la representación\n\n\n\nCambiar la escala de las características altera productos punto, distancias y la solución. El escalamiento debe ajustarse solo con entrenamiento y validarse dentro del mismo pipeline.\n\n\n\nResumen\n\nLa SVM lineal escoge un hiperplano de máximo margen.\nEl margen duro requiere datos separables.\nEl margen suave usa variables \\(\\xi_i\\) y el parámetro \\(C\\).\nLos vectores con \\(\\alpha_i&gt;0\\) determinan la solución.\nEl dual depende de productos punto, lo que abre la puerta a los kernels.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM y máximo margen"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-margen.html#conceptos-relacionados",
+    "href": "supervisado/svm-margen.html#conceptos-relacionados",
+    "title": "Máquinas de vectores de soporte y máximo margen",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nKernels y fronteras no lineales\nSVM multiclase y Exemplar-SVM\nRepresentación de datos\nGeneralización y selección de modelos",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM y máximo margen"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-multiclase.html",
+    "href": "supervisado/svm-multiclase.html",
+    "title": "SVM multiclase y Exemplar-SVM",
+    "section": "",
+    "text": "Conceptos clave\n\n\nOne-vs-rest One-vs-one Puntaje multiclase k-NN Exemplar-SVM",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM multiclase y Exemplar-SVM"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-multiclase.html#del-caso-binario-al-multiclase",
+    "href": "supervisado/svm-multiclase.html#del-caso-binario-al-multiclase",
+    "title": "SVM multiclase y Exemplar-SVM",
+    "section": "Del caso binario al multiclase",
+    "text": "Del caso binario al multiclase\nLa formulación básica de SVM distingue dos clases, \\(y\\in\\{-1,+1\\}\\). Para \\(K&gt;2\\) categorías se pueden combinar clasificadores binarios o aprender varios puntajes de manera conjunta.\n\nOne-vs-rest\nSe entrenan \\(K\\) clasificadores. El clasificador \\(k\\) separa la clase \\(k\\) de todas las demás. En inferencia se comparan sus puntajes:\n\\[\n\\widehat y=\\arg\\max_{k\\in\\{1,\\ldots,K\\}} f_k(x).\n\\]\nEs simple y requiere \\(K\\) modelos, pero cada problema binario puede quedar desbalanceado y los puntajes entrenados de forma independiente no siempre son directamente comparables.\n\n\nOne-vs-one\nSe entrena un clasificador para cada par de clases, es decir,\n\\[\n\\binom{K}{2}=\\frac{K(K-1)}{2}\n\\]\nclasificadores. La predicción combina sus decisiones, por ejemplo mediante votación. Cada modelo usa solo ejemplos de dos clases, pero la cantidad de modelos crece cuadráticamente con \\(K\\).",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM multiclase y Exemplar-SVM"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-multiclase.html#aprendizaje-conjunto",
+    "href": "supervisado/svm-multiclase.html#aprendizaje-conjunto",
+    "title": "SVM multiclase y Exemplar-SVM",
+    "section": "Aprendizaje conjunto",
+    "text": "Aprendizaje conjunto\nOtra estrategia aprende un vector \\(w_k\\) por clase y define\n\\[\nf_k(x)=w_k^\\top x.\n\\]\nPara cada ejemplo \\((x_i,y_i)\\) se exige que el puntaje de la clase correcta supere el de cualquier clase incorrecta por un margen, permitiendo una violación \\(\\xi_i\\):\n\\[\nw_{y_i}^\\top x_i-w_k^\\top x_i\\ge1-\\xi_i,\n\\qquad k\\ne y_i.\n\\]\nUna formulación regularizada es\n\\[\n\\begin{aligned}\n\\min_{\\{w_k\\},\\xi}\\quad &\n\\frac{1}{2}\\sum_{k=1}^{K}\\|w_k\\|^2+C\\sum_{i=1}^{N}\\xi_i\\\\\n\\text{sujeto a}\\quad &\nw_{y_i}^\\top x_i-w_k^\\top x_i\\ge1-\\xi_i,\n\\quad k\\ne y_i,\\\\\n&\\xi_i\\ge0.\n\\end{aligned}\n\\]\nLa predicción usa el mayor puntaje. Como los clasificadores se ajustan conjuntamente, las comparaciones forman parte del mismo objetivo.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM multiclase y Exemplar-SVM"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-multiclase.html#punto-de-comparación-k-vecinos-más-cercanos",
+    "href": "supervisado/svm-multiclase.html#punto-de-comparación-k-vecinos-más-cercanos",
+    "title": "SVM multiclase y Exemplar-SVM",
+    "section": "Punto de comparación: k vecinos más cercanos",
+    "text": "Punto de comparación: k vecinos más cercanos\nEl clasificador k-NN no ajusta una frontera global: conserva los ejemplos y predice mediante las etiquetas de los \\(k\\) vecinos más cercanos.\n\nentrenamiento: principalmente almacenar y organizar datos;\ninferencia: calcular distancias y combinar votos;\nsupuesto inductivo: cercanía en la representación implica similitud de clase.\n\nEste supuesto puede fallar si la distancia pondera componentes irrelevantes o si la representación no captura la identidad que interesa. Escalamiento y elección de características resultan decisivos.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM multiclase y Exemplar-SVM"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-multiclase.html#exemplar-svm",
+    "href": "supervisado/svm-multiclase.html#exemplar-svm",
+    "title": "SVM multiclase y Exemplar-SVM",
+    "section": "Exemplar-SVM",
+    "text": "Exemplar-SVM\nUna Exemplar-SVM aprende un clasificador especializado para un ejemplo positivo \\(x_E\\), contrastándolo con un conjunto amplio de negativos \\(\\mathcal N_E\\). Una forma del objetivo es\n\\[\n\\mathcal L(w,b)\n=\\frac{1}{2}\\|w\\|^2\n+C_E\\xi_E\n+C_N\\sum_{i\\in\\mathcal N_E}\\xi_i.\n\\]\n\\(C_E\\) y \\(C_N\\) permiten ponderar de manera distinta el ejemplar positivo y los negativos. En vez de asumir que toda cercanía geométrica es pertinente, el clasificador aprende una dirección discriminativa específica para separar ese ejemplar.\nPara reconocer múltiples ejemplares se evalúan varios clasificadores y se comparan sus salidas. Si se necesitan probabilidades, los puntajes de margen requieren una calibración adicional: una SVM no produce probabilidades calibradas por definición.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM multiclase y Exemplar-SVM"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-multiclase.html#comparación",
+    "href": "supervisado/svm-multiclase.html#comparación",
+    "title": "SVM multiclase y Exemplar-SVM",
+    "section": "Comparación",
+    "text": "Comparación\n\n\n\n\n\n\n\n\n\nEstrategia\nModelos\nIdea de decisión\nConsideración principal\n\n\n\n\nOne-vs-rest\n\\(K\\)\nmayor puntaje\ndesbalance y comparabilidad\n\n\nOne-vs-one\n\\(K(K-1)/2\\)\nvotación o agregación\ncosto al crecer \\(K\\)\n\n\nSVM conjunta\nun objetivo con \\(K\\) puntajes\nmargen frente a todas las clases\noptimización más acoplada\n\n\nk-NN\nmodelo basado en instancias\nvoto local\ncosto de inferencia y métrica\n\n\nExemplar-SVM\nuno por ejemplar\nseparación especializada\ncalibración y número de modelos\n\n\n\n\n\n\n\n\n\nAdvertenciaNo comparar puntajes como si fueran probabilidades\n\n\n\nLa magnitud de \\(f_k(x)\\) es un puntaje de decisión. Compararlo puede ser parte del método, pero interpretarlo como probabilidad requiere un procedimiento de calibración validado.\n\n\n\nResumen\n\nOne-vs-rest y one-vs-one reducen multiclase a problemas binarios.\nUna SVM conjunta aprende puntajes comparables bajo restricciones compartidas.\nk-NN usa similitud local; su comportamiento depende de la representación y la distancia.\nExemplar-SVM aprende un separador especializado por ejemplo.\nTodos estos enfoques agregan múltiples comparaciones durante la predicción.",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM multiclase y Exemplar-SVM"
+    ]
+  },
+  {
+    "objectID": "supervisado/svm-multiclase.html#conceptos-relacionados",
+    "href": "supervisado/svm-multiclase.html#conceptos-relacionados",
+    "title": "SVM multiclase y Exemplar-SVM",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nSVM y máximo margen\nKernels y fronteras no lineales\nRepresentación de datos",
+    "crumbs": [
+      "Aprendizaje supervisado",
+      "SVM multiclase y Exemplar-SVM"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html",
+    "href": "fundamentos/sistema-ml.html",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "",
+    "text": "Conceptos clave\n\n\nEspacio de hipótesis Sesgo inductivo Pérdida Regularización Optimización",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#esquema-general",
+    "href": "fundamentos/sistema-ml.html#esquema-general",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Esquema general",
+    "text": "Esquema general\nEn aprendizaje supervisado, los datos de entrenamiento alimentan un algoritmo de aprendizaje. El algoritmo busca un modelo predictivo dentro de un espacio de alternativas y devuelve una función que se utilizará sobre datos nuevos.\n\nDatos de entrenamiento \\(\\longrightarrow\\) algoritmo de aprendizaje\n\\(\\phantom{Datos de entrenamiento}\\quad\\) hipótesis + pérdida + búsqueda + sesgo inductivo\n\\(\\phantom{Datos de entrenamiento}\\longrightarrow\\) modelo entrenado \\(\\longrightarrow\\) predicción\n\nEsta estructura permite distinguir dos fases:\n\nentrenamiento: se eligen los parámetros usando datos y una función objetivo;\ninferencia: con los parámetros ya fijados, el modelo transforma una entrada nueva en una predicción.",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#modelo-y-espacio-de-hipótesis",
+    "href": "fundamentos/sistema-ml.html#modelo-y-espacio-de-hipótesis",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Modelo y espacio de hipótesis",
+    "text": "Modelo y espacio de hipótesis\nUn modelo predictivo es una función parametrizada \\(f(x;W)\\), donde \\(x\\) es la entrada y \\(W\\) reúne los parámetros ajustables. El espacio de hipótesis \\(\\mathcal H\\) contiene las funciones que el procedimiento puede representar:\n\\[\n\\mathcal H=\\{f(\\cdot;W):W\\in\\Omega\\}.\n\\]\nElegir \\(\\mathcal H\\) restringe de antemano las soluciones posibles. Un clasificador lineal solo puede crear fronteras lineales en la representación original; un árbol profundo puede expresar reglas mucho más específicas.\nEl sesgo inductivo es el conjunto de preferencias o supuestos que permite escoger una generalización entre muchas compatibles con los datos. Puede aparecer en la forma del modelo, en la regularización o en la estrategia de búsqueda. Sin algún sesgo inductivo, los ejemplos observados no determinan por sí solos qué ocurrirá fuera de ellos. (Mitchell 1997)",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#pérdida-empírica",
+    "href": "fundamentos/sistema-ml.html#pérdida-empírica",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Pérdida empírica",
+    "text": "Pérdida empírica\nSea el conjunto de entrenamiento\n\\[\n\\mathcal D=\\{(x_i,y_i)\\}_{i=1}^{N}.\n\\]\nUna función de pérdida \\(\\mathcal L(f(x_i;W),y_i)\\) cuantifica el desacuerdo entre predicción y etiqueta. El riesgo empírico promedio es\n\\[\n\\widehat R(W)=\\frac{1}{N}\\sum_{i=1}^{N}\\mathcal L(f(x_i;W),y_i).\n\\]\nLa pérdida debe corresponder a la tarea. En regresión es habitual penalizar distancias numéricas; en clasificación interesa penalizar decisiones o márgenes incorrectos. Una métrica de evaluación y una pérdida de entrenamiento pueden estar relacionadas sin ser idénticas.",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#regularización",
+    "href": "fundamentos/sistema-ml.html#regularización",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Regularización",
+    "text": "Regularización\nMinimizar solo la pérdida de entrenamiento puede favorecer una solución excesivamente compleja. Una formulación general añade un regularizador:\n\\[\nW^*=\\arg\\min_W\n\\left[\n\\lambda\\,\\mathcal R(W)\n+\\sum_{i=1}^{N}\\mathcal L(f(x_i;W),y_i)\n\\right].\n\\]\n\n\\(\\mathcal R(W)\\) penaliza propiedades no deseadas de los parámetros;\n\\(\\lambda\\ge 0\\) controla el peso relativo de esa preferencia;\nla suma mide el ajuste a los ejemplos observados.\n\nEl regularizador no «descubre» automáticamente la complejidad correcta. Su forma y su intensidad son decisiones que deben contrastarse mediante validación. En SVM, la norma de los pesos y las violaciones del margen materializan esta tensión.",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#técnica-de-búsqueda",
+    "href": "fundamentos/sistema-ml.html#técnica-de-búsqueda",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Técnica de búsqueda",
+    "text": "Técnica de búsqueda\nDefinir el objetivo no indica todavía cómo encontrar su mínimo. La técnica de búsqueda u optimización determina cómo se exploran los parámetros o hipótesis. Según el modelo, puede ser un algoritmo recursivo que elige divisiones, un programa cuadrático o un método iterativo basado en gradientes.\nPor tanto, conviene no confundir:\n\n\n\nElemento\nPregunta que responde\n\n\n\n\nRepresentación\n¿Cómo describimos cada ejemplo?\n\n\nEspacio de hipótesis\n¿Qué funciones podemos expresar?\n\n\nPérdida\n¿Qué errores penalizamos?\n\n\nRegularización\n¿Qué soluciones preferimos?\n\n\nBúsqueda\n¿Cómo encontramos una buena solución?\n\n\nEvaluación\n¿Cómo estimamos su rendimiento futuro?",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#ciclo-de-vida",
+    "href": "fundamentos/sistema-ml.html#ciclo-de-vida",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Ciclo de vida",
+    "text": "Ciclo de vida\nUn sistema de ML no termina al entrenar. Debe vigilarse si cambian los datos, la población o el contexto de uso. El rendimiento estimado durante el desarrollo solo es informativo mientras la distribución de evaluación sea relevante para el uso real.\n\n\n\n\n\n\nAdvertenciaError frecuente: evaluar con los datos de entrenamiento\n\n\n\nEl conjunto usado para ajustar \\(W\\) no entrega una estimación independiente del rendimiento. Para medir generalización se reservan datos que no intervinieron en el ajuste ni en la selección de hiperparámetros.\n\n\n\nResumen\n\nEl modelo \\(f(x;W)\\) pertenece a un espacio de hipótesis.\nLa pérdida mide ajuste; la regularización expresa una preferencia inductiva.\nEl algoritmo de aprendizaje busca parámetros que optimicen el objetivo.\nEntrenamiento e inferencia son fases distintas.\nLa evaluación independiente y el monitoreo completan el ciclo del sistema.",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#conceptos-relacionados",
+    "href": "fundamentos/sistema-ml.html#conceptos-relacionados",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nIA y aprendizaje de máquina\nRepresentación de datos\nGeneralización y selección de modelos\nSVM y máximo margen",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html",
+    "href": "datos/representacion.html",
+    "title": "Representación de datos",
+    "section": "",
+    "text": "Conceptos clave\n\n\nFeature Label Vector Dimensionalidad Escalamiento",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#de-objetos-a-vectores",
+    "href": "datos/representacion.html#de-objetos-a-vectores",
+    "title": "Representación de datos",
+    "section": "De objetos a vectores",
+    "text": "De objetos a vectores\nLos algoritmos no reciben «ciudades», «imágenes» o «personas» de manera abstracta: reciben una representación numérica o simbólica. Decidir qué información conservar es parte central del diseño.\nCada ejemplo se describe mediante características (features, atributos, mediciones o variables). Si se usan \\(d\\) características, el ejemplo se representa como\n\\[\nx=(x_1,x_2,\\ldots,x_d)^\\top\\in\\mathcal X.\n\\]\nEl espacio \\(\\mathcal X\\) es el espacio de características y \\(d\\) es su dimensionalidad. Todos los ejemplos que alimentan el mismo modelo deben seguir una estructura compatible.",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#característica-etiqueta-e-identificador",
+    "href": "datos/representacion.html#característica-etiqueta-e-identificador",
+    "title": "Representación de datos",
+    "section": "Característica, etiqueta e identificador",
+    "text": "Característica, etiqueta e identificador\nConsidere un problema que predice demanda de bicicletas:\n\n\n\n\n\n\n\n\nCampo\nRol\n¿Lo usa el modelo?\n\n\n\n\nregistro_id\nidentificador único\nno, salvo justificación sustantiva\n\n\ntemperatura\ncaracterística numérica\nsí\n\n\nlluvia\ncaracterística binaria\nsí\n\n\ntipo_dia\ncaracterística categórica\nsí, después de codificarla\n\n\nviajes\netiqueta numérica\nsolo como objetivo durante entrenamiento y evaluación\n\n\n\nLa etiqueta \\(y\\) es el valor que se desea predecir. En supervisado, un ejemplo es \\((x_i,y_i)\\). Desde una perspectiva estadística, las características cumplen el rol de variables explicativas y la etiqueta el de variable respuesta.\n\n\n\n\n\n\nAdvertenciaUn identificador no es una característica por defecto\n\n\n\nUn código único puede permitir memorizar ejemplos sin capturar una relación útil. Debe excluirse salvo que su estructura tenga significado predictivo justificable y que su uso sea válido en inferencia.",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#tipos-de-características",
+    "href": "datos/representacion.html#tipos-de-características",
+    "title": "Representación de datos",
+    "section": "Tipos de características",
+    "text": "Tipos de características\n\nnuméricas: admiten operaciones métricas, aunque su escala y unidad importan;\nbinarias: expresan dos estados;\ncategóricas nominales: sus valores no poseen orden inherente;\nordinales: poseen orden, pero las distancias entre niveles no necesariamente son iguales;\nestructuradas: texto, imágenes o secuencias requieren una transformación a una representación utilizable.\n\nCodificar categorías con enteros consecutivos puede introducir un orden y distancias ficticias. La codificación debe ser compatible con el modelo y el significado del dato.",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#escala-y-distancia",
+    "href": "datos/representacion.html#escala-y-distancia",
+    "title": "Representación de datos",
+    "section": "Escala y distancia",
+    "text": "Escala y distancia\nEn métodos basados en distancias o productos punto, una característica con magnitud numérica grande puede dominar a las demás. Una estandarización típica usa estadísticas del entrenamiento:\n\\[\nz_j=\\frac{x_j-\\mu_j^{\\text{train}}}{\\sigma_j^{\\text{train}}}.\n\\]\nLas mismas \\(\\mu_j^{\\text{train}}\\) y \\(\\sigma_j^{\\text{train}}\\) se aplican luego a validación, prueba y datos nuevos.\n\n\n\n\n\n\nImportanteEvitar fuga de información\n\n\n\nCalcular el escalamiento con el conjunto completo permite que validación o prueba influyan en el entrenamiento. Toda transformación aprendida de los datos debe ajustarse dentro de la partición de entrenamiento y quedar incorporada al pipeline.",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#representación-y-sesgo-inductivo",
+    "href": "datos/representacion.html#representación-y-sesgo-inductivo",
+    "title": "Representación de datos",
+    "section": "Representación y sesgo inductivo",
+    "text": "Representación y sesgo inductivo\nDos representaciones del mismo objeto pueden convertir un problema difícil en uno sencillo o viceversa. Un modelo lineal aplicado a características originales genera una frontera lineal; si se incorporan transformaciones no lineales, la misma familia puede expresar fronteras distintas. Los kernels explotan esta idea sin construir siempre la transformación explícita. (Bishop 2006)",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#lista-de-comprobación",
+    "href": "datos/representacion.html#lista-de-comprobación",
+    "title": "Representación de datos",
+    "section": "Lista de comprobación",
+    "text": "Lista de comprobación\nAntes de entrenar:\n\nDefinir qué representa una fila o ejemplo.\nSeparar identificadores, características y etiqueta.\nConfirmar que las características estarán disponibles al predecir.\nElegir una codificación coherente con su tipo.\nAjustar transformaciones solo con entrenamiento.\nConservar el mismo orden, significado y unidad en todas las particiones.\n\n\nResumen\n\nUn ejemplo vive en un espacio de características de dimensión \\(d\\).\nLa etiqueta es la salida objetivo; el identificador no es una característica automáticamente.\nLa codificación introduce supuestos sobre orden, similitud y distancia.\nLas transformaciones deben aprenderse solo con entrenamiento.\nLa representación determina qué regularidades puede explotar el modelo.",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#conceptos-relacionados",
+    "href": "datos/representacion.html#conceptos-relacionados",
+    "title": "Representación de datos",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nAnatomía de un sistema de ML\nGeneralización y selección de modelos\nKernels y fronteras no lineales",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  }
+]

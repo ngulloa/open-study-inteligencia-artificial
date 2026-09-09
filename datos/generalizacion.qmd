@@ -1,0 +1,120 @@
+---
+title: "Generalización y selección de modelos"
+description: "Entrenamiento, validación, prueba, sesgo-varianza, sobreajuste y validación cruzada."
+---
+
+<div class="concept-section">
+<div class="concept-label">Conceptos clave</div>
+<div class="concept-tags">
+<span class="concept-tag">Generalización</span>
+<span class="concept-tag">Holdout</span>
+<span class="concept-tag">Sesgo-varianza</span>
+<span class="concept-tag">Overfitting</span>
+<span class="concept-tag">Cross-validation</span>
+</div>
+</div>
+
+## Rendimiento más allá del entrenamiento
+
+La **generalización** es la capacidad de mantener buen rendimiento sobre datos nuevos procedentes de la situación de interés. El error de entrenamiento mide ajuste a ejemplos usados por el algoritmo; no es una estimación independiente del error futuro.
+
+El método *holdout* separa datos disjuntos:
+
+| Conjunto | Función |
+|---|---|
+| Entrenamiento | ajustar parámetros del modelo |
+| Validación | escoger hiperparámetros, representación o complejidad |
+| Prueba (*test*) | estimar una sola vez el rendimiento del procedimiento ya escogido |
+
+Si se consulta repetidamente el conjunto de prueba para tomar decisiones, deja de actuar como prueba independiente y se transforma, en la práctica, en otra fuente de validación.
+
+## Sesgo, varianza y ruido
+
+En regresión, supongamos
+
+$$
+Y=f(x)+\varepsilon,
+\qquad
+\mathbb E[\varepsilon]=0,
+\qquad
+\operatorname{Var}(\varepsilon)=\sigma^2.
+$$
+
+Si $\widehat f(x)$ cambia según la muestra de entrenamiento, el error cuadrático esperado en un punto puede descomponerse como
+
+$$
+\mathbb E\!\left[(Y-\widehat f(x))^2\right]
+=
+\underbrace{\left(f(x)-\mathbb E[\widehat f(x)]\right)^2}_{\text{sesgo}^2}
++
+\underbrace{\mathbb E\!\left[(\widehat f(x)-\mathbb E[\widehat f(x)])^2\right]}_{\text{varianza}}
++
+\underbrace{\sigma^2}_{\text{error irreducible}}.
+$$
+
+- **alto sesgo**: el procedimiento es sistemáticamente poco flexible para el patrón relevante;
+- **alta varianza**: pequeñas variaciones en los datos producen modelos muy distintos;
+- **error irreducible**: variabilidad que no puede eliminarse con la información disponible.
+
+Esta descomposición exacta corresponde a pérdida cuadrática y a los supuestos indicados. En clasificación, «sesgo-varianza» sigue siendo una intuición útil, pero no debe trasladarse mecánicamente como la misma identidad.
+
+## Subajuste y sobreajuste
+
+El **subajuste** (*underfitting*) ocurre cuando el modelo no captura patrones relevantes: suelen ser altos tanto el error de entrenamiento como el de validación.
+
+El **sobreajuste** (*overfitting*) ocurre cuando el modelo captura particularidades o ruido del entrenamiento que no se sostienen fuera de esa muestra. El error de entrenamiento puede seguir bajando mientras el error de validación empeora.
+
+::: {.callout-warning title="Complejidad no es solo número de parámetros"}
+Profundidad de un árbol, intensidad de regularización, elección del kernel y escala de sus parámetros son formas diferentes de controlar flexibilidad. La complejidad relevante depende de la familia de modelos y del procedimiento completo.
+:::
+
+## Selección mediante validación
+
+Un flujo correcto es:
+
+1. Definir candidatos e hiperparámetros antes de mirar prueba.
+2. Ajustar cada candidato con entrenamiento.
+3. Compararlos con la misma métrica en validación.
+4. Elegir una configuración.
+5. Cuando corresponda, reajustar con los datos destinados al desarrollo.
+6. Evaluar una vez en prueba.
+
+La selección por validación busca equilibrar ajuste y capacidad de generalización. Russell y Norvig presentan la validación cruzada como una herramienta para comparar complejidad y bondad de ajuste; la regularización incorpora esa preferencia dentro del objetivo. [@russell2010]
+
+## Validación cruzada
+
+En validación cruzada de $K$ particiones, el conjunto de desarrollo se divide en $K$ bloques. Cada bloque actúa una vez como validación y los demás como entrenamiento. Si $M_k$ es la métrica del bloque $k$:
+
+$$
+\overline M_{CV}=\frac{1}{K}\sum_{k=1}^{K}M_k.
+$$
+
+Esto reutiliza mejor datos limitados y muestra variabilidad entre particiones, pero requiere entrenar varias veces y no corrige por sí solo datos no representativos.
+
+## Errores frecuentes
+
+- preprocesar antes de dividir los datos;
+- ajustar hiperparámetros mirando prueba;
+- comparar modelos con particiones distintas sin control;
+- reportar solo entrenamiento;
+- mezclar registros relacionados entre particiones;
+- asumir que más datos siempre compensan una etiqueta deficiente o un cambio de distribución.
+
+::: {.summary-box}
+### Resumen
+
+- Generalizar es rendir bien en datos no usados para ajustar el procedimiento.
+- Entrenamiento ajusta; validación selecciona; prueba estima el resultado final.
+- El equilibrio sesgo-varianza conecta flexibilidad, subajuste y sobreajuste.
+- La validación cruzada mejora el uso de datos, a cambio de más cómputo.
+- El preprocesamiento forma parte del entrenamiento y debe respetar las particiones.
+:::
+
+::: {.related-links}
+## Conceptos relacionados
+
+- [Representación de datos](representacion.qmd)
+- [Árboles de decisión](../supervisado/arboles-decision.qmd)
+- [SVM y máximo margen](../supervisado/svm-margen.qmd)
+- [Kernels y fronteras no lineales](../supervisado/svm-kernels.qmd)
+:::

@@ -1,0 +1,139 @@
+---
+title: "Árboles de decisión"
+description: "Inferencia, construcción recursiva, entropía, ganancia de información y control del sobreajuste."
+---
+
+<div class="concept-section">
+<div class="concept-label">Conceptos clave</div>
+<div class="concept-tags">
+<span class="concept-tag">Árbol</span>
+<span class="concept-tag">Entropía</span>
+<span class="concept-tag">Ganancia de información</span>
+<span class="concept-tag">Poda</span>
+<span class="concept-tag">Sesgo inductivo</span>
+</div>
+</div>
+
+## Modelo e inferencia
+
+Un **árbol de decisión** aprende reglas explícitas a partir de datos supervisados. Puede resolver clasificación y regresión y admite pruebas sobre características binarias, categóricas o numéricas.
+
+En clasificación:
+
+- cada nodo interno aplica una prueba sobre una característica;
+- cada arista representa un resultado posible de la prueba;
+- cada hoja entrega una clase o una distribución de clases.
+
+Para predecir, un ejemplo viaja desde la raíz siguiendo los resultados de las pruebas hasta alcanzar una hoja. El camino completo equivale a una conjunción de condiciones.
+
+::: {.schema-box}
+**Ejemplo:** decidir si realizar una actividad al aire libre.  
+Si `lluvia = sí` $\rightarrow$ no salir.  
+Si `lluvia = no` y `temperatura > 30` $\rightarrow$ no salir.  
+En otro caso $\rightarrow$ salir.
+:::
+
+## Construcción recursiva
+
+Un esquema básico de inducción de árboles es:
+
+1. Si todos los ejemplos del nodo tienen la misma clase, crear una hoja con esa clase.
+2. Si no quedan pruebas útiles, crear una hoja con la clase más frecuente.
+3. En otro caso:
+   1. elegir la mejor prueba;
+   2. crear un nodo interno;
+   3. dividir los ejemplos según el resultado de la prueba;
+   4. repetir el procedimiento en cada subconjunto.
+
+Si una rama no recibe ejemplos, se usa una regla de respaldo, típicamente la clase mayoritaria del conjunto padre. El detalle exacto depende del algoritmo.
+
+## Impureza de un nodo
+
+Para un conjunto $S$ con proporciones de clase $p_1,\ldots,p_K$, la entropía es
+
+$$
+H(S)=-\sum_{k=1}^{K}p_k\log_2 p_k,
+$$
+
+con la convención $0\log_2 0=0$.
+
+- $H(S)=0$ si todos los ejemplos pertenecen a una clase;
+- para $K$ clases, la entropía es máxima cuando $p_k=1/K$ para todas ellas;
+- una entropía alta indica mayor mezcla de clases.
+
+Otra medida habitual es el índice de Gini:
+
+$$
+G(S)=1-\sum_{k=1}^{K}p_k^2.
+$$
+
+Ambas miden impureza, aunque no son idénticas y pueden escoger divisiones distintas.
+
+## Ganancia de información
+
+Sea una prueba $F$ que divide $S$ en subconjuntos $S_v$, uno por cada resultado $v$. La entropía esperada después de dividir es
+
+$$
+H(S\mid F)=
+\sum_{v}\frac{|S_v|}{|S|}H(S_v).
+$$
+
+La ganancia de información es la reducción de entropía:
+
+$$
+IG(S,F)=H(S)-\sum_{v}\frac{|S_v|}{|S|}H(S_v).
+$$
+
+El algoritmo elige la prueba con mayor ganancia entre las candidatas. Este criterio favorece divisiones que dejan subconjuntos más puros. [@mitchell1997; @russell2010]
+
+### Ejemplo breve
+
+Un nodo contiene 8 ejemplos: 4 positivos y 4 negativos, por lo que $H(S)=1$. Una prueba genera:
+
+- $S_a$: 4 positivos y 0 negativos, $H(S_a)=0$;
+- $S_b$: 0 positivos y 4 negativos, $H(S_b)=0$.
+
+Entonces
+
+$$
+IG(S,F)=1-\left(\frac{4}{8}0+\frac{4}{8}0\right)=1.
+$$
+
+La prueba separa perfectamente las clases en ese nodo. Si ambas ramas mantuvieran proporción $1/2$ y $1/2$, la ganancia sería cero.
+
+## Características numéricas
+
+Para una característica numérica puede evaluarse una prueba del tipo $x_j\le t$. Cada umbral candidato crea dos subconjuntos, y se elige el que maximiza el criterio. Los algoritmos prácticos evitan probar infinitos valores: consideran umbrales derivados de los valores observados.
+
+## Sobreajuste y sesgo inductivo
+
+Un árbol sin restricciones puede continuar hasta capturar excepciones o ruido. Aunque cada división reduzca la impureza del entrenamiento, el rendimiento de validación puede empeorar.
+
+Dos familias de control son:
+
+- **pre-poda**: detener el crecimiento usando profundidad máxima, mínimo de ejemplos por nodo o mejora mínima;
+- **post-poda**: construir un árbol mayor y reemplazar subárboles cuando su complejidad no se justifica con datos reservados o un criterio penalizado.
+
+El algoritmo expresa un sesgo hacia árboles que logran separaciones informativas tempranas; preferir árboles más pequeños es una forma adicional de controlar complejidad.
+
+::: {.callout-warning title="Mayor ganancia local no garantiza el árbol globalmente óptimo"}
+La construcción voraz escoge la mejor división en el nodo actual. Una elección localmente óptima puede impedir una estructura global mejor; el procedimiento no explora todos los árboles posibles.
+:::
+
+::: {.summary-box}
+### Resumen
+
+- Un árbol representa una secuencia de pruebas y una predicción en cada hoja.
+- La inducción divide recursivamente los ejemplos.
+- Entropía y Gini cuantifican impureza.
+- La ganancia de información resta la impureza ponderada posterior a la inicial.
+- Poda y restricciones de crecimiento ayudan a controlar sobreajuste.
+:::
+
+::: {.related-links}
+## Conceptos relacionados
+
+- [Generalización y selección de modelos](../datos/generalizacion.qmd)
+- [Representación de datos](../datos/representacion.qmd)
+- [SVM y máximo margen](svm-margen.qmd)
+:::

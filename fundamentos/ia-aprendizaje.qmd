@@ -1,0 +1,90 @@
+---
+title: "Inteligencia artificial y aprendizaje de máquina"
+description: "Programación directa, aprendizaje inductivo y principales formas de aprendizaje."
+---
+
+<div class="concept-section">
+<div class="concept-label">Conceptos clave</div>
+<div class="concept-tags">
+<span class="concept-tag">Inteligencia artificial</span>
+<span class="concept-tag">Aprendizaje inductivo</span>
+<span class="concept-tag">Experiencia</span>
+<span class="concept-tag">Generalización</span>
+<span class="concept-tag">Supervisión</span>
+</div>
+</div>
+
+## IA como campo
+
+La **inteligencia artificial (IA)** estudia sistemas capaces de percibir, razonar, aprender o actuar para resolver tareas. Es un campo amplio: incluye aprendizaje de máquina, razonamiento lógico y probabilístico, visión por computador, procesamiento de lenguaje natural, planificación, recomendación y aprendizaje por refuerzo. Estas áreas se relacionan, pero no son sinónimos.
+
+Una distinción útil separa dos maneras de construir soluciones:
+
+- **programación directa**: una persona formula explícitamente las reglas que transforman entradas en salidas;
+- **aprendizaje**: un algoritmo usa experiencia para seleccionar una regla o función dentro de un conjunto de alternativas.
+
+La programación directa funciona bien cuando las reglas correctas pueden especificarse con precisión. El aprendizaje es especialmente útil cuando existe experiencia representativa y resulta difícil escribir todas las reglas, como en reconocimiento de imágenes o predicción a partir de muchas variables.
+
+::: {.callout-warning title="Aprender no elimina el diseño humano"}
+Al usar aprendizaje de máquina todavía hay que definir la tarea, construir los datos, elegir una representación, una familia de modelos, una pérdida y un procedimiento de evaluación. El algoritmo automatiza parte de la búsqueda; no decide por sí solo qué problema vale la pena resolver.
+:::
+
+## Qué significa aprender
+
+Una formulación operacional describe el aprendizaje mediante tres elementos: una clase de **tareas** $T$, una medida de **rendimiento** $P$ y una fuente de **experiencia** $E$. Un sistema aprende si su rendimiento en $T$, medido por $P$, mejora con $E$. [@mitchell1997]
+
+Por ejemplo, para detectar vehículos:
+
+- $T$: clasificar una imagen como «vehículo» o «no vehículo»;
+- $E$: imágenes etiquetadas usadas para entrenar;
+- $P$: proporción de clasificaciones correctas o una medida que distinga tipos de error.
+
+La idea central es **inductiva**: a partir de casos particulares se construye una regla que debe funcionar en casos nuevos. Que un modelo memorice el entrenamiento no basta; aprender exige [generalizar](../datos/generalizacion.qmd).
+
+## Formas de aprendizaje
+
+### Aprendizaje supervisado
+
+El conjunto de entrenamiento contiene pares $(x_i,y_i)$:
+
+- $x_i$ es la representación del ejemplo;
+- $y_i$ es la etiqueta o salida deseada.
+
+El objetivo es aprender una función $f:x\mapsto y$. Si $y$ pertenece a un conjunto de categorías, hablamos de **clasificación**; si es numérico, de **regresión**. Los [árboles de decisión](../supervisado/arboles-decision.qmd) pueden usarse en ambos casos y las [SVM](../supervisado/svm-margen.qmd) se estudian aquí principalmente como clasificadores.
+
+### Aprendizaje no supervisado
+
+Los datos no incluyen una etiqueta objetivo explícita. Se buscan regularidades de la representación, como grupos o estructuras latentes. Que no haya etiquetas no implica que no existan decisiones de diseño: la representación y el criterio usado para describir estructura siguen introduciendo supuestos.
+
+### Aprendizaje por refuerzo
+
+Un agente actúa, observa las consecuencias y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe descubrir una política que maximice recompensa acumulada. Los datos dejan de ser una tabla fija de ejemplos independientes, porque las acciones alteran la experiencia futura. [@russell2010]
+
+## Especialización y alcance
+
+Los sistemas modernos suelen ser **especializados**: pueden superar ampliamente a una persona en una tarea concreta sin poseer competencia general en otras. El rendimiento depende del problema, los datos, la distribución en que se evalúa y la métrica escogida.
+
+::: {.callout-important title="Tres preguntas antes de elegir un método"}
+1. ¿Qué salida concreta debe producir el sistema?  
+2. ¿Qué experiencia estará disponible durante el aprendizaje?  
+3. ¿Cómo mediremos el rendimiento en casos no vistos?
+:::
+
+::: {.summary-box}
+### Resumen
+
+- IA es un campo más amplio que aprendizaje de máquina.
+- Aprender consiste en mejorar el rendimiento en una tarea mediante experiencia.
+- El aprendizaje inductivo busca generalizar desde casos observados a casos nuevos.
+- Supervisado, no supervisado y por refuerzo difieren en la señal disponible y en la estructura del problema.
+- Datos, representación y métrica forman parte del diseño del sistema.
+:::
+
+::: {.related-links}
+## Conceptos relacionados
+
+- [Anatomía de un sistema de ML](sistema-ml.qmd)
+- [Representación de datos](../datos/representacion.qmd)
+- [Generalización y selección de modelos](../datos/generalizacion.qmd)
+- [Fundamentos de aprendizaje por refuerzo](../refuerzo/fundamentos.qmd)
+:::

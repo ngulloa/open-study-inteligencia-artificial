@@ -1,0 +1,143 @@
+---
+title: "Fundamentos de aprendizaje por refuerzo"
+description: "Agente, entorno, estados, observaciones, acciones, recompensas, MDP, retorno y política."
+---
+
+<div class="concept-section">
+<div class="concept-label">Conceptos clave</div>
+<div class="concept-tags">
+<span class="concept-tag">Agente</span>
+<span class="concept-tag">Estado</span>
+<span class="concept-tag">Recompensa</span>
+<span class="concept-tag">MDP</span>
+<span class="concept-tag">Política</span>
+<span class="concept-tag">Retorno</span>
+</div>
+</div>
+
+## Aprender mediante interacción
+
+El **aprendizaje por refuerzo** estudia agentes que aprenden a tomar decisiones al interactuar con un entorno. En cada paso, el agente recibe información, elige una acción y obtiene una recompensa junto con una nueva situación.
+
+Se diferencia del aprendizaje supervisado en tres aspectos:
+
+- no se entrega una etiqueta con la acción correcta para cada estado;
+- la recompensa puede ser diferida: una acción actual afecta resultados futuros;
+- los datos no son independientes e idénticamente distribuidos, porque la política del agente determina qué experiencias genera.
+
+El objetivo no es maximizar solo la recompensa inmediata, sino el **retorno acumulado**.
+
+## Interacción agente-entorno
+
+En el instante $t$:
+
+1. el entorno se encuentra en un estado $S_t$;
+2. el agente selecciona una acción $A_t$ usando su política;
+3. el entorno transita a $S_{t+1}$;
+4. el agente recibe una recompensa $R(S_t,A_t,S_{t+1})$.
+
+Una política estocástica se escribe
+
+$$
+\pi(a\mid s)=\Pr(A_t=a\mid S_t=s).
+$$
+
+Si el estado no es observable directamente, el agente puede elegir usando una observación $O_t$:
+
+$$
+\pi(a\mid o)=\Pr(A_t=a\mid O_t=o).
+$$
+
+No debe confundirse **estado** con **observación**. El estado reúne la información necesaria para describir la dinámica; la observación es la información que efectivamente recibe el agente.
+
+## Proceso de decisión markoviano
+
+Un proceso de decisión markoviano (MDP) queda definido por:
+
+- $\mathcal S$: conjunto de estados;
+- $\mathcal A$: conjunto de acciones;
+- $p(s'\mid s,a)$: probabilidad de transición;
+- $r(s,a,s')$: recompensa asociada a la transición.
+
+La propiedad de Markov establece que, dados el estado y la acción actuales, el siguiente estado no depende de la historia anterior:
+
+$$
+\Pr(S_{t+1}=s'\mid S_t=s,A_t=a,\text{historia})
+=p(s'\mid s,a).
+$$
+
+Esta propiedad es una condición sobre la representación del estado. Si una variable pasada sigue siendo necesaria para predecir el futuro, la representación elegida no es markoviana.
+
+## Recompensa y retorno
+
+Para un horizonte finito $H$, el retorno descontado desde el inicio es
+
+$$
+G_0=\sum_{t=0}^{H}\gamma^t R(S_t,A_t,S_{t+1}),
+$$
+
+donde $0\le\gamma\le1$ controla la importancia relativa de recompensas futuras. El objetivo es encontrar
+
+$$
+\pi^*=\arg\max_{\pi}
+\mathbb E_{\pi}\!\left[
+\sum_{t=0}^{H}\gamma^t R(S_t,A_t,S_{t+1})
+\right].
+$$
+
+La esperanza incorpora la aleatoriedad de la política y de las transiciones. En problemas de horizonte infinito suele usarse $\gamma<1$ bajo condiciones apropiadas para mantener finito el retorno. [@russell2010]
+
+::: {.callout-warning title="La recompensa define el comportamiento buscado"}
+El agente optimiza la señal especificada, no la intención informal del diseñador. Una recompensa incompleta puede incentivar atajos o conductas no deseadas; su diseño y evaluación son parte del problema.
+:::
+
+## Exploración y explotación
+
+El agente enfrenta una tensión:
+
+- **explotación**: escoger acciones que parecen buenas según la experiencia actual;
+- **exploración**: probar acciones para obtener información que puede mejorar decisiones futuras.
+
+Explotar siempre puede fijar una política prematuramente; explorar siempre impide aprovechar lo aprendido. El equilibrio depende del problema, el horizonte y el costo de experimentar.
+
+## Planificación y aprendizaje
+
+Hay dos escenarios conceptualmente distintos para buscar una política óptima:
+
+| Escenario | Información disponible | Ejemplo de método |
+|---|---|---|
+| Planificación | se conocen $p(s'\mid s,a)$ y $r(s,a,s')$ | iteración de valores |
+| Aprendizaje | el modelo no se conoce y se obtienen transiciones al interactuar | Q-learning |
+
+Ambos persiguen una política de alto retorno, pero parten de información diferente. La planificación calcula usando un modelo conocido; el aprendizaje estima qué hacer a partir de experiencia.
+
+## Ejemplo: inventario
+
+En un problema simplificado:
+
+- estado: nivel actual de inventario;
+- acción: cantidad a comprar;
+- transición: inventario después de demanda y compra;
+- recompensa: ingreso menos costos de compra y almacenamiento;
+- política: regla que asigna una cantidad a cada estado.
+
+Comprar poco puede causar ventas perdidas; comprar demasiado eleva costos. La mejor acción depende de sus consecuencias futuras, no solo del beneficio del paso actual.
+
+::: {.summary-box}
+### Resumen
+
+- Un agente aprende una política mediante interacción con el entorno.
+- Estado y observación no son necesariamente lo mismo.
+- Un MDP especifica estados, acciones, transiciones y recompensas.
+- La política busca maximizar retorno esperado, no solo recompensa inmediata.
+- Exploración y explotación compiten.
+- Con modelo conocido se puede planificar; sin él, se aprende desde transiciones.
+:::
+
+::: {.related-links}
+## Conceptos relacionados
+
+- [IA y aprendizaje de máquina](../fundamentos/ia-aprendizaje.qmd)
+- [Anatomía de un sistema de ML](../fundamentos/sistema-ml.qmd)
+- [Generalización y selección de modelos](../datos/generalizacion.qmd)
+:::

@@ -1,0 +1,166 @@
+---
+title: "Máquinas de vectores de soporte y máximo margen"
+description: "Geometría del clasificador lineal, SVM de margen duro y suave, dualidad y vectores de soporte."
+---
+
+<div class="concept-section">
+<div class="concept-label">Conceptos clave</div>
+<div class="concept-tags">
+<span class="concept-tag">Hiperplano</span>
+<span class="concept-tag">Margen</span>
+<span class="concept-tag">Vector de soporte</span>
+<span class="concept-tag">Variable slack</span>
+<span class="concept-tag">KKT</span>
+</div>
+</div>
+
+## Clasificador lineal
+
+Para etiquetas $y_i\in\{-1,+1\}$, un clasificador lineal predice
+
+$$
+\widehat y=\operatorname{sgn}(w^\top x+b).
+$$
+
+La frontera de decisión es el hiperplano $w^\top x+b=0$. El vector $w$ es perpendicular a la frontera. La distancia de un punto $x$ al hiperplano es
+
+$$
+\frac{|w^\top x+b|}{\|w\|}.
+$$
+
+Si los datos son separables, muchos hiperplanos pueden clasificarlos correctamente. La SVM escoge el que maximiza la distancia a los ejemplos más cercanos.
+
+## Margen funcional y geométrico
+
+Para un ejemplo $(x_i,y_i)$, el valor
+
+$$
+y_i(w^\top x_i+b)
+$$
+
+es positivo si está correctamente clasificado. Como multiplicar $(w,b)$ por una constante no cambia la frontera, fijamos una escala canónica imponiendo
+
+$$
+y_i(w^\top x_i+b)\ge 1.
+$$
+
+Con esta normalización, las fronteras del margen son $w^\top x+b=\pm1$ y su ancho total es $2/\|w\|$.
+
+## SVM de margen duro
+
+Maximizar el margen equivale a resolver
+
+$$
+\begin{aligned}
+\min_{w,b}\quad & \frac{1}{2}\|w\|^2\\
+\text{sujeto a}\quad & y_i(w^\top x_i+b)\ge 1,
+\quad i=1,\ldots,N.
+\end{aligned}
+$$
+
+Este problema exige separabilidad lineal. Su Lagrangiano es
+
+$$
+L(w,b,\alpha)=
+\frac{1}{2}\|w\|^2-
+\sum_{i=1}^{N}\alpha_i\left[y_i(w^\top x_i+b)-1\right],
+\qquad \alpha_i\ge0.
+$$
+
+Al eliminar $w$ y $b$ se obtiene el dual:
+
+$$
+\begin{aligned}
+\max_{\alpha}\quad &
+\sum_{i=1}^{N}\alpha_i-
+\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}
+\alpha_i\alpha_j y_i y_j x_i^\top x_j\\
+\text{sujeto a}\quad &
+\alpha_i\ge0,
+\qquad
+\sum_{i=1}^{N}\alpha_i y_i=0.
+\end{aligned}
+$$
+
+Además,
+
+$$
+w=\sum_{i=1}^{N}\alpha_i y_i x_i.
+$$
+
+La condición de complementariedad KKT es
+
+$$
+\alpha_i\left[y_i(w^\top x_i+b)-1\right]=0.
+$$
+
+Por tanto, solo los ejemplos con $\alpha_i>0$ participan directamente en la solución: son los **vectores de soporte**. En margen duro se ubican sobre las fronteras del margen. [@bishop2006]
+
+## SVM de margen suave
+
+Si las clases se solapan o hay ruido, se introducen variables $\xi_i\ge0$:
+
+$$
+y_i(w^\top x_i+b)\ge1-\xi_i.
+$$
+
+El problema pasa a ser
+
+$$
+\begin{aligned}
+\min_{w,b,\xi}\quad &
+\frac{1}{2}\|w\|^2+C\sum_{i=1}^{N}\xi_i\\
+\text{sujeto a}\quad &
+y_i(w^\top x_i+b)\ge1-\xi_i,
+\qquad \xi_i\ge0.
+\end{aligned}
+$$
+
+Interpretación de $\xi_i$:
+
+- $\xi_i=0$: sobre el margen o en el lado correcto fuera de él;
+- $0<\xi_i\le1$: dentro del margen, pero todavía en el lado correcto;
+- $\xi_i>1$: ejemplo mal clasificado.
+
+El hiperparámetro $C>0$ controla la penalización de las violaciones:
+
+- $C$ grande penaliza con fuerza los errores de entrenamiento y tiende a aceptar un margen menor;
+- $C$ pequeño tolera más violaciones y da mayor peso relativo a un margen amplio.
+
+No existe un $C$ universalmente óptimo; debe elegirse con validación y en conjunto con el preprocesamiento.
+
+## Pérdida bisagra
+
+El margen suave también puede escribirse como un objetivo regularizado con pérdida bisagra:
+
+$$
+\min_{w,b}
+\frac{1}{2}\|w\|^2
++C\sum_{i=1}^{N}
+\max\left(0,1-y_i(w^\top x_i+b)\right).
+$$
+
+La primera parte controla la norma y, por tanto, el margen; la segunda penaliza ejemplos que no alcanzan margen funcional uno.
+
+::: {.callout-warning title="El margen depende de la representación"}
+Cambiar la escala de las características altera productos punto, distancias y la solución. El escalamiento debe ajustarse solo con entrenamiento y validarse dentro del mismo *pipeline*.
+:::
+
+::: {.summary-box}
+### Resumen
+
+- La SVM lineal escoge un hiperplano de máximo margen.
+- El margen duro requiere datos separables.
+- El margen suave usa variables $\xi_i$ y el parámetro $C$.
+- Los vectores con $\alpha_i>0$ determinan la solución.
+- El dual depende de productos punto, lo que abre la puerta a los kernels.
+:::
+
+::: {.related-links}
+## Conceptos relacionados
+
+- [Kernels y fronteras no lineales](svm-kernels.qmd)
+- [SVM multiclase y Exemplar-SVM](svm-multiclase.qmd)
+- [Representación de datos](../datos/representacion.qmd)
+- [Generalización y selección de modelos](../datos/generalizacion.qmd)
+:::
