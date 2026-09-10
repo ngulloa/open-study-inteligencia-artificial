@@ -92,7 +92,7 @@
     "href": "fundamentos/ia-aprendizaje.html",
     "title": "Inteligencia artificial y aprendizaje de máquina",
     "section": "",
-    "text": "Conceptos clave\n\n\nInteligencia artificial Aprendizaje inductivo Experiencia Generalización Supervisión",
+    "text": "Conceptos clave\n\n\nInteligencia artificial Aprendizaje inductivo Aprendizaje de máquina Generalización Supervisión",
     "crumbs": [
       "Fundamentos",
       "IA y aprendizaje de máquina"
@@ -125,7 +125,7 @@
     "href": "fundamentos/ia-aprendizaje.html#formas-de-aprendizaje",
     "title": "Inteligencia artificial y aprendizaje de máquina",
     "section": "Formas de aprendizaje",
-    "text": "Formas de aprendizaje\n\nAprendizaje supervisado\nEl conjunto de entrenamiento contiene pares \\((x_i,y_i)\\):\n\n\\(x_i\\) es la representación del ejemplo;\n\\(y_i\\) es la etiqueta o salida deseada.\n\nEl objetivo es aprender una función \\(f:x\\mapsto y\\). Si \\(y\\) pertenece a un conjunto de categorías, hablamos de clasificación; si es numérico, de regresión. Los árboles de decisión pueden usarse en ambos casos y las SVM se estudian aquí principalmente como clasificadores.\n\n\nAprendizaje no supervisado\nLos datos no incluyen una etiqueta objetivo explícita. Se buscan regularidades de la representación, como grupos o estructuras latentes. Que no haya etiquetas no implica que no existan decisiones de diseño: la representación y el criterio usado para describir estructura siguen introduciendo supuestos.\n\n\nAprendizaje por refuerzo\nUn agente actúa, observa las consecuencias y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe descubrir una política que maximice recompensa acumulada. Los datos dejan de ser una tabla fija de ejemplos independientes, porque las acciones alteran la experiencia futura. (Russell y Norvig 2010)",
+    "text": "Formas de aprendizaje\n\nAprendizaje supervisado\nEl conjunto de entrenamiento contiene pares \\((x_i,y_i)\\):\n\n\\(x_i\\) es la representación del ejemplo;\n\\(y_i\\) es la etiqueta o salida deseada.\n\nEl objetivo es aprender una función \\(f:x\\mapsto y\\). Si \\(y\\) pertenece a un conjunto de categorías, hablamos de clasificación; si es numérico continuo, de regresión (Russell y Norvig 2010, 695-96, 758).\nLos árboles de decisión pueden usarse tanto para clasificación como para regresión (Russell y Norvig 2010, 697-707). En este sitio, las SVM se estudian principalmente como clasificadores.\n\n\nAprendizaje no supervisado\nLos datos no incluyen una etiqueta objetivo explícita. Se buscan regularidades en los datos, por ejemplo grupos o estructuras que permitan describirlos. Que no haya etiquetas no elimina las decisiones de diseño: la representación elegida y el criterio usado para definir qué constituye una estructura relevante siguen introduciendo supuestos (Duda et al. 2001, 17).\n\n\nAprendizaje por refuerzo\nUn agente actúa sobre un entorno, observa las consecuencias de sus acciones y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe aprender una política que produzca una alta recompensa acumulada. La experiencia es secuencial: las acciones del agente modifican el estado del entorno y, con ello, la experiencia que encontrará posteriormente (Mitchell 1997, 367-69).",
     "crumbs": [
       "Fundamentos",
       "IA y aprendizaje de máquina"
@@ -136,7 +136,7 @@
     "href": "fundamentos/ia-aprendizaje.html#especialización-y-alcance",
     "title": "Inteligencia artificial y aprendizaje de máquina",
     "section": "Especialización y alcance",
-    "text": "Especialización y alcance\nLos sistemas modernos suelen ser especializados: pueden superar ampliamente a una persona en una tarea concreta sin poseer competencia general en otras. El rendimiento depende del problema, los datos, la distribución en que se evalúa y la métrica escogida.\n\n\n\n\n\n\nImportanteTres preguntas antes de elegir un método\n\n\n\n\n¿Qué salida concreta debe producir el sistema?\n\n¿Qué experiencia estará disponible durante el aprendizaje?\n\n¿Cómo mediremos el rendimiento en casos no vistos?\n\n\n\n\nResumen\n\nIA es un campo más amplio que aprendizaje de máquina.\nAprender consiste en mejorar el rendimiento en una tarea mediante experiencia.\nEl aprendizaje inductivo busca generalizar desde casos observados a casos nuevos.\nSupervisado, no supervisado y por refuerzo difieren en la señal disponible y en la estructura del problema.\nDatos, representación y métrica forman parte del diseño del sistema.",
+    "text": "Especialización y alcance\nMuchos sistemas de IA son altamente especializados: pueden alcanzar o superar el rendimiento humano en tareas concretas sin adquirir por ello competencia general fuera de ellas (Russell y Norvig 2010, 185, 1046-47).\nUna cifra de rendimiento tampoco es una propiedad absoluta del sistema: depende del criterio de evaluación adoptado y de la población o distribución sobre la que se mide la generalización (Hastie et al. 2009, 219-20).\n\n\n\n\n\n\nImportanteTres preguntas antes de elegir un método\n\n\n\n\n¿Qué salida concreta debe producir el sistema?\n\n¿Qué experiencia estará disponible durante el aprendizaje?\n\n¿Cómo mediremos el rendimiento en casos no vistos?\n\n\n\n\nResumen\n\nIA es un campo más amplio que aprendizaje de máquina.\nAprender consiste en mejorar el rendimiento en una tarea mediante experiencia.\nEl aprendizaje inductivo busca generalizar desde casos observados a casos nuevos.\nSupervisado, no supervisado y por refuerzo difieren en la señal disponible y en la estructura del problema.\nDatos, representación y métrica forman parte del diseño del sistema.",
     "crumbs": [
       "Fundamentos",
       "IA y aprendizaje de máquina"
@@ -806,6 +806,28 @@
     "crumbs": [
       "Datos y generalización",
       "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#qué-es-la-inteligencia-artificial",
+    "href": "fundamentos/ia-aprendizaje.html#qué-es-la-inteligencia-artificial",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "¿Qué es la inteligencia artificial?",
+    "text": "¿Qué es la inteligencia artificial?\nEl término inteligencia artificial (IA) fue definido originalmente por John McCarthy en 1956, en la conferencia de Dartmouth. Propuso un proyecto de inteligencia artificial, en el que se estudiarían maneras de cómo las máquinas pueden realizar tareas que normalmente requieren inteligencia humana; uso de lenguaje, formas de abstracción, resolución de problemas, aprendizaje y adaptación (Russell y Norvig 2010).\nActualmente, la IA es un amplio campo de estudio que incluye muchas técnicas y enfoques para desarrollar sistemas capaces de percibir su entorno, procesar información y seleccionar acciones que les permitan alcanzar objetivos de manera racional. Actualmente, una de las principales formas de construir estos sistemas es a través del aprendizaje de máquina.",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#qué-es-el-aprendizaje-de-máquina",
+    "href": "fundamentos/ia-aprendizaje.html#qué-es-el-aprendizaje-de-máquina",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "¿Qué es el aprendizaje de máquina?",
+    "text": "¿Qué es el aprendizaje de máquina?\nEl término aprendizaje de máquina fue utilizado por primera vez por Arthur Samuel en 1959, quien describió en un artículo un computador puede ser programado de manera que aprenda a jugar damas mejor que la persona por la que fue programado (Samuel 1959).\nPosteriormente, en 1997, Tom Mitchell propuso una definición formal: Se dice que un programa de computador aprende de la experiencia \\(E\\) con respecto a alguna clase de tareas \\(T\\) y una medida de desempeño \\(P\\), si su desempeño en las tareas de \\(T\\), medido mediante \\(P\\), mejora con la experiencia \\(E\\) (Mitchell 1997).\nPor ejemplo, para detectar vehículos:\n\n\\(T\\): clasificar una imagen como «vehículo» o «no vehículo»;\n\\(E\\): imágenes etiquetadas usadas para entrenar;\n\\(P\\): proporción de clasificaciones correctas o una medida que distinga tipos de error.\n\nLa idea central es inductiva: a partir de casos particulares se construye un modelo que debe funcionar en casos nuevos. En este sentido, se busca que un modelo aprenda a generalizar.",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
     ]
   }
 ]

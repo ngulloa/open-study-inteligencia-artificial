@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Programación directa, aprendizaje inductivo y principales formas de aprendizaje.">
 
 <title>Inteligencia artificial y aprendizaje de máquina – Inteligencia Artificial I</title>
 <style>
@@ -67,7 +66,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ff917fd57043e107f0e930b6345393de.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-25591d7fb713da620d4918298aefbfaa.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -282,8 +281,8 @@ window.Quarto = {
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#ia-como-campo" id="toc-ia-como-campo" class="nav-link active" data-scroll-target="#ia-como-campo">IA como campo</a></li>
-  <li><a href="#qué-significa-aprender" id="toc-qué-significa-aprender" class="nav-link" data-scroll-target="#qué-significa-aprender">Qué significa aprender</a></li>
+  <li><a href="#qué-es-la-inteligencia-artificial" id="toc-qué-es-la-inteligencia-artificial" class="nav-link active" data-scroll-target="#qué-es-la-inteligencia-artificial">¿Qué es la inteligencia artificial?</a></li>
+  <li><a href="#qué-es-el-aprendizaje-de-máquina" id="toc-qué-es-el-aprendizaje-de-máquina" class="nav-link" data-scroll-target="#qué-es-el-aprendizaje-de-máquina">¿Qué es el aprendizaje de máquina?</a></li>
   <li><a href="#formas-de-aprendizaje" id="toc-formas-de-aprendizaje" class="nav-link" data-scroll-target="#formas-de-aprendizaje">Formas de aprendizaje</a>
   <ul class="collapse">
   <li><a href="#aprendizaje-supervisado" id="toc-aprendizaje-supervisado" class="nav-link" data-scroll-target="#aprendizaje-supervisado">Aprendizaje supervisado</a></li>
@@ -306,11 +305,6 @@ window.Quarto = {
 <h1 class="title">Inteligencia artificial y aprendizaje de máquina</h1>
 </div>
 
-<div>
-  <div class="description">
-    Programación directa, aprendizaje inductivo y principales formas de aprendizaje.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -330,42 +324,25 @@ window.Quarto = {
 Conceptos clave
 </div>
 <div class="concept-tags">
-<p><span class="concept-tag">Inteligencia artificial</span> <span class="concept-tag">Aprendizaje inductivo</span> <span class="concept-tag">Experiencia</span> <span class="concept-tag">Generalización</span> <span class="concept-tag">Supervisión</span></p>
+<p><span class="concept-tag">Inteligencia artificial</span> <span class="concept-tag">Aprendizaje inductivo</span> <span class="concept-tag">Aprendizaje de máquina</span> <span class="concept-tag">Generalización</span> <span class="concept-tag">Supervisión</span></p>
 </div>
 </div>
-<section id="ia-como-campo" class="level2">
-<h2 class="anchored" data-anchor-id="ia-como-campo">IA como campo</h2>
-<p>La <strong>inteligencia artificial (IA)</strong> estudia sistemas capaces de percibir, razonar, aprender o actuar para resolver tareas. Es un campo amplio: incluye aprendizaje de máquina, razonamiento lógico y probabilístico, visión por computador, procesamiento de lenguaje natural, planificación, recomendación y aprendizaje por refuerzo. Estas áreas se relacionan, pero no son sinónimos.</p>
-<p>Una distinción útil separa dos maneras de construir soluciones:</p>
-<ul>
-<li><strong>programación directa</strong>: una persona formula explícitamente las reglas que transforman entradas en salidas;</li>
-<li><strong>aprendizaje</strong>: un algoritmo usa experiencia para seleccionar una regla o función dentro de un conjunto de alternativas.</li>
-</ul>
-<p>La programación directa funciona bien cuando las reglas correctas pueden especificarse con precisión. El aprendizaje es especialmente útil cuando existe experiencia representativa y resulta difícil escribir todas las reglas, como en reconocimiento de imágenes o predicción a partir de muchas variables.</p>
-<div class="callout callout-style-default callout-warning callout-titled" title="Aprender no elimina el diseño humano">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Advertencia</span>Aprender no elimina el diseño humano
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Al usar aprendizaje de máquina todavía hay que definir la tarea, construir los datos, elegir una representación, una familia de modelos, una pérdida y un procedimiento de evaluación. El algoritmo automatiza parte de la búsqueda; no decide por sí solo qué problema vale la pena resolver.</p>
-</div>
-</div>
+<section id="qué-es-la-inteligencia-artificial" class="level2">
+<h2 class="anchored" data-anchor-id="qué-es-la-inteligencia-artificial">¿Qué es la inteligencia artificial?</h2>
+<p>El término <strong>inteligencia artificial (IA)</strong> fue definido originalmente por John McCarthy en 1956, en la conferencia de Dartmouth. Propuso un proyecto de <em>inteligencia artificial</em>, en el que se estudiarían maneras de cómo las máquinas pueden realizar tareas que normalmente requieren inteligencia humana; uso de lenguaje, formas de abstracción, resolución de problemas, aprendizaje y adaptación <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010</a>)</span>.</p>
+<p>Actualmente, la IA es un amplio campo de estudio que incluye muchas técnicas y enfoques para desarrollar sistemas capaces de percibir su entorno, procesar información y seleccionar acciones que les permitan alcanzar objetivos de manera racional. Actualmente, una de las principales formas de construir estos sistemas es a través del <em>aprendizaje de máquina</em>.</p>
 </section>
-<section id="qué-significa-aprender" class="level2">
-<h2 class="anchored" data-anchor-id="qué-significa-aprender">Qué significa aprender</h2>
-<p>Una formulación operacional describe el aprendizaje mediante tres elementos: una clase de <strong>tareas</strong> <span class="math inline">\(T\)</span>, una medida de <strong>rendimiento</strong> <span class="math inline">\(P\)</span> y una fuente de <strong>experiencia</strong> <span class="math inline">\(E\)</span>. Un sistema aprende si su rendimiento en <span class="math inline">\(T\)</span>, medido por <span class="math inline">\(P\)</span>, mejora con <span class="math inline">\(E\)</span>. <span class="citation" data-cites="mitchell1997">(<a href="#ref-mitchell1997" role="doc-biblioref">Mitchell 1997</a>)</span></p>
+<section id="qué-es-el-aprendizaje-de-máquina" class="level2">
+<h2 class="anchored" data-anchor-id="qué-es-el-aprendizaje-de-máquina">¿Qué es el aprendizaje de máquina?</h2>
+<p>El término aprendizaje de máquina fue utilizado por primera vez por Arthur Samuel en 1959, quien describió en un artículo <em>un computador puede ser programado de manera que aprenda a jugar damas mejor que la persona por la que fue programado</em> <span class="citation" data-cites="samuel1959">(<a href="#ref-samuel1959" role="doc-biblioref">Samuel 1959</a>)</span>.</p>
+<p>Posteriormente, en 1997, Tom Mitchell propuso una definición formal: <em>Se dice que un programa de computador aprende de la experiencia <span class="math inline">\(E\)</span> con respecto a alguna clase de tareas <span class="math inline">\(T\)</span> y una medida de desempeño <span class="math inline">\(P\)</span>, si su desempeño en las tareas de <span class="math inline">\(T\)</span>, medido mediante <span class="math inline">\(P\)</span>, mejora con la experiencia <span class="math inline">\(E\)</span></em> <span class="citation" data-cites="mitchell1997">(<a href="#ref-mitchell1997" role="doc-biblioref">Mitchell 1997</a>)</span>.</p>
 <p>Por ejemplo, para detectar vehículos:</p>
 <ul>
 <li><span class="math inline">\(T\)</span>: clasificar una imagen como «vehículo» o «no vehículo»;</li>
 <li><span class="math inline">\(E\)</span>: imágenes etiquetadas usadas para entrenar;</li>
 <li><span class="math inline">\(P\)</span>: proporción de clasificaciones correctas o una medida que distinga tipos de error.</li>
 </ul>
-<p>La idea central es <strong>inductiva</strong>: a partir de casos particulares se construye una regla que debe funcionar en casos nuevos. Que un modelo memorice el entrenamiento no basta; aprender exige <a href="../datos/generalizacion.html">generalizar</a>.</p>
+<p>La idea central es <strong>inductiva</strong>: a partir de casos particulares se construye un modelo que debe funcionar en casos nuevos. En este sentido, se busca que un modelo <em>aprenda</em> a <a href="../datos/generalizacion.html">generalizar</a>.</p>
 </section>
 <section id="formas-de-aprendizaje" class="level2">
 <h2 class="anchored" data-anchor-id="formas-de-aprendizaje">Formas de aprendizaje</h2>
@@ -376,20 +353,22 @@ Conceptos clave
 <li><span class="math inline">\(x_i\)</span> es la representación del ejemplo;</li>
 <li><span class="math inline">\(y_i\)</span> es la etiqueta o salida deseada.</li>
 </ul>
-<p>El objetivo es aprender una función <span class="math inline">\(f:x\mapsto y\)</span>. Si <span class="math inline">\(y\)</span> pertenece a un conjunto de categorías, hablamos de <strong>clasificación</strong>; si es numérico, de <strong>regresión</strong>. Los <a href="../supervisado/arboles-decision.html">árboles de decisión</a> pueden usarse en ambos casos y las <a href="../supervisado/svm-margen.html">SVM</a> se estudian aquí principalmente como clasificadores.</p>
+<p>El objetivo es aprender una función <span class="math inline">\(f:x\mapsto y\)</span>. Si <span class="math inline">\(y\)</span> pertenece a un conjunto de categorías, hablamos de <strong>clasificación</strong>; si es numérico continuo, de <strong>regresión</strong> <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010, 695-96, 758</a>)</span>.</p>
+<p>Los <a href="supervisado/arboles-decision.qmd">árboles de decisión</a> pueden usarse tanto para clasificación como para regresión <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010, 697-707</a>)</span>. En este sitio, las <a href="supervisado/svm-margen.qmd">SVM</a> se estudian principalmente como clasificadores.</p>
 </section>
 <section id="aprendizaje-no-supervisado" class="level3">
 <h3 class="anchored" data-anchor-id="aprendizaje-no-supervisado">Aprendizaje no supervisado</h3>
-<p>Los datos no incluyen una etiqueta objetivo explícita. Se buscan regularidades de la representación, como grupos o estructuras latentes. Que no haya etiquetas no implica que no existan decisiones de diseño: la representación y el criterio usado para describir estructura siguen introduciendo supuestos.</p>
+<p>Los datos no incluyen una etiqueta objetivo explícita. Se buscan regularidades en los datos, por ejemplo grupos o estructuras que permitan describirlos. Que no haya etiquetas no elimina las decisiones de diseño: la representación elegida y el criterio usado para definir qué constituye una estructura relevante siguen introduciendo supuestos <span class="citation" data-cites="duda2001">(<a href="#ref-duda2001" role="doc-biblioref">Duda et&nbsp;al. 2001, 17</a>)</span>.</p>
 </section>
 <section id="aprendizaje-por-refuerzo" class="level3">
 <h3 class="anchored" data-anchor-id="aprendizaje-por-refuerzo">Aprendizaje por refuerzo</h3>
-<p>Un agente actúa, observa las consecuencias y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe descubrir una política que maximice recompensa acumulada. Los datos dejan de ser una tabla fija de ejemplos independientes, porque las acciones alteran la experiencia futura. <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010</a>)</span></p>
+<p>Un agente actúa sobre un entorno, observa las consecuencias de sus acciones y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe aprender una política que produzca una alta recompensa acumulada. La experiencia es secuencial: las acciones del agente modifican el estado del entorno y, con ello, la experiencia que encontrará posteriormente <span class="citation" data-cites="mitchell1997">(<a href="#ref-mitchell1997" role="doc-biblioref">Mitchell 1997, 367-69</a>)</span>.</p>
 </section>
 </section>
 <section id="especialización-y-alcance" class="level2">
 <h2 class="anchored" data-anchor-id="especialización-y-alcance">Especialización y alcance</h2>
-<p>Los sistemas modernos suelen ser <strong>especializados</strong>: pueden superar ampliamente a una persona en una tarea concreta sin poseer competencia general en otras. El rendimiento depende del problema, los datos, la distribución en que se evalúa y la métrica escogida.</p>
+<p>Muchos sistemas de IA son altamente <strong>especializados</strong>: pueden alcanzar o superar el rendimiento humano en tareas concretas sin adquirir por ello competencia general fuera de ellas <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010, 185, 1046-47</a>)</span>.</p>
+<p>Una cifra de rendimiento tampoco es una propiedad absoluta del sistema: depende del criterio de evaluación adoptado y de la población o distribución sobre la que se mide la generalización <span class="citation" data-cites="hastie2009">(<a href="#ref-hastie2009" role="doc-biblioref">Hastie et&nbsp;al. 2009, 219-20</a>)</span>.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="Tres preguntas antes de elegir un método">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -434,11 +413,20 @@ Conceptos clave
 
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-duda2001" class="csl-entry" role="listitem">
+Duda, Richard O., Peter E. Hart, y David G. Stork. 2001. <em>Pattern Classification</em>. 2.ª ed. Wiley.
+</div>
+<div id="ref-hastie2009" class="csl-entry" role="listitem">
+Hastie, Trevor, Robert Tibshirani, y Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. 2.ª ed. Springer.
+</div>
 <div id="ref-mitchell1997" class="csl-entry" role="listitem">
 Mitchell, Tom M. 1997. <em>Machine Learning</em>. McGraw-Hill.
 </div>
 <div id="ref-russell2010" class="csl-entry" role="listitem">
 Russell, Stuart J., y Peter Norvig. 2010. <em>Artificial Intelligence: A Modern Approach</em>. 3.ª ed. Prentice Hall.
+</div>
+<div id="ref-samuel1959" class="csl-entry" role="listitem">
+Samuel, Arthur L. 1959. <span>«Some Studies in Machine Learning Using the Game of Checkers»</span>. <em>IBM Journal of Research and Development</em> 3 (3): 210-29. <a href="https://doi.org/10.1147/rd.33.0210">https://doi.org/10.1147/rd.33.0210</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
