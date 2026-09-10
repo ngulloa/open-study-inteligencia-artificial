@@ -171,56 +171,50 @@ code:not(pre code) { padding: .1em .3em; border-radius: .25rem; overflow-wrap: a
 .quarto-figure, img, svg { max-width: 100%; height: auto; }
 
 /* Bibliografía generada por Quarto/Pandoc */
-/*
- * Quarto puede envolver la bibliografía en un section#references.
- * El wrapper se mantiene transparente para evitar una segunda caja detrás
- * de la tarjeta formada por el título y la lista de referencias.
- */
-#quarto-content section#references {
+#quarto-appendix.default {
   margin: 1.4rem 0;
   padding: 0;
   background: transparent;
   border: 0;
-  border-radius: 0;
   box-shadow: none;
 }
 
-h2#references,
-section#references > h2 {
+#quarto-bibliography.quarto-appendix-contents {
+  width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
-  padding: 1.15rem 1.35rem .55rem;
+
+  margin: 0;
+  padding: 1.15rem 1.35rem;
 
   background: #f7f9fc;
   border: 1px solid var(--db-border);
-  border-bottom: 0;
-  border-radius: var(--db-radius) var(--db-radius) 0 0;
-  box-shadow: 0 -2px 5px rgb(24 43 73 / 4%);
+  border-radius: var(--db-radius);
+  box-shadow: var(--db-shadow-sm);
+}
+
+#quarto-bibliography > h2#references {
+  margin: 0 0 1.1rem;
+  padding: 0 0 .65rem;
+
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--db-border);
+  border-radius: 0;
+  box-shadow: none;
 
   font-size: 1.18rem;
 }
 
-h2#references {
-  margin: 1.4rem 0 0;
-}
-
-section#references > h2 {
-  margin: 0;
-}
-
-#refs {
+#quarto-bibliography > #refs {
   box-sizing: border-box;
-  margin: 0 0 1.4rem;
-  padding: .2rem 1.35rem 1.15rem;
+  margin: 0;
+  padding: 0;
 
-  background: #f7f9fc;
-  border: 1px solid var(--db-border);
-  border-top: 0;
-  border-radius: 0 0 var(--db-radius) var(--db-radius);
-  box-shadow: 0 5px 14px rgb(24 43 73 / 4%);
-}
-
-section#references > #refs {
-  margin-bottom: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 #refs .csl-entry {
@@ -230,11 +224,4 @@ section#references > #refs {
 
 #refs .csl-entry + .csl-entry {
   margin-top: 1rem;
-}
-
-
-#quarto-bibliography.quarto-appendix-contents {
-  background: transparent;
-  border: 0;
-  box-shadow: none;
 }

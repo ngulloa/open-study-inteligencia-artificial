@@ -33,8 +33,8 @@
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-actions .btn { width: 100%; }
   .schema-box, .summary-box { padding: 1rem; }
-  h2#references { padding: 1rem 1rem .5rem; }
-  #refs { padding: .15rem 1rem 1rem; }
+  #quarto-bibliography.quarto-appendix-contents { padding: 1rem; }
+  #refs .csl-entry + .csl-entry { margin-top: .85rem; }
   .page-navigation { gap: .75rem; flex-wrap: wrap; }
   .page-navigation .nav-page { flex: 1 1 100%; max-width: 100%; }
 }
@@ -49,7 +49,7 @@
 @media print {
   body, #quarto-content > main { background: white; }
   #quarto-content > main { box-shadow: none; padding: 0; margin: 0; }
-  .hero-db, .hero-ai, .topic-card, .summary-box, h2#references, #refs, div.callout, div.sourceCode { box-shadow: none; break-inside: avoid; }
+  .hero-db, .hero-ai, .topic-card, .summary-box, #quarto-bibliography, div.callout, div.sourceCode { box-shadow: none; break-inside: avoid; }
   .hero-actions { display: none; }
   table.table, .table-responsive, .math.display, mjx-container[display="true"] { overflow: visible; }
 }

@@ -35,4 +35,6 @@ h2 { font-size: 1.55rem; margin-top: 2.5rem; padding-bottom: .5rem; border-color
 h3 { font-size: 1.18rem; margin-top: 1.75rem; line-height: 1.4; }
 main p, main li, main h1, main h2, main h3 { overflow-wrap: anywhere; }
 main li + li { margin-top: .3rem; }
+main em { color: var(--db-emphasis); }
+#quarto-bibliography em { color: inherit; }
 .lead, .quarto-title .subtitle { color: var(--db-text-secondary); }

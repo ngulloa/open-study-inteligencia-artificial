@@ -43,6 +43,7 @@ $sidebar-hl: $db-primary-hover;
 $code-color: #274e87;
 $code-bg: #eef2f8;
 $code-block-bg: #f7f9fc;
+$emphasis-orange: #b54708;
 $table-border-color: $border-color;
 $table-hover-bg: $db-primary-light;
 $callout-color-note: $primary;
@@ -66,4 +67,5 @@ $callout-color-caution: $warning;
   --db-success: #{$success};
   --db-warning: #{$warning};
   --db-danger: #{$danger};
+  --db-emphasis: #{$emphasis-orange};
 }
