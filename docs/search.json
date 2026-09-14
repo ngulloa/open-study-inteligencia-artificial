@@ -1,159 +1,5 @@
 [
   {
-    "objectID": "datos/generalizacion.html",
-    "href": "datos/generalizacion.html",
-    "title": "Generalización y selección de modelos",
-    "section": "",
-    "text": "Conceptos clave\n\n\nGeneralización Holdout Sesgo-varianza Overfitting Cross-validation",
-    "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
-    ]
-  },
-  {
-    "objectID": "datos/generalizacion.html#rendimiento-más-allá-del-entrenamiento",
-    "href": "datos/generalizacion.html#rendimiento-más-allá-del-entrenamiento",
-    "title": "Generalización y selección de modelos",
-    "section": "Rendimiento más allá del entrenamiento",
-    "text": "Rendimiento más allá del entrenamiento\nLa generalización es la capacidad de mantener buen rendimiento sobre datos nuevos procedentes de la situación de interés. El error de entrenamiento mide ajuste a ejemplos usados por el algoritmo; no es una estimación independiente del error futuro.\nEl método holdout separa datos disjuntos:\n\n\n\n\n\n\n\nConjunto\nFunción\n\n\n\n\nEntrenamiento\najustar parámetros del modelo\n\n\nValidación\nescoger hiperparámetros, representación o complejidad\n\n\nPrueba (test)\nestimar una sola vez el rendimiento del procedimiento ya escogido\n\n\n\nSi se consulta repetidamente el conjunto de prueba para tomar decisiones, deja de actuar como prueba independiente y se transforma, en la práctica, en otra fuente de validación.",
-    "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
-    ]
-  },
-  {
-    "objectID": "datos/generalizacion.html#sesgo-varianza-y-ruido",
-    "href": "datos/generalizacion.html#sesgo-varianza-y-ruido",
-    "title": "Generalización y selección de modelos",
-    "section": "Sesgo, varianza y ruido",
-    "text": "Sesgo, varianza y ruido\nEn regresión, supongamos\n\\[\nY=f(x)+\\varepsilon,\n\\qquad\n\\mathbb E[\\varepsilon]=0,\n\\qquad\n\\operatorname{Var}(\\varepsilon)=\\sigma^2.\n\\]\nSi \\(\\widehat f(x)\\) cambia según la muestra de entrenamiento, el error cuadrático esperado en un punto puede descomponerse como\n\\[\n\\mathbb E\\!\\left[(Y-\\widehat f(x))^2\\right]\n=\n\\underbrace{\\left(f(x)-\\mathbb E[\\widehat f(x)]\\right)^2}_{\\text{sesgo}^2}\n+\n\\underbrace{\\mathbb E\\!\\left[(\\widehat f(x)-\\mathbb E[\\widehat f(x)])^2\\right]}_{\\text{varianza}}\n+\n\\underbrace{\\sigma^2}_{\\text{error irreducible}}.\n\\]\n\nalto sesgo: el procedimiento es sistemáticamente poco flexible para el patrón relevante;\nalta varianza: pequeñas variaciones en los datos producen modelos muy distintos;\nerror irreducible: variabilidad que no puede eliminarse con la información disponible.\n\nEsta descomposición exacta corresponde a pérdida cuadrática y a los supuestos indicados. En clasificación, «sesgo-varianza» sigue siendo una intuición útil, pero no debe trasladarse mecánicamente como la misma identidad.",
-    "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
-    ]
-  },
-  {
-    "objectID": "datos/generalizacion.html#subajuste-y-sobreajuste",
-    "href": "datos/generalizacion.html#subajuste-y-sobreajuste",
-    "title": "Generalización y selección de modelos",
-    "section": "Subajuste y sobreajuste",
-    "text": "Subajuste y sobreajuste\nEl subajuste (underfitting) ocurre cuando el modelo no captura patrones relevantes: suelen ser altos tanto el error de entrenamiento como el de validación.\nEl sobreajuste (overfitting) ocurre cuando el modelo captura particularidades o ruido del entrenamiento que no se sostienen fuera de esa muestra. El error de entrenamiento puede seguir bajando mientras el error de validación empeora.\n\n\n\n\n\n\nAdvertenciaComplejidad no es solo número de parámetros\n\n\n\nProfundidad de un árbol, intensidad de regularización, elección del kernel y escala de sus parámetros son formas diferentes de controlar flexibilidad. La complejidad relevante depende de la familia de modelos y del procedimiento completo.",
-    "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
-    ]
-  },
-  {
-    "objectID": "datos/generalizacion.html#selección-mediante-validación",
-    "href": "datos/generalizacion.html#selección-mediante-validación",
-    "title": "Generalización y selección de modelos",
-    "section": "Selección mediante validación",
-    "text": "Selección mediante validación\nUn flujo correcto es:\n\nDefinir candidatos e hiperparámetros antes de mirar prueba.\nAjustar cada candidato con entrenamiento.\nCompararlos con la misma métrica en validación.\nElegir una configuración.\nCuando corresponda, reajustar con los datos destinados al desarrollo.\nEvaluar una vez en prueba.\n\nLa selección por validación busca equilibrar ajuste y capacidad de generalización. Russell y Norvig presentan la validación cruzada como una herramienta para comparar complejidad y bondad de ajuste; la regularización incorpora esa preferencia dentro del objetivo. (Russell y Norvig 2010)",
-    "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
-    ]
-  },
-  {
-    "objectID": "datos/generalizacion.html#validación-cruzada",
-    "href": "datos/generalizacion.html#validación-cruzada",
-    "title": "Generalización y selección de modelos",
-    "section": "Validación cruzada",
-    "text": "Validación cruzada\nEn validación cruzada de \\(K\\) particiones, el conjunto de desarrollo se divide en \\(K\\) bloques. Cada bloque actúa una vez como validación y los demás como entrenamiento. Si \\(M_k\\) es la métrica del bloque \\(k\\):\n\\[\n\\overline M_{CV}=\\frac{1}{K}\\sum_{k=1}^{K}M_k.\n\\]\nEsto reutiliza mejor datos limitados y muestra variabilidad entre particiones, pero requiere entrenar varias veces y no corrige por sí solo datos no representativos.",
-    "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
-    ]
-  },
-  {
-    "objectID": "datos/generalizacion.html#errores-frecuentes",
-    "href": "datos/generalizacion.html#errores-frecuentes",
-    "title": "Generalización y selección de modelos",
-    "section": "Errores frecuentes",
-    "text": "Errores frecuentes\n\npreprocesar antes de dividir los datos;\najustar hiperparámetros mirando prueba;\ncomparar modelos con particiones distintas sin control;\nreportar solo entrenamiento;\nmezclar registros relacionados entre particiones;\nasumir que más datos siempre compensan una etiqueta deficiente o un cambio de distribución.\n\n\nResumen\n\nGeneralizar es rendir bien en datos no usados para ajustar el procedimiento.\nEntrenamiento ajusta; validación selecciona; prueba estima el resultado final.\nEl equilibrio sesgo-varianza conecta flexibilidad, subajuste y sobreajuste.\nLa validación cruzada mejora el uso de datos, a cambio de más cómputo.\nEl preprocesamiento forma parte del entrenamiento y debe respetar las particiones.",
-    "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
-    ]
-  },
-  {
-    "objectID": "datos/generalizacion.html#conceptos-relacionados",
-    "href": "datos/generalizacion.html#conceptos-relacionados",
-    "title": "Generalización y selección de modelos",
-    "section": "Conceptos relacionados",
-    "text": "Conceptos relacionados\n\nRepresentación de datos\nÁrboles de decisión\nSVM y máximo margen\nKernels y fronteras no lineales",
-    "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
-    ]
-  },
-  {
-    "objectID": "fundamentos/ia-aprendizaje.html",
-    "href": "fundamentos/ia-aprendizaje.html",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "",
-    "text": "Conceptos clave\n\n\nInteligencia artificial Aprendizaje inductivo Aprendizaje de máquina Generalización Supervisión",
-    "crumbs": [
-      "Fundamentos",
-      "IA y aprendizaje de máquina"
-    ]
-  },
-  {
-    "objectID": "fundamentos/ia-aprendizaje.html#ia-como-campo",
-    "href": "fundamentos/ia-aprendizaje.html#ia-como-campo",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "IA como campo",
-    "text": "IA como campo\nLa inteligencia artificial (IA) estudia sistemas capaces de percibir, razonar, aprender o actuar para resolver tareas. Es un campo amplio: incluye aprendizaje de máquina, razonamiento lógico y probabilístico, visión por computador, procesamiento de lenguaje natural, planificación, recomendación y aprendizaje por refuerzo. Estas áreas se relacionan, pero no son sinónimos.\nUna distinción útil separa dos maneras de construir soluciones:\n\nprogramación directa: una persona formula explícitamente las reglas que transforman entradas en salidas;\naprendizaje: un algoritmo usa experiencia para seleccionar una regla o función dentro de un conjunto de alternativas.\n\nLa programación directa funciona bien cuando las reglas correctas pueden especificarse con precisión. El aprendizaje es especialmente útil cuando existe experiencia representativa y resulta difícil escribir todas las reglas, como en reconocimiento de imágenes o predicción a partir de muchas variables.\n\n\n\n\n\n\nAdvertenciaAprender no elimina el diseño humano\n\n\n\nAl usar aprendizaje de máquina todavía hay que definir la tarea, construir los datos, elegir una representación, una familia de modelos, una pérdida y un procedimiento de evaluación. El algoritmo automatiza parte de la búsqueda; no decide por sí solo qué problema vale la pena resolver.",
-    "crumbs": [
-      "Fundamentos",
-      "IA y aprendizaje de máquina"
-    ]
-  },
-  {
-    "objectID": "fundamentos/ia-aprendizaje.html#qué-significa-aprender",
-    "href": "fundamentos/ia-aprendizaje.html#qué-significa-aprender",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "Qué significa aprender",
-    "text": "Qué significa aprender\nUna formulación operacional describe el aprendizaje mediante tres elementos: una clase de tareas \\(T\\), una medida de rendimiento \\(P\\) y una fuente de experiencia \\(E\\). Un sistema aprende si su rendimiento en \\(T\\), medido por \\(P\\), mejora con \\(E\\). (Mitchell 1997)\nPor ejemplo, para detectar vehículos:\n\n\\(T\\): clasificar una imagen como «vehículo» o «no vehículo»;\n\\(E\\): imágenes etiquetadas usadas para entrenar;\n\\(P\\): proporción de clasificaciones correctas o una medida que distinga tipos de error.\n\nLa idea central es inductiva: a partir de casos particulares se construye una regla que debe funcionar en casos nuevos. Que un modelo memorice el entrenamiento no basta; aprender exige generalizar.",
-    "crumbs": [
-      "Fundamentos",
-      "IA y aprendizaje de máquina"
-    ]
-  },
-  {
-    "objectID": "fundamentos/ia-aprendizaje.html#formas-de-aprendizaje",
-    "href": "fundamentos/ia-aprendizaje.html#formas-de-aprendizaje",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "Formas de aprendizaje",
-    "text": "Formas de aprendizaje\n\nAprendizaje supervisado\nEl conjunto de entrenamiento contiene pares \\((x_i,y_i)\\):\n\n\\(x_i\\) es la representación del ejemplo;\n\\(y_i\\) es la etiqueta o salida deseada.\n\nEl objetivo es aprender una función \\(f:x\\mapsto y\\). Si \\(y\\) pertenece a un conjunto de categorías, hablamos de clasificación; si es numérico continuo, de regresión (Russell y Norvig 2010, 695-96, 758).\nLos árboles de decisión pueden usarse tanto para clasificación como para regresión (Russell y Norvig 2010, 697-707). En este sitio, las SVM se estudian principalmente como clasificadores.\n\n\nAprendizaje no supervisado\nLos datos no incluyen una etiqueta objetivo explícita. Se buscan regularidades en los datos, por ejemplo grupos o estructuras que permitan describirlos. Que no haya etiquetas no elimina las decisiones de diseño: la representación elegida y el criterio usado para definir qué constituye una estructura relevante siguen introduciendo supuestos (Duda et al. 2001, 17).\n\n\nAprendizaje por refuerzo\nUn agente actúa sobre un entorno, observa las consecuencias de sus acciones y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe aprender una política que produzca una alta recompensa acumulada. La experiencia es secuencial: las acciones del agente modifican el estado del entorno y, con ello, la experiencia que encontrará posteriormente (Mitchell 1997, 367-69).",
-    "crumbs": [
-      "Fundamentos",
-      "IA y aprendizaje de máquina"
-    ]
-  },
-  {
-    "objectID": "fundamentos/ia-aprendizaje.html#especialización-y-alcance",
-    "href": "fundamentos/ia-aprendizaje.html#especialización-y-alcance",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "Especialización y alcance",
-    "text": "Especialización y alcance\nMuchos sistemas de IA son altamente especializados: pueden alcanzar o superar el rendimiento humano en tareas concretas sin adquirir por ello competencia general fuera de ellas (Russell y Norvig 2010, 185, 1046-47).\nUna cifra de rendimiento tampoco es una propiedad absoluta del sistema: depende del criterio de evaluación adoptado y de la población o distribución sobre la que se mide la generalización (Hastie et al. 2009, 219-20).\n\n\n\n\n\n\nImportanteTres preguntas antes de elegir un método\n\n\n\n\n¿Qué salida concreta debe producir el sistema?\n\n¿Qué experiencia estará disponible durante el aprendizaje?\n\n¿Cómo mediremos el rendimiento en casos no vistos?\n\n\n\n\nResumen\n\nIA es un campo más amplio que aprendizaje de máquina.\nAprender consiste en mejorar el rendimiento en una tarea mediante experiencia.\nEl aprendizaje inductivo busca generalizar desde casos observados a casos nuevos.\nSupervisado, no supervisado y por refuerzo difieren en la señal disponible y en la estructura del problema.\nDatos, representación y métrica forman parte del diseño del sistema.",
-    "crumbs": [
-      "Fundamentos",
-      "IA y aprendizaje de máquina"
-    ]
-  },
-  {
-    "objectID": "fundamentos/ia-aprendizaje.html#conceptos-relacionados",
-    "href": "fundamentos/ia-aprendizaje.html#conceptos-relacionados",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "Conceptos relacionados",
-    "text": "Conceptos relacionados\n\nAnatomía de un sistema de ML\nRepresentación de datos\nGeneralización y selección de modelos\nFundamentos de aprendizaje por refuerzo",
-    "crumbs": [
-      "Fundamentos",
-      "IA y aprendizaje de máquina"
-    ]
-  },
-  {
     "objectID": "supervisado/svm-kernels.html",
     "href": "supervisado/svm-kernels.html",
     "title": "Kernels y fronteras no lineales",
@@ -330,56 +176,6 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Inteligencia Artificial I",
-    "section": "",
-    "text": "OpenStudy presenta una ruta autocontenida por los fundamentos de la inteligencia artificial cubiertos hasta ahora: aprendizaje inductivo, representación de datos, generalización, árboles de decisión, máquinas de vectores de soporte y una introducción al aprendizaje por refuerzo.\n\nComenzar a estudiar Explorar los temas\n\nCada página combina intuición, formulación matemática, procedimientos, ejemplos breves y advertencias. El orden sugerido va desde la estructura general de un sistema de aprendizaje hasta modelos supervisados y agentes que aprenden mediante recompensas.",
-    "crumbs": [
-      "Inicio"
-    ]
-  },
-  {
-    "objectID": "index.html#de-los-datos-a-las-decisiones-inteligentes",
-    "href": "index.html#de-los-datos-a-las-decisiones-inteligentes",
-    "title": "Inteligencia Artificial I",
-    "section": "",
-    "text": "OpenStudy presenta una ruta autocontenida por los fundamentos de la inteligencia artificial cubiertos hasta ahora: aprendizaje inductivo, representación de datos, generalización, árboles de decisión, máquinas de vectores de soporte y una introducción al aprendizaje por refuerzo.\n\nComenzar a estudiar Explorar los temas\n\nCada página combina intuición, formulación matemática, procedimientos, ejemplos breves y advertencias. El orden sugerido va desde la estructura general de un sistema de aprendizaje hasta modelos supervisados y agentes que aprenden mediante recompensas.",
-    "crumbs": [
-      "Inicio"
-    ]
-  },
-  {
-    "objectID": "index.html#mapa-de-contenidos",
-    "href": "index.html#mapa-de-contenidos",
-    "title": "Inteligencia Artificial I",
-    "section": "Mapa de contenidos",
-    "text": "Mapa de contenidos\n\n\nFundamentos\nIA clásica y aprendizaje inductivo; tarea, experiencia, rendimiento, hipótesis, pérdida, regularización y búsqueda.\nIr a fundamentos\n\n\nDatos y generalización\nVectores de características, etiquetas, particiones de datos, sesgo-varianza, sobreajuste y validación cruzada.\nIr a datos y generalización\n\n\nAprendizaje supervisado\nÁrboles de decisión, entropía, ganancia de información, SVM de margen duro y suave, kernels y extensiones multiclase.\nIr a árboles de decisión\n\n\nAprendizaje por refuerzo\nAgente, entorno, estados, acciones, recompensas, transición, retorno, política y exploración-explotación.\nIr a aprendizaje por refuerzo",
-    "crumbs": [
-      "Inicio"
-    ]
-  },
-  {
-    "objectID": "index.html#ruta-recomendada",
-    "href": "index.html#ruta-recomendada",
-    "title": "Inteligencia Artificial I",
-    "section": "Ruta recomendada",
-    "text": "Ruta recomendada\n\nComprender qué distingue la programación directa del aprendizaje.\nIdentificar los componentes de un sistema de aprendizaje de máquina.\nSeparar correctamente características, etiquetas e identificadores.\nEntender por qué el error de entrenamiento no basta para medir generalización.\nEstudiar dos familias supervisadas: árboles y SVM.\nContrastar el aprendizaje supervisado con el aprendizaje por refuerzo.\n\n\n\n\n\n\n\nNotaAlcance actual\n\n\n\nEl sitio se limita deliberadamente a los temas desarrollados en el material disponible. Su organización admite incorporar más adelante aprendizaje profundo, programación lógica y búsqueda sin alterar esta ruta inicial.",
-    "crumbs": [
-      "Inicio"
-    ]
-  },
-  {
-    "objectID": "index.html#convenciones",
-    "href": "index.html#convenciones",
-    "title": "Inteligencia Artificial I",
-    "section": "Convenciones",
-    "text": "Convenciones\n\nLos ejemplos son ficticios y se mantienen pequeños para hacer visible el procedimiento.\nEn aprendizaje supervisado, un ejemplo se denota por \\((x_i,y_i)\\), con características \\(x_i\\) y etiqueta \\(y_i\\).\nLos conjuntos de entrenamiento, validación y prueba cumplen funciones diferentes; no se intercambian después de observar resultados.\nLas referencias bibliográficas respaldan los conceptos, pero la exposición y la notación se mantienen autocontenidas. (Mitchell 1997; Russell y Norvig 2010; Bishop 2006)",
-    "crumbs": [
-      "Inicio"
-    ]
-  },
-  {
     "objectID": "refuerzo/fundamentos.html",
     "href": "refuerzo/fundamentos.html",
     "title": "Fundamentos de aprendizaje por refuerzo",
@@ -476,6 +272,386 @@
     "crumbs": [
       "Aprendizaje por refuerzo",
       "Agentes, recompensas y políticas"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html",
+    "href": "fundamentos/ia-aprendizaje.html",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "",
+    "text": "Conceptos clave\n\n\nInteligencia artificial Aprendizaje inductivo Aprendizaje de máquina Generalización Supervisión",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#qué-es-la-inteligencia-artificial",
+    "href": "fundamentos/ia-aprendizaje.html#qué-es-la-inteligencia-artificial",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "¿Qué es la inteligencia artificial?",
+    "text": "¿Qué es la inteligencia artificial?\nEl término inteligencia artificial (IA) fue definido originalmente por John McCarthy en 1956, en la conferencia de Dartmouth. Propuso un proyecto de inteligencia artificial, en el que se estudiarían maneras de cómo las máquinas pueden realizar tareas que normalmente requieren inteligencia humana; uso de lenguaje, formas de abstracción, resolución de problemas, aprendizaje y adaptación (Russell y Norvig 2010).\nActualmente, la IA es un amplio campo de estudio que incluye muchas técnicas y enfoques para desarrollar sistemas capaces de percibir su entorno, procesar información y seleccionar acciones que les permitan alcanzar objetivos de manera racional. Actualmente, una de las principales formas de construir estos sistemas es a través del aprendizaje de máquina.",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#qué-es-el-aprendizaje-de-máquina",
+    "href": "fundamentos/ia-aprendizaje.html#qué-es-el-aprendizaje-de-máquina",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "¿Qué es el aprendizaje de máquina?",
+    "text": "¿Qué es el aprendizaje de máquina?\nEl término aprendizaje de máquina fue utilizado por primera vez por Arthur Samuel en 1959, quien describió en un artículo un computador puede ser programado de manera que aprenda a jugar damas mejor que la persona por la que fue programado (Samuel 1959).\nPosteriormente, en 1997, Tom Mitchell propuso una definición formal: Se dice que un programa de computador aprende de la experiencia \\(E\\) con respecto a alguna clase de tareas \\(T\\) y una medida de desempeño \\(P\\), si su desempeño en las tareas de \\(T\\), medido mediante \\(P\\), mejora con la experiencia \\(E\\) (Mitchell 1997).\nPor ejemplo, para detectar vehículos:\n\n\\(T\\): clasificar una imagen como «vehículo» o «no vehículo»;\n\\(E\\): imágenes etiquetadas usadas para entrenar;\n\\(P\\): proporción de clasificaciones correctas o una medida que distinga tipos de error.\n\nLa idea central es inductiva: a partir de casos particulares se construye un modelo que debe funcionar en casos nuevos. En este sentido, se busca que un modelo aprenda a generalizar.",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#formas-de-aprendizaje",
+    "href": "fundamentos/ia-aprendizaje.html#formas-de-aprendizaje",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "Formas de aprendizaje",
+    "text": "Formas de aprendizaje\n\nAprendizaje supervisado\nEn aprendizaje supervisado, el conjunto de entrenamiento contiene pares \\((x_i,y_i)\\):\n\n\\(x_i\\) es un vector de características o atributos que describen un ejemplo (una imagen, un texto, un conjunto de mediciones, etc.);\n\\(y_i\\) es la etiqueta o valor objetivo que se desea predecir (en el entrenamiento, esto se conoce a priori, por eso es supervisado).\n\nEl objetivo es que el modelo, sistema o agente aprenda una función que mapee el conjunto de valores \\(x\\) al conjunto de valores \\(y\\). Se busca \\(f:x\\mapsto y\\). Si \\(y\\) pertenece a un conjunto de categorías (discreto), hablamos de clasificación; si es numérico continuo, hablamos de regresión (Russell y Norvig 2010, 695-96).\nEn clasificación, la salida predicha pertenece a un conjunto discreto de clases; en regresión, la salida es numérica:\n\\[\n\\widehat f(x^*) \\in \\{c_1,c_2\\},\n\\qquad\n\\widehat y^*=\\widehat f(x^*).\n\\]\nLa representación bidimensional para clasificación y unidimensional para regresión es pedagógica: los problemas supervisados pueden usar muchas características. La curva de regresión representa una función aprendida, no la función verdadera subyacente.\n\n\nCargando la visualización interactiva…\n\n\n\nMueve el nuevo ejemplo \\(x^*\\) para observar cómo cambia la clase predicha al atravesar la frontera de decisión. En regresión, mueve \\(x^*\\) para observar cómo cambia continuamente \\(\\widehat y^*=\\widehat f(x^*)\\).\nAlgunos ejemplos de aprendizaje supervisado son:\n\nÁrboles de decisión, que pueden usarse tanto para clasificación como para regresión (Russell y Norvig 2010, 697-707).\nSupport Vector Machines, que también pueden usarse para clasificación y regresión. Una propiedad interesante de las máquinas de vectores de soporte es que la determinación de los parámetros del modelo corresponde a un problema de optimización convexa (Bishop 2006, 35).\n\nEn este sitio, las SVM se estudian principalmente como clasificadores.\n\n\nAprendizaje no supervisado\nLos datos no incluyen una etiqueta objetivo explícita. Se buscan regularidades en los datos, por ejemplo grupos o estructuras que permitan describirlos. Que no haya etiquetas no elimina las decisiones de diseño: la representación elegida y el criterio usado para definir qué constituye una estructura relevante siguen introduciendo supuestos (Duda et al. 2001, 17).\n\n\nAprendizaje por refuerzo\nUn agente actúa sobre un entorno, observa las consecuencias de sus acciones y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe aprender una política que produzca una alta recompensa acumulada. La experiencia es secuencial: las acciones del agente modifican el estado del entorno y, con ello, la experiencia que encontrará posteriormente (Mitchell 1997, 367-69).",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#especialización-y-alcance",
+    "href": "fundamentos/ia-aprendizaje.html#especialización-y-alcance",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "Especialización y alcance",
+    "text": "Especialización y alcance\nMuchos sistemas de IA son altamente especializados: pueden alcanzar o superar el rendimiento humano en tareas concretas sin adquirir por ello competencia general fuera de ellas (Russell y Norvig 2010, 185, 1046-47).\nUna cifra de rendimiento tampoco es una propiedad absoluta del sistema: depende del criterio de evaluación adoptado y de la población o distribución sobre la que se mide la generalización (Hastie et al. 2009, 219-20).\n\n\n\n\n\n\nImportanteTres preguntas antes de elegir un método\n\n\n\n\n¿Qué salida concreta debe producir el sistema?\n\n¿Qué experiencia estará disponible durante el aprendizaje?\n\n¿Cómo mediremos el rendimiento en casos no vistos?\n\n\n\n\nResumen\n\nIA es un campo más amplio que aprendizaje de máquina.\nAprender consiste en mejorar el rendimiento en una tarea mediante experiencia.\nEl aprendizaje inductivo busca generalizar desde casos observados a casos nuevos.\nSupervisado, no supervisado y por refuerzo difieren en la señal disponible y en la estructura del problema.\nDatos, representación y métrica forman parte del diseño del sistema.",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#conceptos-relacionados",
+    "href": "fundamentos/ia-aprendizaje.html#conceptos-relacionados",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nAnatomía de un sistema de ML\nRepresentación de datos\nGeneralización y selección de modelos\nFundamentos de aprendizaje por refuerzo",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html",
+    "href": "datos/generalizacion.html",
+    "title": "Generalización y selección de modelos",
+    "section": "",
+    "text": "Conceptos clave\n\n\nGeneralización Holdout Sesgo-varianza Overfitting Cross-validation",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#rendimiento-más-allá-del-entrenamiento",
+    "href": "datos/generalizacion.html#rendimiento-más-allá-del-entrenamiento",
+    "title": "Generalización y selección de modelos",
+    "section": "Rendimiento más allá del entrenamiento",
+    "text": "Rendimiento más allá del entrenamiento\nLa generalización es la capacidad de mantener buen rendimiento sobre datos nuevos procedentes de la situación de interés. El error de entrenamiento mide ajuste a ejemplos usados por el algoritmo; no es una estimación independiente del error futuro.\nEl método holdout separa datos disjuntos:\n\n\n\n\n\n\n\nConjunto\nFunción\n\n\n\n\nEntrenamiento\najustar parámetros del modelo\n\n\nValidación\nescoger hiperparámetros, representación o complejidad\n\n\nPrueba (test)\nestimar una sola vez el rendimiento del procedimiento ya escogido\n\n\n\nSi se consulta repetidamente el conjunto de prueba para tomar decisiones, deja de actuar como prueba independiente y se transforma, en la práctica, en otra fuente de validación.",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#sesgo-varianza-y-ruido",
+    "href": "datos/generalizacion.html#sesgo-varianza-y-ruido",
+    "title": "Generalización y selección de modelos",
+    "section": "Sesgo, varianza y ruido",
+    "text": "Sesgo, varianza y ruido\nEn regresión, supongamos\n\\[\nY=f(x)+\\varepsilon,\n\\qquad\n\\mathbb E[\\varepsilon]=0,\n\\qquad\n\\operatorname{Var}(\\varepsilon)=\\sigma^2.\n\\]\nSi \\(\\widehat f(x)\\) cambia según la muestra de entrenamiento, el error cuadrático esperado en un punto puede descomponerse como\n\\[\n\\mathbb E\\!\\left[(Y-\\widehat f(x))^2\\right]\n=\n\\underbrace{\\left(f(x)-\\mathbb E[\\widehat f(x)]\\right)^2}_{\\text{sesgo}^2}\n+\n\\underbrace{\\mathbb E\\!\\left[(\\widehat f(x)-\\mathbb E[\\widehat f(x)])^2\\right]}_{\\text{varianza}}\n+\n\\underbrace{\\sigma^2}_{\\text{error irreducible}}.\n\\]\n\nalto sesgo: el procedimiento es sistemáticamente poco flexible para el patrón relevante;\nalta varianza: pequeñas variaciones en los datos producen modelos muy distintos;\nerror irreducible: variabilidad que no puede eliminarse con la información disponible.\n\nEsta descomposición exacta corresponde a pérdida cuadrática y a los supuestos indicados. En clasificación, «sesgo-varianza» sigue siendo una intuición útil, pero no debe trasladarse mecánicamente como la misma identidad.",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#subajuste-y-sobreajuste",
+    "href": "datos/generalizacion.html#subajuste-y-sobreajuste",
+    "title": "Generalización y selección de modelos",
+    "section": "Subajuste y sobreajuste",
+    "text": "Subajuste y sobreajuste\nEl subajuste (underfitting) ocurre cuando el modelo no captura patrones relevantes: suelen ser altos tanto el error de entrenamiento como el de validación.\nEl sobreajuste (overfitting) ocurre cuando el modelo captura particularidades o ruido del entrenamiento que no se sostienen fuera de esa muestra. El error de entrenamiento puede seguir bajando mientras el error de validación empeora.\n\n\n\n\n\n\nAdvertenciaComplejidad no es solo número de parámetros\n\n\n\nProfundidad de un árbol, intensidad de regularización, elección del kernel y escala de sus parámetros son formas diferentes de controlar flexibilidad. La complejidad relevante depende de la familia de modelos y del procedimiento completo.",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#selección-mediante-validación",
+    "href": "datos/generalizacion.html#selección-mediante-validación",
+    "title": "Generalización y selección de modelos",
+    "section": "Selección mediante validación",
+    "text": "Selección mediante validación\nUn flujo correcto es:\n\nDefinir candidatos e hiperparámetros antes de mirar prueba.\nAjustar cada candidato con entrenamiento.\nCompararlos con la misma métrica en validación.\nElegir una configuración.\nCuando corresponda, reajustar con los datos destinados al desarrollo.\nEvaluar una vez en prueba.\n\nLa selección por validación busca equilibrar ajuste y capacidad de generalización. Russell y Norvig presentan la validación cruzada como una herramienta para comparar complejidad y bondad de ajuste; la regularización incorpora esa preferencia dentro del objetivo. (Russell y Norvig 2010)",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#validación-cruzada",
+    "href": "datos/generalizacion.html#validación-cruzada",
+    "title": "Generalización y selección de modelos",
+    "section": "Validación cruzada",
+    "text": "Validación cruzada\nEn validación cruzada de \\(K\\) particiones, el conjunto de desarrollo se divide en \\(K\\) bloques. Cada bloque actúa una vez como validación y los demás como entrenamiento. Si \\(M_k\\) es la métrica del bloque \\(k\\):\n\\[\n\\overline M_{CV}=\\frac{1}{K}\\sum_{k=1}^{K}M_k.\n\\]\nEsto reutiliza mejor datos limitados y muestra variabilidad entre particiones, pero requiere entrenar varias veces y no corrige por sí solo datos no representativos.",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#errores-frecuentes",
+    "href": "datos/generalizacion.html#errores-frecuentes",
+    "title": "Generalización y selección de modelos",
+    "section": "Errores frecuentes",
+    "text": "Errores frecuentes\n\npreprocesar antes de dividir los datos;\najustar hiperparámetros mirando prueba;\ncomparar modelos con particiones distintas sin control;\nreportar solo entrenamiento;\nmezclar registros relacionados entre particiones;\nasumir que más datos siempre compensan una etiqueta deficiente o un cambio de distribución.\n\n\nResumen\n\nGeneralizar es rendir bien en datos no usados para ajustar el procedimiento.\nEntrenamiento ajusta; validación selecciona; prueba estima el resultado final.\nEl equilibrio sesgo-varianza conecta flexibilidad, subajuste y sobreajuste.\nLa validación cruzada mejora el uso de datos, a cambio de más cómputo.\nEl preprocesamiento forma parte del entrenamiento y debe respetar las particiones.",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/generalizacion.html#conceptos-relacionados",
+    "href": "datos/generalizacion.html#conceptos-relacionados",
+    "title": "Generalización y selección de modelos",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nRepresentación de datos\nÁrboles de decisión\nSVM y máximo margen\nKernels y fronteras no lineales",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html",
+    "href": "datos/representacion.html",
+    "title": "Representación de datos",
+    "section": "",
+    "text": "Conceptos clave\n\n\nFeature Label Vector Dimensionalidad Escalamiento",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#de-objetos-a-vectores",
+    "href": "datos/representacion.html#de-objetos-a-vectores",
+    "title": "Representación de datos",
+    "section": "De objetos a vectores",
+    "text": "De objetos a vectores\nLos algoritmos no reciben «ciudades», «imágenes» o «personas» de manera abstracta: reciben una representación numérica o simbólica. Decidir qué información conservar es parte central del diseño.\nCada ejemplo se describe mediante características (features, atributos, mediciones o variables). Si se usan \\(d\\) características, el ejemplo se representa como\n\\[\nx=(x_1,x_2,\\ldots,x_d)^\\top\\in\\mathcal X.\n\\]\nEl espacio \\(\\mathcal X\\) es el espacio de características y \\(d\\) es su dimensionalidad. Todos los ejemplos que alimentan el mismo modelo deben seguir una estructura compatible.",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#característica-etiqueta-e-identificador",
+    "href": "datos/representacion.html#característica-etiqueta-e-identificador",
+    "title": "Representación de datos",
+    "section": "Característica, etiqueta e identificador",
+    "text": "Característica, etiqueta e identificador\nConsidere un problema que predice demanda de bicicletas:\n\n\n\n\n\n\n\n\nCampo\nRol\n¿Lo usa el modelo?\n\n\n\n\nregistro_id\nidentificador único\nno, salvo justificación sustantiva\n\n\ntemperatura\ncaracterística numérica\nsí\n\n\nlluvia\ncaracterística binaria\nsí\n\n\ntipo_dia\ncaracterística categórica\nsí, después de codificarla\n\n\nviajes\netiqueta numérica\nsolo como objetivo durante entrenamiento y evaluación\n\n\n\nLa etiqueta \\(y\\) es el valor que se desea predecir. En supervisado, un ejemplo es \\((x_i,y_i)\\). Desde una perspectiva estadística, las características cumplen el rol de variables explicativas y la etiqueta el de variable respuesta.\n\n\n\n\n\n\nAdvertenciaUn identificador no es una característica por defecto\n\n\n\nUn código único puede permitir memorizar ejemplos sin capturar una relación útil. Debe excluirse salvo que su estructura tenga significado predictivo justificable y que su uso sea válido en inferencia.",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#tipos-de-características",
+    "href": "datos/representacion.html#tipos-de-características",
+    "title": "Representación de datos",
+    "section": "Tipos de características",
+    "text": "Tipos de características\n\nnuméricas: admiten operaciones métricas, aunque su escala y unidad importan;\nbinarias: expresan dos estados;\ncategóricas nominales: sus valores no poseen orden inherente;\nordinales: poseen orden, pero las distancias entre niveles no necesariamente son iguales;\nestructuradas: texto, imágenes o secuencias requieren una transformación a una representación utilizable.\n\nCodificar categorías con enteros consecutivos puede introducir un orden y distancias ficticias. La codificación debe ser compatible con el modelo y el significado del dato.",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#escala-y-distancia",
+    "href": "datos/representacion.html#escala-y-distancia",
+    "title": "Representación de datos",
+    "section": "Escala y distancia",
+    "text": "Escala y distancia\nEn métodos basados en distancias o productos punto, una característica con magnitud numérica grande puede dominar a las demás. Una estandarización típica usa estadísticas del entrenamiento:\n\\[\nz_j=\\frac{x_j-\\mu_j^{\\text{train}}}{\\sigma_j^{\\text{train}}}.\n\\]\nLas mismas \\(\\mu_j^{\\text{train}}\\) y \\(\\sigma_j^{\\text{train}}\\) se aplican luego a validación, prueba y datos nuevos.\n\n\n\n\n\n\nImportanteEvitar fuga de información\n\n\n\nCalcular el escalamiento con el conjunto completo permite que validación o prueba influyan en el entrenamiento. Toda transformación aprendida de los datos debe ajustarse dentro de la partición de entrenamiento y quedar incorporada al pipeline.",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#representación-y-sesgo-inductivo",
+    "href": "datos/representacion.html#representación-y-sesgo-inductivo",
+    "title": "Representación de datos",
+    "section": "Representación y sesgo inductivo",
+    "text": "Representación y sesgo inductivo\nDos representaciones del mismo objeto pueden convertir un problema difícil en uno sencillo o viceversa. Un modelo lineal aplicado a características originales genera una frontera lineal; si se incorporan transformaciones no lineales, la misma familia puede expresar fronteras distintas. Los kernels explotan esta idea sin construir siempre la transformación explícita. (Bishop 2006)",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#lista-de-comprobación",
+    "href": "datos/representacion.html#lista-de-comprobación",
+    "title": "Representación de datos",
+    "section": "Lista de comprobación",
+    "text": "Lista de comprobación\nAntes de entrenar:\n\nDefinir qué representa una fila o ejemplo.\nSeparar identificadores, características y etiqueta.\nConfirmar que las características estarán disponibles al predecir.\nElegir una codificación coherente con su tipo.\nAjustar transformaciones solo con entrenamiento.\nConservar el mismo orden, significado y unidad en todas las particiones.\n\n\nResumen\n\nUn ejemplo vive en un espacio de características de dimensión \\(d\\).\nLa etiqueta es la salida objetivo; el identificador no es una característica automáticamente.\nLa codificación introduce supuestos sobre orden, similitud y distancia.\nLas transformaciones deben aprenderse solo con entrenamiento.\nLa representación determina qué regularidades puede explotar el modelo.",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "datos/representacion.html#conceptos-relacionados",
+    "href": "datos/representacion.html#conceptos-relacionados",
+    "title": "Representación de datos",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nAnatomía de un sistema de ML\nGeneralización y selección de modelos\nKernels y fronteras no lineales",
+    "crumbs": [
+      "Datos y generalización",
+      "Representación de datos"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html",
+    "href": "fundamentos/sistema-ml.html",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "",
+    "text": "Conceptos clave\n\n\nEspacio de hipótesis Sesgo inductivo Pérdida Regularización Optimización",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#esquema-general",
+    "href": "fundamentos/sistema-ml.html#esquema-general",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Esquema general",
+    "text": "Esquema general\nEn aprendizaje supervisado, los datos de entrenamiento alimentan un algoritmo de aprendizaje. El algoritmo busca un modelo predictivo dentro de un espacio de alternativas y devuelve una función que se utilizará sobre datos nuevos.\n\nDatos de entrenamiento \\(\\longrightarrow\\) algoritmo de aprendizaje\n\\(\\phantom{Datos de entrenamiento}\\quad\\) hipótesis + pérdida + búsqueda + sesgo inductivo\n\\(\\phantom{Datos de entrenamiento}\\longrightarrow\\) modelo entrenado \\(\\longrightarrow\\) predicción\n\nEsta estructura permite distinguir dos fases:\n\nentrenamiento: se eligen los parámetros usando datos y una función objetivo;\ninferencia: con los parámetros ya fijados, el modelo transforma una entrada nueva en una predicción.",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#modelo-y-espacio-de-hipótesis",
+    "href": "fundamentos/sistema-ml.html#modelo-y-espacio-de-hipótesis",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Modelo y espacio de hipótesis",
+    "text": "Modelo y espacio de hipótesis\nUn modelo predictivo es una función parametrizada \\(f(x;W)\\), donde \\(x\\) es la entrada y \\(W\\) reúne los parámetros ajustables. El espacio de hipótesis \\(\\mathcal H\\) contiene las funciones que el procedimiento puede representar:\n\\[\n\\mathcal H=\\{f(\\cdot;W):W\\in\\Omega\\}.\n\\]\nElegir \\(\\mathcal H\\) restringe de antemano las soluciones posibles. Un clasificador lineal solo puede crear fronteras lineales en la representación original; un árbol profundo puede expresar reglas mucho más específicas.\nEl sesgo inductivo es el conjunto de preferencias o supuestos que permite escoger una generalización entre muchas compatibles con los datos. Puede aparecer en la forma del modelo, en la regularización o en la estrategia de búsqueda. Sin algún sesgo inductivo, los ejemplos observados no determinan por sí solos qué ocurrirá fuera de ellos. (Mitchell 1997)",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#pérdida-empírica",
+    "href": "fundamentos/sistema-ml.html#pérdida-empírica",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Pérdida empírica",
+    "text": "Pérdida empírica\nSea el conjunto de entrenamiento\n\\[\n\\mathcal D=\\{(x_i,y_i)\\}_{i=1}^{N}.\n\\]\nUna función de pérdida \\(\\mathcal L(f(x_i;W),y_i)\\) cuantifica el desacuerdo entre predicción y etiqueta. El riesgo empírico promedio es\n\\[\n\\widehat R(W)=\\frac{1}{N}\\sum_{i=1}^{N}\\mathcal L(f(x_i;W),y_i).\n\\]\nLa pérdida debe corresponder a la tarea. En regresión es habitual penalizar distancias numéricas; en clasificación interesa penalizar decisiones o márgenes incorrectos. Una métrica de evaluación y una pérdida de entrenamiento pueden estar relacionadas sin ser idénticas.",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#regularización",
+    "href": "fundamentos/sistema-ml.html#regularización",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Regularización",
+    "text": "Regularización\nMinimizar solo la pérdida de entrenamiento puede favorecer una solución excesivamente compleja. Una formulación general añade un regularizador:\n\\[\nW^*=\\arg\\min_W\n\\left[\n\\lambda\\,\\mathcal R(W)\n+\\sum_{i=1}^{N}\\mathcal L(f(x_i;W),y_i)\n\\right].\n\\]\n\n\\(\\mathcal R(W)\\) penaliza propiedades no deseadas de los parámetros;\n\\(\\lambda\\ge 0\\) controla el peso relativo de esa preferencia;\nla suma mide el ajuste a los ejemplos observados.\n\nEl regularizador no «descubre» automáticamente la complejidad correcta. Su forma y su intensidad son decisiones que deben contrastarse mediante validación. En SVM, la norma de los pesos y las violaciones del margen materializan esta tensión.",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#técnica-de-búsqueda",
+    "href": "fundamentos/sistema-ml.html#técnica-de-búsqueda",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Técnica de búsqueda",
+    "text": "Técnica de búsqueda\nDefinir el objetivo no indica todavía cómo encontrar su mínimo. La técnica de búsqueda u optimización determina cómo se exploran los parámetros o hipótesis. Según el modelo, puede ser un algoritmo recursivo que elige divisiones, un programa cuadrático o un método iterativo basado en gradientes.\nPor tanto, conviene no confundir:\n\n\n\nElemento\nPregunta que responde\n\n\n\n\nRepresentación\n¿Cómo describimos cada ejemplo?\n\n\nEspacio de hipótesis\n¿Qué funciones podemos expresar?\n\n\nPérdida\n¿Qué errores penalizamos?\n\n\nRegularización\n¿Qué soluciones preferimos?\n\n\nBúsqueda\n¿Cómo encontramos una buena solución?\n\n\nEvaluación\n¿Cómo estimamos su rendimiento futuro?",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#ciclo-de-vida",
+    "href": "fundamentos/sistema-ml.html#ciclo-de-vida",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Ciclo de vida",
+    "text": "Ciclo de vida\nUn sistema de ML no termina al entrenar. Debe vigilarse si cambian los datos, la población o el contexto de uso. El rendimiento estimado durante el desarrollo solo es informativo mientras la distribución de evaluación sea relevante para el uso real.\n\n\n\n\n\n\nAdvertenciaError frecuente: evaluar con los datos de entrenamiento\n\n\n\nEl conjunto usado para ajustar \\(W\\) no entrega una estimación independiente del rendimiento. Para medir generalización se reservan datos que no intervinieron en el ajuste ni en la selección de hiperparámetros.\n\n\n\nResumen\n\nEl modelo \\(f(x;W)\\) pertenece a un espacio de hipótesis.\nLa pérdida mide ajuste; la regularización expresa una preferencia inductiva.\nEl algoritmo de aprendizaje busca parámetros que optimicen el objetivo.\nEntrenamiento e inferencia son fases distintas.\nLa evaluación independiente y el monitoreo completan el ciclo del sistema.",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "fundamentos/sistema-ml.html#conceptos-relacionados",
+    "href": "fundamentos/sistema-ml.html#conceptos-relacionados",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nIA y aprendizaje de máquina\nRepresentación de datos\nGeneralización y selección de modelos\nSVM y máximo margen",
+    "crumbs": [
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Inteligencia Artificial I",
+    "section": "",
+    "text": "OpenStudy presenta una ruta autocontenida por los fundamentos de la inteligencia artificial cubiertos hasta ahora: aprendizaje inductivo, representación de datos, generalización, árboles de decisión, máquinas de vectores de soporte y una introducción al aprendizaje por refuerzo.\n\nComenzar a estudiar Explorar los temas\n\nCada página combina intuición, formulación matemática, procedimientos, ejemplos breves y advertencias. El orden sugerido va desde la estructura general de un sistema de aprendizaje hasta modelos supervisados y agentes que aprenden mediante recompensas.",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
+    "objectID": "index.html#de-los-datos-a-las-decisiones-inteligentes",
+    "href": "index.html#de-los-datos-a-las-decisiones-inteligentes",
+    "title": "Inteligencia Artificial I",
+    "section": "",
+    "text": "OpenStudy presenta una ruta autocontenida por los fundamentos de la inteligencia artificial cubiertos hasta ahora: aprendizaje inductivo, representación de datos, generalización, árboles de decisión, máquinas de vectores de soporte y una introducción al aprendizaje por refuerzo.\n\nComenzar a estudiar Explorar los temas\n\nCada página combina intuición, formulación matemática, procedimientos, ejemplos breves y advertencias. El orden sugerido va desde la estructura general de un sistema de aprendizaje hasta modelos supervisados y agentes que aprenden mediante recompensas.",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
+    "objectID": "index.html#mapa-de-contenidos",
+    "href": "index.html#mapa-de-contenidos",
+    "title": "Inteligencia Artificial I",
+    "section": "Mapa de contenidos",
+    "text": "Mapa de contenidos\n\n\nFundamentos\nIA clásica y aprendizaje inductivo; tarea, experiencia, rendimiento, hipótesis, pérdida, regularización y búsqueda.\nIr a fundamentos\n\n\nDatos y generalización\nVectores de características, etiquetas, particiones de datos, sesgo-varianza, sobreajuste y validación cruzada.\nIr a datos y generalización\n\n\nAprendizaje supervisado\nÁrboles de decisión, entropía, ganancia de información, SVM de margen duro y suave, kernels y extensiones multiclase.\nIr a árboles de decisión\n\n\nAprendizaje por refuerzo\nAgente, entorno, estados, acciones, recompensas, transición, retorno, política y exploración-explotación.\nIr a aprendizaje por refuerzo",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
+    "objectID": "index.html#ruta-recomendada",
+    "href": "index.html#ruta-recomendada",
+    "title": "Inteligencia Artificial I",
+    "section": "Ruta recomendada",
+    "text": "Ruta recomendada\n\nComprender qué distingue la programación directa del aprendizaje.\nIdentificar los componentes de un sistema de aprendizaje de máquina.\nSeparar correctamente características, etiquetas e identificadores.\nEntender por qué el error de entrenamiento no basta para medir generalización.\nEstudiar dos familias supervisadas: árboles y SVM.\nContrastar el aprendizaje supervisado con el aprendizaje por refuerzo.\n\n\n\n\n\n\n\nNotaAlcance actual\n\n\n\nEl sitio se limita deliberadamente a los temas desarrollados en el material disponible. Su organización admite incorporar más adelante aprendizaje profundo, programación lógica y búsqueda sin alterar esta ruta inicial.",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
+    "objectID": "index.html#convenciones",
+    "href": "index.html#convenciones",
+    "title": "Inteligencia Artificial I",
+    "section": "Convenciones",
+    "text": "Convenciones\n\nLos ejemplos son ficticios y se mantienen pequeños para hacer visible el procedimiento.\nEn aprendizaje supervisado, un ejemplo se denota por \\((x_i,y_i)\\), con características \\(x_i\\) y etiqueta \\(y_i\\).\nLos conjuntos de entrenamiento, validación y prueba cumplen funciones diferentes; no se intercambian después de observar resultados.\nLas referencias bibliográficas respaldan los conceptos, pero la exposición y la notación se mantienen autocontenidas. (Mitchell 1997; Russell y Norvig 2010; Bishop 2006)",
+    "crumbs": [
+      "Inicio"
     ]
   },
   {
@@ -630,204 +806,6 @@
     "crumbs": [
       "Aprendizaje supervisado",
       "SVM multiclase y Exemplar-SVM"
-    ]
-  },
-  {
-    "objectID": "fundamentos/sistema-ml.html",
-    "href": "fundamentos/sistema-ml.html",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "",
-    "text": "Conceptos clave\n\n\nEspacio de hipótesis Sesgo inductivo Pérdida Regularización Optimización",
-    "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
-    ]
-  },
-  {
-    "objectID": "fundamentos/sistema-ml.html#esquema-general",
-    "href": "fundamentos/sistema-ml.html#esquema-general",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Esquema general",
-    "text": "Esquema general\nEn aprendizaje supervisado, los datos de entrenamiento alimentan un algoritmo de aprendizaje. El algoritmo busca un modelo predictivo dentro de un espacio de alternativas y devuelve una función que se utilizará sobre datos nuevos.\n\nDatos de entrenamiento \\(\\longrightarrow\\) algoritmo de aprendizaje\n\\(\\phantom{Datos de entrenamiento}\\quad\\) hipótesis + pérdida + búsqueda + sesgo inductivo\n\\(\\phantom{Datos de entrenamiento}\\longrightarrow\\) modelo entrenado \\(\\longrightarrow\\) predicción\n\nEsta estructura permite distinguir dos fases:\n\nentrenamiento: se eligen los parámetros usando datos y una función objetivo;\ninferencia: con los parámetros ya fijados, el modelo transforma una entrada nueva en una predicción.",
-    "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
-    ]
-  },
-  {
-    "objectID": "fundamentos/sistema-ml.html#modelo-y-espacio-de-hipótesis",
-    "href": "fundamentos/sistema-ml.html#modelo-y-espacio-de-hipótesis",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Modelo y espacio de hipótesis",
-    "text": "Modelo y espacio de hipótesis\nUn modelo predictivo es una función parametrizada \\(f(x;W)\\), donde \\(x\\) es la entrada y \\(W\\) reúne los parámetros ajustables. El espacio de hipótesis \\(\\mathcal H\\) contiene las funciones que el procedimiento puede representar:\n\\[\n\\mathcal H=\\{f(\\cdot;W):W\\in\\Omega\\}.\n\\]\nElegir \\(\\mathcal H\\) restringe de antemano las soluciones posibles. Un clasificador lineal solo puede crear fronteras lineales en la representación original; un árbol profundo puede expresar reglas mucho más específicas.\nEl sesgo inductivo es el conjunto de preferencias o supuestos que permite escoger una generalización entre muchas compatibles con los datos. Puede aparecer en la forma del modelo, en la regularización o en la estrategia de búsqueda. Sin algún sesgo inductivo, los ejemplos observados no determinan por sí solos qué ocurrirá fuera de ellos. (Mitchell 1997)",
-    "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
-    ]
-  },
-  {
-    "objectID": "fundamentos/sistema-ml.html#pérdida-empírica",
-    "href": "fundamentos/sistema-ml.html#pérdida-empírica",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Pérdida empírica",
-    "text": "Pérdida empírica\nSea el conjunto de entrenamiento\n\\[\n\\mathcal D=\\{(x_i,y_i)\\}_{i=1}^{N}.\n\\]\nUna función de pérdida \\(\\mathcal L(f(x_i;W),y_i)\\) cuantifica el desacuerdo entre predicción y etiqueta. El riesgo empírico promedio es\n\\[\n\\widehat R(W)=\\frac{1}{N}\\sum_{i=1}^{N}\\mathcal L(f(x_i;W),y_i).\n\\]\nLa pérdida debe corresponder a la tarea. En regresión es habitual penalizar distancias numéricas; en clasificación interesa penalizar decisiones o márgenes incorrectos. Una métrica de evaluación y una pérdida de entrenamiento pueden estar relacionadas sin ser idénticas.",
-    "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
-    ]
-  },
-  {
-    "objectID": "fundamentos/sistema-ml.html#regularización",
-    "href": "fundamentos/sistema-ml.html#regularización",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Regularización",
-    "text": "Regularización\nMinimizar solo la pérdida de entrenamiento puede favorecer una solución excesivamente compleja. Una formulación general añade un regularizador:\n\\[\nW^*=\\arg\\min_W\n\\left[\n\\lambda\\,\\mathcal R(W)\n+\\sum_{i=1}^{N}\\mathcal L(f(x_i;W),y_i)\n\\right].\n\\]\n\n\\(\\mathcal R(W)\\) penaliza propiedades no deseadas de los parámetros;\n\\(\\lambda\\ge 0\\) controla el peso relativo de esa preferencia;\nla suma mide el ajuste a los ejemplos observados.\n\nEl regularizador no «descubre» automáticamente la complejidad correcta. Su forma y su intensidad son decisiones que deben contrastarse mediante validación. En SVM, la norma de los pesos y las violaciones del margen materializan esta tensión.",
-    "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
-    ]
-  },
-  {
-    "objectID": "fundamentos/sistema-ml.html#técnica-de-búsqueda",
-    "href": "fundamentos/sistema-ml.html#técnica-de-búsqueda",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Técnica de búsqueda",
-    "text": "Técnica de búsqueda\nDefinir el objetivo no indica todavía cómo encontrar su mínimo. La técnica de búsqueda u optimización determina cómo se exploran los parámetros o hipótesis. Según el modelo, puede ser un algoritmo recursivo que elige divisiones, un programa cuadrático o un método iterativo basado en gradientes.\nPor tanto, conviene no confundir:\n\n\n\nElemento\nPregunta que responde\n\n\n\n\nRepresentación\n¿Cómo describimos cada ejemplo?\n\n\nEspacio de hipótesis\n¿Qué funciones podemos expresar?\n\n\nPérdida\n¿Qué errores penalizamos?\n\n\nRegularización\n¿Qué soluciones preferimos?\n\n\nBúsqueda\n¿Cómo encontramos una buena solución?\n\n\nEvaluación\n¿Cómo estimamos su rendimiento futuro?",
-    "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
-    ]
-  },
-  {
-    "objectID": "fundamentos/sistema-ml.html#ciclo-de-vida",
-    "href": "fundamentos/sistema-ml.html#ciclo-de-vida",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Ciclo de vida",
-    "text": "Ciclo de vida\nUn sistema de ML no termina al entrenar. Debe vigilarse si cambian los datos, la población o el contexto de uso. El rendimiento estimado durante el desarrollo solo es informativo mientras la distribución de evaluación sea relevante para el uso real.\n\n\n\n\n\n\nAdvertenciaError frecuente: evaluar con los datos de entrenamiento\n\n\n\nEl conjunto usado para ajustar \\(W\\) no entrega una estimación independiente del rendimiento. Para medir generalización se reservan datos que no intervinieron en el ajuste ni en la selección de hiperparámetros.\n\n\n\nResumen\n\nEl modelo \\(f(x;W)\\) pertenece a un espacio de hipótesis.\nLa pérdida mide ajuste; la regularización expresa una preferencia inductiva.\nEl algoritmo de aprendizaje busca parámetros que optimicen el objetivo.\nEntrenamiento e inferencia son fases distintas.\nLa evaluación independiente y el monitoreo completan el ciclo del sistema.",
-    "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
-    ]
-  },
-  {
-    "objectID": "fundamentos/sistema-ml.html#conceptos-relacionados",
-    "href": "fundamentos/sistema-ml.html#conceptos-relacionados",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Conceptos relacionados",
-    "text": "Conceptos relacionados\n\nIA y aprendizaje de máquina\nRepresentación de datos\nGeneralización y selección de modelos\nSVM y máximo margen",
-    "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
-    ]
-  },
-  {
-    "objectID": "datos/representacion.html",
-    "href": "datos/representacion.html",
-    "title": "Representación de datos",
-    "section": "",
-    "text": "Conceptos clave\n\n\nFeature Label Vector Dimensionalidad Escalamiento",
-    "crumbs": [
-      "Datos y generalización",
-      "Representación de datos"
-    ]
-  },
-  {
-    "objectID": "datos/representacion.html#de-objetos-a-vectores",
-    "href": "datos/representacion.html#de-objetos-a-vectores",
-    "title": "Representación de datos",
-    "section": "De objetos a vectores",
-    "text": "De objetos a vectores\nLos algoritmos no reciben «ciudades», «imágenes» o «personas» de manera abstracta: reciben una representación numérica o simbólica. Decidir qué información conservar es parte central del diseño.\nCada ejemplo se describe mediante características (features, atributos, mediciones o variables). Si se usan \\(d\\) características, el ejemplo se representa como\n\\[\nx=(x_1,x_2,\\ldots,x_d)^\\top\\in\\mathcal X.\n\\]\nEl espacio \\(\\mathcal X\\) es el espacio de características y \\(d\\) es su dimensionalidad. Todos los ejemplos que alimentan el mismo modelo deben seguir una estructura compatible.",
-    "crumbs": [
-      "Datos y generalización",
-      "Representación de datos"
-    ]
-  },
-  {
-    "objectID": "datos/representacion.html#característica-etiqueta-e-identificador",
-    "href": "datos/representacion.html#característica-etiqueta-e-identificador",
-    "title": "Representación de datos",
-    "section": "Característica, etiqueta e identificador",
-    "text": "Característica, etiqueta e identificador\nConsidere un problema que predice demanda de bicicletas:\n\n\n\n\n\n\n\n\nCampo\nRol\n¿Lo usa el modelo?\n\n\n\n\nregistro_id\nidentificador único\nno, salvo justificación sustantiva\n\n\ntemperatura\ncaracterística numérica\nsí\n\n\nlluvia\ncaracterística binaria\nsí\n\n\ntipo_dia\ncaracterística categórica\nsí, después de codificarla\n\n\nviajes\netiqueta numérica\nsolo como objetivo durante entrenamiento y evaluación\n\n\n\nLa etiqueta \\(y\\) es el valor que se desea predecir. En supervisado, un ejemplo es \\((x_i,y_i)\\). Desde una perspectiva estadística, las características cumplen el rol de variables explicativas y la etiqueta el de variable respuesta.\n\n\n\n\n\n\nAdvertenciaUn identificador no es una característica por defecto\n\n\n\nUn código único puede permitir memorizar ejemplos sin capturar una relación útil. Debe excluirse salvo que su estructura tenga significado predictivo justificable y que su uso sea válido en inferencia.",
-    "crumbs": [
-      "Datos y generalización",
-      "Representación de datos"
-    ]
-  },
-  {
-    "objectID": "datos/representacion.html#tipos-de-características",
-    "href": "datos/representacion.html#tipos-de-características",
-    "title": "Representación de datos",
-    "section": "Tipos de características",
-    "text": "Tipos de características\n\nnuméricas: admiten operaciones métricas, aunque su escala y unidad importan;\nbinarias: expresan dos estados;\ncategóricas nominales: sus valores no poseen orden inherente;\nordinales: poseen orden, pero las distancias entre niveles no necesariamente son iguales;\nestructuradas: texto, imágenes o secuencias requieren una transformación a una representación utilizable.\n\nCodificar categorías con enteros consecutivos puede introducir un orden y distancias ficticias. La codificación debe ser compatible con el modelo y el significado del dato.",
-    "crumbs": [
-      "Datos y generalización",
-      "Representación de datos"
-    ]
-  },
-  {
-    "objectID": "datos/representacion.html#escala-y-distancia",
-    "href": "datos/representacion.html#escala-y-distancia",
-    "title": "Representación de datos",
-    "section": "Escala y distancia",
-    "text": "Escala y distancia\nEn métodos basados en distancias o productos punto, una característica con magnitud numérica grande puede dominar a las demás. Una estandarización típica usa estadísticas del entrenamiento:\n\\[\nz_j=\\frac{x_j-\\mu_j^{\\text{train}}}{\\sigma_j^{\\text{train}}}.\n\\]\nLas mismas \\(\\mu_j^{\\text{train}}\\) y \\(\\sigma_j^{\\text{train}}\\) se aplican luego a validación, prueba y datos nuevos.\n\n\n\n\n\n\nImportanteEvitar fuga de información\n\n\n\nCalcular el escalamiento con el conjunto completo permite que validación o prueba influyan en el entrenamiento. Toda transformación aprendida de los datos debe ajustarse dentro de la partición de entrenamiento y quedar incorporada al pipeline.",
-    "crumbs": [
-      "Datos y generalización",
-      "Representación de datos"
-    ]
-  },
-  {
-    "objectID": "datos/representacion.html#representación-y-sesgo-inductivo",
-    "href": "datos/representacion.html#representación-y-sesgo-inductivo",
-    "title": "Representación de datos",
-    "section": "Representación y sesgo inductivo",
-    "text": "Representación y sesgo inductivo\nDos representaciones del mismo objeto pueden convertir un problema difícil en uno sencillo o viceversa. Un modelo lineal aplicado a características originales genera una frontera lineal; si se incorporan transformaciones no lineales, la misma familia puede expresar fronteras distintas. Los kernels explotan esta idea sin construir siempre la transformación explícita. (Bishop 2006)",
-    "crumbs": [
-      "Datos y generalización",
-      "Representación de datos"
-    ]
-  },
-  {
-    "objectID": "datos/representacion.html#lista-de-comprobación",
-    "href": "datos/representacion.html#lista-de-comprobación",
-    "title": "Representación de datos",
-    "section": "Lista de comprobación",
-    "text": "Lista de comprobación\nAntes de entrenar:\n\nDefinir qué representa una fila o ejemplo.\nSeparar identificadores, características y etiqueta.\nConfirmar que las características estarán disponibles al predecir.\nElegir una codificación coherente con su tipo.\nAjustar transformaciones solo con entrenamiento.\nConservar el mismo orden, significado y unidad en todas las particiones.\n\n\nResumen\n\nUn ejemplo vive en un espacio de características de dimensión \\(d\\).\nLa etiqueta es la salida objetivo; el identificador no es una característica automáticamente.\nLa codificación introduce supuestos sobre orden, similitud y distancia.\nLas transformaciones deben aprenderse solo con entrenamiento.\nLa representación determina qué regularidades puede explotar el modelo.",
-    "crumbs": [
-      "Datos y generalización",
-      "Representación de datos"
-    ]
-  },
-  {
-    "objectID": "datos/representacion.html#conceptos-relacionados",
-    "href": "datos/representacion.html#conceptos-relacionados",
-    "title": "Representación de datos",
-    "section": "Conceptos relacionados",
-    "text": "Conceptos relacionados\n\nAnatomía de un sistema de ML\nGeneralización y selección de modelos\nKernels y fronteras no lineales",
-    "crumbs": [
-      "Datos y generalización",
-      "Representación de datos"
-    ]
-  },
-  {
-    "objectID": "fundamentos/ia-aprendizaje.html#qué-es-la-inteligencia-artificial",
-    "href": "fundamentos/ia-aprendizaje.html#qué-es-la-inteligencia-artificial",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "¿Qué es la inteligencia artificial?",
-    "text": "¿Qué es la inteligencia artificial?\nEl término inteligencia artificial (IA) fue definido originalmente por John McCarthy en 1956, en la conferencia de Dartmouth. Propuso un proyecto de inteligencia artificial, en el que se estudiarían maneras de cómo las máquinas pueden realizar tareas que normalmente requieren inteligencia humana; uso de lenguaje, formas de abstracción, resolución de problemas, aprendizaje y adaptación (Russell y Norvig 2010).\nActualmente, la IA es un amplio campo de estudio que incluye muchas técnicas y enfoques para desarrollar sistemas capaces de percibir su entorno, procesar información y seleccionar acciones que les permitan alcanzar objetivos de manera racional. Actualmente, una de las principales formas de construir estos sistemas es a través del aprendizaje de máquina.",
-    "crumbs": [
-      "Fundamentos",
-      "IA y aprendizaje de máquina"
-    ]
-  },
-  {
-    "objectID": "fundamentos/ia-aprendizaje.html#qué-es-el-aprendizaje-de-máquina",
-    "href": "fundamentos/ia-aprendizaje.html#qué-es-el-aprendizaje-de-máquina",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "¿Qué es el aprendizaje de máquina?",
-    "text": "¿Qué es el aprendizaje de máquina?\nEl término aprendizaje de máquina fue utilizado por primera vez por Arthur Samuel en 1959, quien describió en un artículo un computador puede ser programado de manera que aprenda a jugar damas mejor que la persona por la que fue programado (Samuel 1959).\nPosteriormente, en 1997, Tom Mitchell propuso una definición formal: Se dice que un programa de computador aprende de la experiencia \\(E\\) con respecto a alguna clase de tareas \\(T\\) y una medida de desempeño \\(P\\), si su desempeño en las tareas de \\(T\\), medido mediante \\(P\\), mejora con la experiencia \\(E\\) (Mitchell 1997).\nPor ejemplo, para detectar vehículos:\n\n\\(T\\): clasificar una imagen como «vehículo» o «no vehículo»;\n\\(E\\): imágenes etiquetadas usadas para entrenar;\n\\(P\\): proporción de clasificaciones correctas o una medida que distinga tipos de error.\n\nLa idea central es inductiva: a partir de casos particulares se construye un modelo que debe funcionar en casos nuevos. En este sentido, se busca que un modelo aprenda a generalizar.",
-    "crumbs": [
-      "Fundamentos",
-      "IA y aprendizaje de máquina"
     ]
   }
 ]

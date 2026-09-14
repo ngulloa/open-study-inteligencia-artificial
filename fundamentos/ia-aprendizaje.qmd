@@ -31,20 +31,45 @@ Por ejemplo, para detectar vehículos:
 - $E$: imágenes etiquetadas usadas para entrenar;
 - $P$: proporción de clasificaciones correctas o una medida que distinga tipos de error.
 
-La idea central es **inductiva**: a partir de casos particulares se construye un modelo que debe funcionar en casos nuevos. En este sentido, se busca que un modelo *aprenda* a [generalizar](../datos/generalizacion.qmd).
+La idea central es **inductiva**: a partir de casos particulares se construye un modelo que debe funcionar en casos nuevos. En este sentido, se busca que un modelo **aprenda** a [generalizar](../datos/generalizacion.qmd).
 
 ## Formas de aprendizaje
 
 ### Aprendizaje supervisado
 
-El conjunto de entrenamiento contiene pares $(x_i,y_i)$:
+En aprendizaje supervisado, el conjunto de entrenamiento contiene pares $(x_i,y_i)$:
 
-- $x_i$ es la representación del ejemplo;
-- $y_i$ es la etiqueta o salida deseada.
+- $x_i$ es un vector de características o atributos que describen un ejemplo (una imagen, un texto, un conjunto de mediciones, etc.);
+- $y_i$ es la etiqueta o valor objetivo que se desea predecir (en el entrenamiento, esto se conoce a priori, por eso es **supervisado**).
 
-El objetivo es aprender una función $f:x\mapsto y$. Si $y$ pertenece a un conjunto de categorías, hablamos de **clasificación**; si es numérico continuo, de **regresión** [@russell2010, pp. 695-696, 758].
+El objetivo es que el modelo, sistema o agente aprenda una función que mapee el conjunto de valores $x$ al conjunto de valores $y$. Se busca $f:x\mapsto y$. Si $y$ pertenece a un conjunto de categorías (discreto), hablamos de **clasificación**; si es numérico continuo, hablamos de **regresión** [@russell2010, pp. 695-696].
 
-Los [árboles de decisión](supervisado/arboles-decision.qmd) pueden usarse tanto para clasificación como para regresión [@russell2010, pp. 697-707]. En este sitio, las [SVM](supervisado/svm-margen.qmd) se estudian principalmente como clasificadores.
+
+En clasificación, la salida predicha pertenece a un conjunto discreto de clases; en regresión, la salida es numérica:
+
+$$
+\widehat f(x^*) \in \{c_1,c_2\},
+\qquad
+\widehat y^*=\widehat f(x^*).
+$$
+
+A continuación se muestra una representación bidimensional para clasificación y unidimensional para regresión (con fines pedagógicos). En general, los problemas supervisados pueden usar muchas características. La curva de regresión representa una función aprendida, no la función verdadera subyacente.
+
+<div id="supervised-learning-comparison"
+  class="ml-supervised"
+  data-supervised-learning
+  aria-label="Comparación interactiva de clasificación y regresión">
+<p class="ml-supervised__fallback">Cargando la visualización interactiva…</p>
+</div>
+
+<script defer src="../assets/js/visualizaciones/aprendizaje-supervisado.js"></script>
+
+Algunos ejemplos de aprendizaje supervisado son:
+
+- [Árboles de decisión](../supervisado/arboles-decision.qmd), que pueden usarse tanto para clasificación como para regresión [@russell2010, pp. 697-707].
+- [Support Vector Machines (SVM)](../supervisado/svm-margen.qmd), que también pueden usarse para clasificación y regresión. Una propiedad interesante de las **máquinas de vectores de soporte** es que la determinación de los parámetros del modelo corresponde a un problema de **optimización convexa** [@bishop2006, p. 35].
+
+En este sitio, las [SVM](../supervisado/svm-margen.qmd) se estudian principalmente como clasificadores.
 
 ### Aprendizaje no supervisado
 

@@ -131,6 +131,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles/components.css">
 <link rel="stylesheet" href="../styles/concepts.css">
 <link rel="stylesheet" href="../styles/responsive.css">
+<link rel="stylesheet" href="../assets/css/visualizaciones.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -342,19 +343,38 @@ Conceptos clave
 <li><span class="math inline">\(E\)</span>: imágenes etiquetadas usadas para entrenar;</li>
 <li><span class="math inline">\(P\)</span>: proporción de clasificaciones correctas o una medida que distinga tipos de error.</li>
 </ul>
-<p>La idea central es <strong>inductiva</strong>: a partir de casos particulares se construye un modelo que debe funcionar en casos nuevos. En este sentido, se busca que un modelo <em>aprenda</em> a <a href="../datos/generalizacion.html">generalizar</a>.</p>
+<p>La idea central es <strong>inductiva</strong>: a partir de casos particulares se construye un modelo que debe funcionar en casos nuevos. En este sentido, se busca que un modelo <strong>aprenda</strong> a <a href="../datos/generalizacion.html">generalizar</a>.</p>
 </section>
 <section id="formas-de-aprendizaje" class="level2">
 <h2 class="anchored" data-anchor-id="formas-de-aprendizaje">Formas de aprendizaje</h2>
 <section id="aprendizaje-supervisado" class="level3">
 <h3 class="anchored" data-anchor-id="aprendizaje-supervisado">Aprendizaje supervisado</h3>
-<p>El conjunto de entrenamiento contiene pares <span class="math inline">\((x_i,y_i)\)</span>:</p>
+<p>En aprendizaje supervisado, el conjunto de entrenamiento contiene pares <span class="math inline">\((x_i,y_i)\)</span>:</p>
 <ul>
-<li><span class="math inline">\(x_i\)</span> es la representación del ejemplo;</li>
-<li><span class="math inline">\(y_i\)</span> es la etiqueta o salida deseada.</li>
+<li><span class="math inline">\(x_i\)</span> es un vector de características o atributos que describen un ejemplo (una imagen, un texto, un conjunto de mediciones, etc.);</li>
+<li><span class="math inline">\(y_i\)</span> es la etiqueta o valor objetivo que se desea predecir (en el entrenamiento, esto se conoce a priori, por eso es <strong>supervisado</strong>).</li>
 </ul>
-<p>El objetivo es aprender una función <span class="math inline">\(f:x\mapsto y\)</span>. Si <span class="math inline">\(y\)</span> pertenece a un conjunto de categorías, hablamos de <strong>clasificación</strong>; si es numérico continuo, de <strong>regresión</strong> <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010, 695-96, 758</a>)</span>.</p>
-<p>Los <a href="supervisado/arboles-decision.qmd">árboles de decisión</a> pueden usarse tanto para clasificación como para regresión <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010, 697-707</a>)</span>. En este sitio, las <a href="supervisado/svm-margen.qmd">SVM</a> se estudian principalmente como clasificadores.</p>
+<p>El objetivo es que el modelo, sistema o agente aprenda una función que mapee el conjunto de valores <span class="math inline">\(x\)</span> al conjunto de valores <span class="math inline">\(y\)</span>. Se busca <span class="math inline">\(f:x\mapsto y\)</span>. Si <span class="math inline">\(y\)</span> pertenece a un conjunto de categorías (discreto), hablamos de <strong>clasificación</strong>; si es numérico continuo, hablamos de <strong>regresión</strong> <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010, 695-96</a>)</span>.</p>
+<p>En clasificación, la salida predicha pertenece a un conjunto discreto de clases; en regresión, la salida es numérica:</p>
+<p><span class="math display">\[
+\widehat f(x^*) \in \{c_1,c_2\},
+\qquad
+\widehat y^*=\widehat f(x^*).
+\]</span></p>
+<p>La representación bidimensional para clasificación y unidimensional para regresión es pedagógica: los problemas supervisados pueden usar muchas características. La curva de regresión representa una función aprendida, no la función verdadera subyacente.</p>
+<div id="supervised-learning-comparison" class="ml-supervised" data-supervised-learning="" aria-label="Comparación interactiva de clasificación y regresión">
+<p class="ml-supervised__fallback">
+Cargando la visualización interactiva…
+</p>
+</div>
+<script defer="" src="../assets/js/visualizaciones/aprendizaje-supervisado.js"></script>
+<p>Mueve el nuevo ejemplo <span class="math inline">\(x^*\)</span> para observar cómo cambia la clase predicha al atravesar la frontera de decisión. En regresión, mueve <span class="math inline">\(x^*\)</span> para observar cómo cambia continuamente <span class="math inline">\(\widehat y^*=\widehat f(x^*)\)</span>.</p>
+<p>Algunos ejemplos de aprendizaje supervisado son:</p>
+<ul>
+<li><a href="../supervisado/arboles-decision.html">Árboles de decisión</a>, que pueden usarse tanto para clasificación como para regresión <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010, 697-707</a>)</span>.</li>
+<li><a href="../supervisado/svm-margen.html">Support Vector Machines</a>, que también pueden usarse para clasificación y regresión. Una propiedad interesante de las máquinas de vectores de soporte es que la determinación de los parámetros del modelo corresponde a un problema de optimización convexa <span class="citation" data-cites="bishop2006">(<a href="#ref-bishop2006" role="doc-biblioref">Bishop 2006, 35</a>)</span>.</li>
+</ul>
+<p>En este sitio, las <a href="../supervisado/svm-margen.html">SVM</a> se estudian principalmente como clasificadores.</p>
 </section>
 <section id="aprendizaje-no-supervisado" class="level3">
 <h3 class="anchored" data-anchor-id="aprendizaje-no-supervisado">Aprendizaje no supervisado</h3>
@@ -413,6 +433,9 @@ Conceptos clave
 
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-bishop2006" class="csl-entry" role="listitem">
+Bishop, Christopher M. 2006. <em>Pattern Recognition and Machine Learning</em>. Springer.
+</div>
 <div id="ref-duda2001" class="csl-entry" role="listitem">
 Duda, Richard O., Peter E. Hart, y David G. Stork. 2001. <em>Pattern Classification</em>. 2.ª ed. Wiley.
 </div>

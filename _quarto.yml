@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - assets/**
 
 lang: es
 bibliography: references.bib
@@ -57,6 +59,7 @@ format:
       - styles/components.css
       - styles/concepts.css
       - styles/responsive.css
+      - assets/css/visualizaciones.css
     toc: true
     toc-depth: 3
     number-sections: false

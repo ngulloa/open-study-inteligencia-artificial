@@ -1,0 +1,483 @@
+/* Visualizaciones académicas reutilizables.
+   La lógica vive en assets/js/visualizaciones/. */
+
+.ml-supervised {
+  --ml-blue: var(--db-primary, #2563eb);
+  --ml-blue-soft: #eff6ff;
+  --ml-orange: var(--db-emphasis, #b54708);
+  --ml-orange-soft: #fff7ed;
+  --ml-red: var(--db-danger, #c03642);
+  --ml-ink: var(--db-heading, #182b49);
+  --ml-muted: var(--db-text-secondary, #58677b);
+  --ml-border: var(--db-border, #dce3ed);
+  --ml-surface: var(--db-surface, #ffffff);
+  --ml-grid: #e8edf4;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 1.5rem 0 2rem;
+  border: 1px solid var(--ml-border);
+  border-radius: var(--db-radius-lg, 1rem);
+  background: var(--ml-surface);
+  overflow: hidden;
+  box-shadow: var(--db-shadow-sm, 0 2px 10px rgb(24 43 73 / 6%));
+}
+
+.ml-supervised__fallback {
+  margin: 0;
+  padding: 1rem 1.2rem;
+  color: var(--ml-muted);
+}
+
+/* En escritorio se comparan ambos problemas a la vez.
+   En pantallas estrechas aparecen pestañas para evitar gráficos comprimidos. */
+.ml-supervised__tabs {
+  display: none;
+  border-bottom: 1px solid var(--ml-border);
+  background: #f8fafc;
+}
+
+.ml-supervised__tab {
+  appearance: none;
+  min-height: 44px;
+  padding: .7rem 1rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--ml-muted);
+  font: inherit;
+  font-size: .92rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.ml-supervised__tab:hover {
+  color: var(--ml-ink);
+  background: #f1f5f9;
+}
+
+.ml-supervised__tab.is-active {
+  color: var(--ml-blue);
+  border-bottom-color: var(--ml-blue);
+  background: var(--ml-surface);
+}
+
+.ml-supervised__comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ml-supervised__panel {
+  min-width: 0;
+  padding: clamp(1rem, 2vw, 1.35rem);
+}
+
+.ml-supervised__panel + .ml-supervised__panel {
+  border-left: 1px solid var(--ml-border);
+}
+
+.ml-supervised__panel-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: .25rem .75rem;
+  margin-bottom: .85rem;
+}
+
+.ml-supervised__panel-title {
+  margin: 0;
+  color: var(--ml-ink);
+  font-size: clamp(1.08rem, 1.5vw, 1.28rem);
+  line-height: 1.25;
+}
+
+.ml-supervised__panel-badge {
+  justify-self: end;
+  padding: .18rem .5rem;
+  border: 1px solid var(--ml-border);
+  border-radius: 999px;
+  color: var(--ml-muted);
+  background: #f8fafc;
+  font-size: .73rem;
+  font-weight: 650;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.ml-supervised__panel-copy {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--ml-muted);
+  font-size: .88rem;
+  line-height: 1.5;
+}
+
+.ml-supervised__figure {
+  min-width: 0;
+}
+
+.ml-supervised__plot {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border: 1px solid var(--ml-border);
+  border-radius: var(--db-radius, .65rem);
+  background: #fff;
+  cursor: crosshair;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+}
+
+.ml-supervised__gridlines line {
+  stroke: var(--ml-grid);
+  stroke-width: 1;
+}
+
+.ml-supervised__axes line {
+  stroke: #8794a7;
+  stroke-width: 1;
+}
+
+.ml-supervised__axes .ml-supervised__axis-line {
+  stroke: #34445b;
+  stroke-width: 1.35;
+}
+
+.ml-supervised__tick-label,
+.ml-supervised__axis-label,
+.ml-supervised__marker-label {
+  fill: #46566c;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.ml-supervised__tick-label {
+  font-size: 11px;
+}
+
+.ml-supervised__axis-label {
+  fill: #25354b;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.ml-supervised__region {
+  opacity: .72;
+}
+
+.ml-supervised__region--class1 {
+  fill: var(--ml-blue-soft);
+}
+
+.ml-supervised__region--class2 {
+  fill: var(--ml-orange-soft);
+}
+
+.ml-supervised__boundary {
+  fill: none;
+  stroke: #334155;
+  stroke-width: 2;
+  stroke-dasharray: 7 6;
+}
+
+.ml-supervised__point--class1,
+.ml-supervised__point--observed {
+  fill: var(--ml-blue);
+  stroke: #fff;
+  stroke-width: 1.1;
+}
+
+.ml-supervised__point--observed {
+  opacity: .78;
+}
+
+.ml-supervised__point--class2 {
+  fill: var(--ml-orange);
+  stroke: #fff;
+  stroke-width: 1.1;
+}
+
+.ml-supervised__regression-curve {
+  fill: none;
+  stroke: var(--ml-blue);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ml-supervised__prediction-guide {
+  stroke: #718096;
+  stroke-width: 1.5;
+  stroke-dasharray: 6 5;
+}
+
+.ml-supervised__marker {
+  cursor: grab;
+  outline: none;
+}
+
+.ml-supervised__marker,
+.ml-supervised__marker * {
+  touch-action: none;
+}
+
+.ml-supervised__marker:active {
+  cursor: grabbing;
+}
+
+.ml-supervised__marker:focus-visible .ml-supervised__marker-hit {
+  fill: rgb(37 99 235 / 10%);
+  stroke: var(--ml-blue);
+  stroke-width: 2;
+}
+
+.ml-supervised__marker-hit {
+  fill: transparent;
+  stroke: transparent;
+}
+
+.ml-supervised__marker-cross {
+  stroke: var(--ml-red);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+.ml-supervised__prediction-dot {
+  fill: var(--ml-red);
+  stroke: #fff;
+  stroke-width: 1.5;
+}
+
+.ml-supervised__marker-label {
+  fill: #26364c;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 650;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.ml-supervised__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .42rem 1rem;
+  margin-top: .8rem;
+  color: var(--ml-muted);
+  font-size: .79rem;
+  line-height: 1.35;
+}
+
+.ml-supervised__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: .38rem;
+  min-width: 0;
+}
+
+.ml-supervised__legend-swatch {
+  position: relative;
+  flex: 0 0 14px;
+  width: 14px;
+  height: 14px;
+}
+
+.ml-supervised__legend-swatch--dot-blue::before,
+.ml-supervised__legend-swatch--prediction::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--ml-blue);
+}
+
+.ml-supervised__legend-swatch--prediction::before {
+  background: var(--ml-red);
+}
+
+.ml-supervised__legend-swatch--triangle-orange::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 11px solid var(--ml-orange);
+}
+
+.ml-supervised__legend-swatch--boundary::before,
+.ml-supervised__legend-swatch--curve::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 6px;
+  border-top: 2px dashed #334155;
+}
+
+.ml-supervised__legend-swatch--curve::before {
+  border-top-style: solid;
+  border-top-color: var(--ml-blue);
+}
+
+.ml-supervised__legend-swatch--cross::before,
+.ml-supervised__legend-swatch--cross::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 1px;
+  width: 2px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--ml-red);
+  transform: rotate(45deg);
+}
+
+.ml-supervised__legend-swatch--cross::after {
+  transform: rotate(-45deg);
+}
+
+.ml-supervised__result {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-top: .8rem;
+  padding: .62rem .75rem;
+  border-left: 3px solid var(--ml-blue);
+  border-radius: var(--db-radius-sm, .4rem);
+  background: var(--ml-blue-soft);
+  color: var(--ml-ink);
+  font-size: .86rem;
+  line-height: 1.4;
+}
+
+.ml-supervised__result-label {
+  color: var(--ml-muted);
+  font-weight: 600;
+}
+
+.ml-supervised__result-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.ml-supervised__hint {
+  margin: .55rem 0 0;
+  color: var(--ml-muted);
+  font-size: .78rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+  .ml-supervised__comparison {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ml-supervised__panel + .ml-supervised__panel {
+    border-left: 0;
+    border-top: 1px solid var(--ml-border);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .ml-supervised__tabs {
+    display: flex;
+  }
+
+  .ml-supervised__tab {
+    flex: 1 1 50%;
+  }
+
+  .ml-supervised__comparison {
+    display: block;
+  }
+
+  .ml-supervised[data-active-panel="classification"] [data-panel="regression"],
+  .ml-supervised[data-active-panel="regression"] [data-panel="classification"] {
+    display: none;
+  }
+
+  .ml-supervised__panel + .ml-supervised__panel {
+    border-top: 0;
+  }
+
+  .ml-supervised__panel-header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ml-supervised__panel-badge {
+    justify-self: start;
+  }
+
+  .ml-supervised__panel-title {
+    display: none;
+  }
+
+  .ml-supervised__plot {
+    touch-action: pan-y;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .ml-supervised {
+    margin-inline: 0;
+    border-radius: var(--db-radius, .65rem);
+  }
+
+  .ml-supervised__panel {
+    padding: .85rem;
+  }
+
+  .ml-supervised__legend {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: .35rem;
+  }
+
+  .ml-supervised__result {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .2rem;
+  }
+
+  .ml-supervised__result-value {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ml-supervised *,
+  .ml-supervised *::before,
+  .ml-supervised *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@media print {
+  .ml-supervised__tabs,
+  .ml-supervised__hint {
+    display: none !important;
+  }
+
+  .ml-supervised__comparison {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .ml-supervised__panel {
+    display: block !important;
+    break-inside: avoid;
+  }
+
+  .ml-supervised {
+    box-shadow: none;
+  }
+}
