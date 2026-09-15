@@ -85,22 +85,6 @@ Muchos sistemas de IA son altamente **especializados**: pueden alcanzar o supera
 
 Una cifra de rendimiento tampoco es una propiedad absoluta del sistema: depende del criterio de evaluación adoptado y de la población o distribución sobre la que se mide la generalización [@hastie2009, pp. 219-220].
 
-::: {.callout-important title="Tres preguntas antes de elegir un método"}
-1. ¿Qué salida concreta debe producir el sistema?  
-2. ¿Qué experiencia estará disponible durante el aprendizaje?  
-3. ¿Cómo mediremos el rendimiento en casos no vistos?
-:::
-
-::: {.summary-box}
-### Resumen
-
-- IA es un campo más amplio que aprendizaje de máquina.
-- Aprender consiste en mejorar el rendimiento en una tarea mediante experiencia.
-- El aprendizaje inductivo busca generalizar desde casos observados a casos nuevos.
-- Supervisado, no supervisado y por refuerzo difieren en la señal disponible y en la estructura del problema.
-- Datos, representación y métrica forman parte del diseño del sistema.
-:::
-
 ::: {.related-links}
 ## Conceptos relacionados
 
