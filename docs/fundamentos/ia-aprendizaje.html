@@ -290,10 +290,7 @@ window.Quarto = {
   <li><a href="#aprendizaje-no-supervisado" id="toc-aprendizaje-no-supervisado" class="nav-link" data-scroll-target="#aprendizaje-no-supervisado">Aprendizaje no supervisado</a></li>
   <li><a href="#aprendizaje-por-refuerzo" id="toc-aprendizaje-por-refuerzo" class="nav-link" data-scroll-target="#aprendizaje-por-refuerzo">Aprendizaje por refuerzo</a></li>
   </ul></li>
-  <li><a href="#especialización-y-alcance" id="toc-especialización-y-alcance" class="nav-link" data-scroll-target="#especialización-y-alcance">Especialización y alcance</a>
-  <ul class="collapse">
-  <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen">Resumen</a></li>
-  </ul></li>
+  <li><a href="#especialización-y-alcance" id="toc-especialización-y-alcance" class="nav-link" data-scroll-target="#especialización-y-alcance">Especialización y alcance</a></li>
   <li><a href="#conceptos-relacionados" id="toc-conceptos-relacionados" class="nav-link" data-scroll-target="#conceptos-relacionados">Conceptos relacionados</a></li>
   </ul>
 </nav>
@@ -361,18 +358,17 @@ Conceptos clave
 \qquad
 \widehat y^*=\widehat f(x^*).
 \]</span></p>
-<p>La representación bidimensional para clasificación y unidimensional para regresión es pedagógica: los problemas supervisados pueden usar muchas características. La curva de regresión representa una función aprendida, no la función verdadera subyacente.</p>
+<p>A continuación se muestra una representación bidimensional para clasificación y unidimensional para regresión (con fines pedagógicos). En general, los problemas supervisados pueden usar muchas características. La curva de regresión representa una función aprendida, no la función verdadera subyacente.</p>
 <div id="supervised-learning-comparison" class="ml-supervised" data-supervised-learning="" aria-label="Comparación interactiva de clasificación y regresión">
 <p class="ml-supervised__fallback">
 Cargando la visualización interactiva…
 </p>
 </div>
 <script defer="" src="../assets/js/visualizaciones/aprendizaje-supervisado.js"></script>
-<p>Mueve el nuevo ejemplo <span class="math inline">\(x^*\)</span> para observar cómo cambia la clase predicha al atravesar la frontera de decisión. En regresión, mueve <span class="math inline">\(x^*\)</span> para observar cómo cambia continuamente <span class="math inline">\(\widehat y^*=\widehat f(x^*)\)</span>.</p>
 <p>Algunos ejemplos de aprendizaje supervisado son:</p>
 <ul>
 <li><a href="../supervisado/arboles-decision.html">Árboles de decisión</a>, que pueden usarse tanto para clasificación como para regresión <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010, 697-707</a>)</span>.</li>
-<li><a href="../supervisado/svm-margen.html">Support Vector Machines</a>, que también pueden usarse para clasificación y regresión. Una propiedad interesante de las máquinas de vectores de soporte es que la determinación de los parámetros del modelo corresponde a un problema de optimización convexa <span class="citation" data-cites="bishop2006">(<a href="#ref-bishop2006" role="doc-biblioref">Bishop 2006, 35</a>)</span>.</li>
+<li><a href="../supervisado/svm-margen.html">Support Vector Machines (SVM)</a>, que también pueden usarse para clasificación y regresión. Una propiedad interesante de las <strong>máquinas de vectores de soporte</strong> es que la determinación de los parámetros del modelo corresponde a un problema de <strong>optimización convexa</strong> <span class="citation" data-cites="bishop2006">(<a href="#ref-bishop2006" role="doc-biblioref">Bishop 2006, 35</a>)</span>.</li>
 </ul>
 <p>En este sitio, las <a href="../supervisado/svm-margen.html">SVM</a> se estudian principalmente como clasificadores.</p>
 </section>
@@ -389,35 +385,6 @@ Cargando la visualización interactiva…
 <h2 class="anchored" data-anchor-id="especialización-y-alcance">Especialización y alcance</h2>
 <p>Muchos sistemas de IA son altamente <strong>especializados</strong>: pueden alcanzar o superar el rendimiento humano en tareas concretas sin adquirir por ello competencia general fuera de ellas <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010, 185, 1046-47</a>)</span>.</p>
 <p>Una cifra de rendimiento tampoco es una propiedad absoluta del sistema: depende del criterio de evaluación adoptado y de la población o distribución sobre la que se mide la generalización <span class="citation" data-cites="hastie2009">(<a href="#ref-hastie2009" role="doc-biblioref">Hastie et&nbsp;al. 2009, 219-20</a>)</span>.</p>
-<div class="callout callout-style-default callout-important callout-titled" title="Tres preguntas antes de elegir un método">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Importante</span>Tres preguntas antes de elegir un método
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>¿Qué salida concreta debe producir el sistema?<br>
-</li>
-<li>¿Qué experiencia estará disponible durante el aprendizaje?<br>
-</li>
-<li>¿Cómo mediremos el rendimiento en casos no vistos?</li>
-</ol>
-</div>
-</div>
-<section id="resumen" class="level3 summary-box">
-<h3 class="anchored" data-anchor-id="resumen">Resumen</h3>
-<ul>
-<li>IA es un campo más amplio que aprendizaje de máquina.</li>
-<li>Aprender consiste en mejorar el rendimiento en una tarea mediante experiencia.</li>
-<li>El aprendizaje inductivo busca generalizar desde casos observados a casos nuevos.</li>
-<li>Supervisado, no supervisado y por refuerzo difieren en la señal disponible y en la estructura del problema.</li>
-<li>Datos, representación y métrica forman parte del diseño del sistema.</li>
-</ul>
-</section>
 </section>
 <section id="conceptos-relacionados" class="level2 related-links">
 <h2 class="anchored" data-anchor-id="conceptos-relacionados">Conceptos relacionados</h2>

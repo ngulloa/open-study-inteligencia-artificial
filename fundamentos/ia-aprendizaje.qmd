@@ -77,7 +77,7 @@ Los datos no incluyen una etiqueta objetivo explícita. Se buscan regularidades 
 
 ### Aprendizaje por refuerzo
 
-Un agente actúa sobre un entorno, observa las consecuencias de sus acciones y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe aprender una política que produzca una alta recompensa acumulada. La experiencia es secuencial: las acciones del agente modifican el estado del entorno y, con ello, la experiencia que encontrará posteriormente [@mitchell1997, pp. 367-369].
+Un agente actúa sobre un entorno, observa las consecuencias de sus acciones y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe aprender una **política** que produzca una alta recompensa acumulada. La experiencia es secuencial: las acciones del agente modifican el estado del entorno y, con ello, la experiencia que encontrará posteriormente [@mitchell1997, pp. 367-369].
 
 ## Especialización y alcance
 
