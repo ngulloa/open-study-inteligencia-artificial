@@ -106,6 +106,8 @@ $$
 \operatorname{Precision}=\frac{12}{12+4}=75.0\,\%.
 $$
 
+Una precision alta no garantiza un recall alto: un clasificador puede realizar pocas predicciones positivas y acertar muchas de ellas, pero aun así omitir numerosos positivos reales, es decir, acumular muchos falsos negativos.
+
 ## Recall
 
 El **recall**, o cobertura de la clase positiva, responde: «entre los positivos reales, ¿qué fracción fue detectada?».
@@ -121,6 +123,8 @@ Esta razón condiciona sobre los ejemplos **realmente positivos**. Los falsos ne
 $$
 \operatorname{Recall}=\frac{12}{12+6}\approx 66.7\,\%.
 $$
+
+Un recall alto no garantiza una precision alta: un clasificador puede detectar casi todos los positivos reales y, al mismo tiempo, producir muchos falsos positivos.
 
 Las razones denominadas precision y recall se presentan también en recuperación de información; aplicadas algebraicamente a una clase positiva binaria, usan los mismos conteos $TP$, $FP$ y $FN$ [@russell2010, chap. 22].
 

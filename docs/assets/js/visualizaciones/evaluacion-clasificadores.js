@@ -256,7 +256,7 @@
     const instanceId = ++instanceCounter;
     const content = htmlEl("div", "ml-eval__content");
     const introduction = htmlEl("header", "ml-eval__header");
-    const title = htmlEl("h3", "ml-eval__title", "Evaluación de un clasificador");
+    const title = htmlEl("p", "ml-eval__title", "Evaluación de un clasificador");
     const instructions = htmlEl(
       "p",
       "ml-eval__description",
@@ -296,7 +296,7 @@
     layout.append(matrixPanel, metricsPanel);
 
     const interpretation = htmlEl("section", "ml-eval__interpretation");
-    const interpretationTitle = htmlEl("h3", "ml-eval__interpretation-title", "Interpretación del último cambio");
+    const interpretationTitle = htmlEl("h4", "ml-eval__interpretation-title", "Interpretación del último cambio");
     const summary = htmlEl(
       "p",
       "ml-eval__change-summary",

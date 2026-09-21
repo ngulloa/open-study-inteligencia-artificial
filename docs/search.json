@@ -323,7 +323,7 @@
     "href": "fundamentos/evaluacion-clasificadores.html#precision",
     "title": "Evaluación de clasificadores",
     "section": "Precision",
-    "text": "Precision\nLa precision responde: «entre las predicciones positivas, ¿qué fracción era realmente positiva?».\n\\[\n\\operatorname{Precision}\n=\n\\frac{TP}{TP+FP}.\n\\]\nEsta razón condiciona sobre lo que el modelo predijo como positivo. Por eso, los falsos positivos (\\(FP\\)) son el error que reduce directamente la precision: resulta especialmente informativa cuando emitir una alarma positiva incorrecta es costoso. En el ejemplo,\n\\[\n\\operatorname{Precision}=\\frac{12}{12+4}=75.0\\,\\%.\n\\]",
+    "text": "Precision\nLa precision responde: «entre las predicciones positivas, ¿qué fracción era realmente positiva?».\n\\[\n\\operatorname{Precision}\n=\n\\frac{TP}{TP+FP}.\n\\]\nEsta razón condiciona sobre lo que el modelo predijo como positivo. Por eso, los falsos positivos (\\(FP\\)) son el error que reduce directamente la precision: resulta especialmente informativa cuando emitir una alarma positiva incorrecta es costoso. En el ejemplo,\n\\[\n\\operatorname{Precision}=\\frac{12}{12+4}=75.0\\,\\%.\n\\]\nUna precision alta no garantiza un recall alto: un clasificador puede realizar pocas predicciones positivas y acertar muchas de ellas, pero aun así omitir numerosos positivos reales, es decir, acumular muchos falsos negativos.",
     "crumbs": [
       "Fundamentos",
       "Evaluación de clasificadores"
@@ -334,7 +334,7 @@
     "href": "fundamentos/evaluacion-clasificadores.html#recall",
     "title": "Evaluación de clasificadores",
     "section": "Recall",
-    "text": "Recall\nEl recall, o cobertura de la clase positiva, responde: «entre los positivos reales, ¿qué fracción fue detectada?».\n\\[\n\\operatorname{Recall}\n=\n\\frac{TP}{TP+FN}.\n\\]\nEsta razón condiciona sobre los ejemplos realmente positivos. Los falsos negativos (\\(FN\\)) son, por tanto, el error que reduce directamente el recall: resulta especialmente informativo cuando omitir un positivo es costoso. En el ejemplo,\n\\[\n\\operatorname{Recall}=\\frac{12}{12+6}\\approx 66.7\\,\\%.\n\\]\nLas razones denominadas precision y recall se presentan también en recuperación de información; aplicadas algebraicamente a una clase positiva binaria, usan los mismos conteos \\(TP\\), \\(FP\\) y \\(FN\\) (Russell y Norvig 2010, chap. 22).",
+    "text": "Recall\nEl recall, o cobertura de la clase positiva, responde: «entre los positivos reales, ¿qué fracción fue detectada?».\n\\[\n\\operatorname{Recall}\n=\n\\frac{TP}{TP+FN}.\n\\]\nEsta razón condiciona sobre los ejemplos realmente positivos. Los falsos negativos (\\(FN\\)) son, por tanto, el error que reduce directamente el recall: resulta especialmente informativo cuando omitir un positivo es costoso. En el ejemplo,\n\\[\n\\operatorname{Recall}=\\frac{12}{12+6}\\approx 66.7\\,\\%.\n\\]\nUn recall alto no garantiza una precision alta: un clasificador puede detectar casi todos los positivos reales y, al mismo tiempo, producir muchos falsos positivos.\nLas razones denominadas precision y recall se presentan también en recuperación de información; aplicadas algebraicamente a una clase positiva binaria, usan los mismos conteos \\(TP\\), \\(FP\\) y \\(FN\\) (Russell y Norvig 2010, chap. 22).",
     "crumbs": [
       "Fundamentos",
       "Evaluación de clasificadores"

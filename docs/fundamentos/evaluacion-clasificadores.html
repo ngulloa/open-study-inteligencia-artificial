@@ -430,6 +430,7 @@ Ejemplo inicial: TP = 12, TN = 24, FP = 4 y FN = 6. Accuracy ≈ 78.3 %, precisi
 <p><span class="math display">\[
 \operatorname{Precision}=\frac{12}{12+4}=75.0\,\%.
 \]</span></p>
+<p>Una precision alta no garantiza un recall alto: un clasificador puede realizar pocas predicciones positivas y acertar muchas de ellas, pero aun así omitir numerosos positivos reales, es decir, acumular muchos falsos negativos.</p>
 </section>
 <section id="recall" class="level2">
 <h2 class="anchored" data-anchor-id="recall">Recall</h2>
@@ -443,6 +444,7 @@ Ejemplo inicial: TP = 12, TN = 24, FP = 4 y FN = 6. Accuracy ≈ 78.3 %, precisi
 <p><span class="math display">\[
 \operatorname{Recall}=\frac{12}{12+6}\approx 66.7\,\%.
 \]</span></p>
+<p>Un recall alto no garantiza una precision alta: un clasificador puede detectar casi todos los positivos reales y, al mismo tiempo, producir muchos falsos positivos.</p>
 <p>Las razones denominadas precision y recall se presentan también en recuperación de información; aplicadas algebraicamente a una clase positiva binaria, usan los mismos conteos <span class="math inline">\(TP\)</span>, <span class="math inline">\(FP\)</span> y <span class="math inline">\(FN\)</span> <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010</a>, chap.&nbsp;22)</span>.</p>
 </section>
 <section id="f1-score" class="level2">
