@@ -24,6 +24,8 @@ website:
             text: IA y aprendizaje de máquina
           - href: fundamentos/sistema-ml.qmd
             text: Anatomía de un sistema de ML
+          - href: fundamentos/evaluacion-clasificadores.qmd
+            text: Evaluación de clasificadores
       - section: "Datos y generalización"
         contents:
           - href: datos/representacion.qmd

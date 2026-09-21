@@ -195,6 +195,12 @@ window.Quarto = {
  <span class="menu-text">Anatomía de un sistema de ML</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fundamentos/evaluacion-clasificadores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evaluación de clasificadores</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -351,7 +357,7 @@ Conceptos clave
 <li><span class="math inline">\(x_i\)</span> es un vector de características o atributos que describen un ejemplo (una imagen, un texto, un conjunto de mediciones, etc.);</li>
 <li><span class="math inline">\(y_i\)</span> es la etiqueta o valor objetivo que se desea predecir (en el entrenamiento, esto se conoce a priori, por eso es <strong>supervisado</strong>).</li>
 </ul>
-<p>El objetivo es que el modelo, sistema o agente aprenda una función que mapee el conjunto de valores <span class="math inline">\(x\)</span> al conjunto de valores <span class="math inline">\(y\)</span>. Se busca <span class="math inline">\(f:x\mapsto y\)</span>. Si <span class="math inline">\(y\)</span> pertenece a un conjunto de categorías (discreto), hablamos de <strong>clasificación</strong>; si es numérico continuo, hablamos de <strong>regresión</strong> <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010, 695-96</a>)</span>.</p>
+<p>El objetivo es que el modelo, sistema o agente aprenda una función que mapee el conjunto de valores <span class="math inline">\(x\)</span> al conjunto de valores <span class="math inline">\(y\)</span>. Se busca <span class="math inline">\(f:X\mapsto Y\)</span>. Si <span class="math inline">\(y\)</span> pertenece a un conjunto de categorías (discreto), hablamos de <strong>clasificación</strong>; si es numérico continuo, hablamos de <strong>regresión</strong> <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010, 695-96</a>)</span>.</p>
 <p>En clasificación, la salida predicha pertenece a un conjunto discreto de clases; en regresión, la salida es numérica:</p>
 <p><span class="math display">\[
 \widehat f(x^*) \in \{c_1,c_2\},
@@ -392,6 +398,7 @@ Cargando la visualización interactiva…
 <li><a href="../fundamentos/sistema-ml.html">Anatomía de un sistema de ML</a></li>
 <li><a href="../datos/representacion.html">Representación de datos</a></li>
 <li><a href="../datos/generalizacion.html">Generalización y selección de modelos</a></li>
+<li><a href="../fundamentos/evaluacion-clasificadores.html">Evaluación de clasificadores</a></li>
 <li><a href="../refuerzo/fundamentos.html">Fundamentos de aprendizaje por refuerzo</a></li>
 </ul>
 </section>

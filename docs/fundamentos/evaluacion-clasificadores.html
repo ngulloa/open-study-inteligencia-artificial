@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Material de estudio sobre fundamentos de aprendizaje de máquina, generalización, árboles de decisión, máquinas de vectores de soporte y aprendizaje por refuerzo.">
+<meta name="description" content="Errores de clasificación, matriz de confusión, accuracy, precision, recall, F1 y comparación de modelos.">
 
-<title>Inteligencia Artificial I</title>
+<title>Evaluación de clasificadores – Inteligencia Artificial I</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -49,24 +49,25 @@ div.csl-indent {
 }</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./fundamentos/ia-aprendizaje.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b467f706efee3eb2759b17ab182950bd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../datos/representacion.html" rel="next">
+<link href="../fundamentos/sistema-ml.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-b467f706efee3eb2759b17ab182950bd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -126,15 +127,15 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles/base.css">
-<link rel="stylesheet" href="styles/layout.css">
-<link rel="stylesheet" href="styles/components.css">
-<link rel="stylesheet" href="styles/concepts.css">
-<link rel="stylesheet" href="styles/responsive.css">
-<link rel="stylesheet" href="assets/css/visualizaciones.css">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/layout.css">
+<link rel="stylesheet" href="../styles/components.css">
+<link rel="stylesheet" href="../styles/concepts.css">
+<link rel="stylesheet" href="../styles/responsive.css">
+<link rel="stylesheet" href="../assets/css/visualizaciones.css">
 </head>
 
-<body class="nav-sidebar docked fullcontent quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -143,7 +144,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Inicio</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fundamentos/ia-aprendizaje.html">Fundamentos</a></li><li class="breadcrumb-item"><a href="../fundamentos/evaluacion-clasificadores.html">Evaluación de clasificadores</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -158,7 +159,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Inteligencia Artificial I</a> 
+      <a href="../">Inteligencia Artificial I</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -170,34 +171,34 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Inicio</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Fundamentos</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fundamentos/ia-aprendizaje.html" class="sidebar-item-text sidebar-link">
+  <a href="../fundamentos/ia-aprendizaje.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">IA y aprendizaje de máquina</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fundamentos/sistema-ml.html" class="sidebar-item-text sidebar-link">
+  <a href="../fundamentos/sistema-ml.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Anatomía de un sistema de ML</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fundamentos/evaluacion-clasificadores.html" class="sidebar-item-text sidebar-link">
+  <a href="../fundamentos/evaluacion-clasificadores.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Evaluación de clasificadores</span></a>
   </div>
 </li>
@@ -214,13 +215,13 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datos/representacion.html" class="sidebar-item-text sidebar-link">
+  <a href="../datos/representacion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Representación de datos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datos/generalizacion.html" class="sidebar-item-text sidebar-link">
+  <a href="../datos/generalizacion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Generalización y selección de modelos</span></a>
   </div>
 </li>
@@ -237,25 +238,25 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supervisado/arboles-decision.html" class="sidebar-item-text sidebar-link">
+  <a href="../supervisado/arboles-decision.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Árboles de decisión</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supervisado/svm-margen.html" class="sidebar-item-text sidebar-link">
+  <a href="../supervisado/svm-margen.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SVM y máximo margen</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supervisado/svm-kernels.html" class="sidebar-item-text sidebar-link">
+  <a href="../supervisado/svm-kernels.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kernels y fronteras no lineales</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supervisado/svm-multiclase.html" class="sidebar-item-text sidebar-link">
+  <a href="../supervisado/svm-multiclase.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SVM multiclase y Exemplar-SVM</span></a>
   </div>
 </li>
@@ -272,7 +273,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./refuerzo/fundamentos.html" class="sidebar-item-text sidebar-link">
+  <a href="../refuerzo/fundamentos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Agentes, recompensas y políticas</span></a>
   </div>
 </li>
@@ -283,18 +284,42 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#de-las-predicciones-a-los-errores" id="toc-de-las-predicciones-a-los-errores" class="nav-link active" data-scroll-target="#de-las-predicciones-a-los-errores">De las predicciones a los errores</a></li>
+  <li><a href="#matriz-de-confusión" id="toc-matriz-de-confusión" class="nav-link" data-scroll-target="#matriz-de-confusión">Matriz de confusión</a>
+  <ul class="collapse">
+  <li><a href="#clasificación-binaria" id="toc-clasificación-binaria" class="nav-link" data-scroll-target="#clasificación-binaria">Clasificación binaria</a></li>
+  <li><a href="#visualización-interactiva" id="toc-visualización-interactiva" class="nav-link" data-scroll-target="#visualización-interactiva">Visualización interactiva</a></li>
+  </ul></li>
+  <li><a href="#accuracy" id="toc-accuracy" class="nav-link" data-scroll-target="#accuracy">Accuracy</a></li>
+  <li><a href="#precision" id="toc-precision" class="nav-link" data-scroll-target="#precision">Precision</a></li>
+  <li><a href="#recall" id="toc-recall" class="nav-link" data-scroll-target="#recall">Recall</a></li>
+  <li><a href="#f1-score" id="toc-f1-score" class="nav-link" data-scroll-target="#f1-score">F1-score</a></li>
+  <li><a href="#cuando-las-clases-están-desbalanceadas" id="toc-cuando-las-clases-están-desbalanceadas" class="nav-link" data-scroll-target="#cuando-las-clases-están-desbalanceadas">Cuando las clases están desbalanceadas</a></li>
+  <li><a href="#matriz-de-confusión-multiclase" id="toc-matriz-de-confusión-multiclase" class="nav-link" data-scroll-target="#matriz-de-confusión-multiclase">Matriz de confusión multiclase</a></li>
+  <li><a href="#comparación-de-modelos" id="toc-comparación-de-modelos" class="nav-link" data-scroll-target="#comparación-de-modelos">Comparación de modelos</a>
+  <ul class="collapse">
+  <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen">Resumen</a></li>
+  </ul></li>
+  <li><a href="#conceptos-relacionados" id="toc-conceptos-relacionados" class="nav-link" data-scroll-target="#conceptos-relacionados">Conceptos relacionados</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fundamentos/ia-aprendizaje.html">Fundamentos</a></li><li class="breadcrumb-item"><a href="../fundamentos/evaluacion-clasificadores.html">Evaluación de clasificadores</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Inteligencia Artificial I</h1>
+<h1 class="title">Evaluación de clasificadores</h1>
 </div>
 
 <div>
   <div class="description">
-    Material de estudio sobre fundamentos de aprendizaje de máquina, generalización, árboles de decisión, máquinas de vectores de soporte y aprendizaje por refuerzo.
+    Errores de clasificación, matriz de confusión, accuracy, precision, recall, F1 y comparación de modelos.
   </div>
 </div>
 
@@ -311,83 +336,274 @@ window.Quarto = {
 </header>
 
 
-<section id="de-los-datos-a-las-decisiones-inteligentes" class="level2 hero-ai">
-<h2 class="anchored" data-anchor-id="de-los-datos-a-las-decisiones-inteligentes">De los datos a las decisiones inteligentes</h2>
-<p>OpenStudy presenta una ruta autocontenida por los fundamentos de la <strong>inteligencia artificial</strong> cubiertos hasta ahora: aprendizaje inductivo, representación de datos, generalización, árboles de decisión, máquinas de vectores de soporte y una introducción al aprendizaje por refuerzo.</p>
-<div class="hero-actions">
-<p><a href="./fundamentos/ia-aprendizaje.html" class="btn btn-primary">Comenzar a estudiar</a> <a href="#mapa-de-contenidos" class="btn btn-outline-primary">Explorar los temas</a></p>
+<div class="concept-section">
+<div class="concept-label">
+Conceptos clave
 </div>
-<p>Cada página combina intuición, formulación matemática, procedimientos, ejemplos breves y advertencias. El orden sugerido va desde la estructura general de un sistema de aprendizaje hasta modelos supervisados y agentes que aprenden mediante recompensas.</p>
-</section>
-<section id="mapa-de-contenidos" class="level2">
-<h2 class="anchored" data-anchor-id="mapa-de-contenidos">Mapa de contenidos</h2>
-<div class="topic-grid">
-<section id="fundamentos" class="level3 topic-card">
-<h3 class="anchored" data-anchor-id="fundamentos">Fundamentos</h3>
-<p>IA clásica y aprendizaje inductivo; tarea, experiencia, rendimiento, hipótesis, pérdida, regularización y búsqueda.</p>
-<p><a href="./fundamentos/ia-aprendizaje.html">Ir a fundamentos</a></p>
-</section>
-<section id="datos-y-generalización" class="level3 topic-card">
-<h3 class="anchored" data-anchor-id="datos-y-generalización">Datos y generalización</h3>
-<p>Vectores de características, etiquetas, particiones de datos, sesgo-varianza, sobreajuste y validación cruzada.</p>
-<p><a href="./datos/representacion.html">Ir a datos y generalización</a></p>
-</section>
-<section id="aprendizaje-supervisado" class="level3 topic-card">
-<h3 class="anchored" data-anchor-id="aprendizaje-supervisado">Aprendizaje supervisado</h3>
-<p>Árboles de decisión, entropía, ganancia de información, SVM de margen duro y suave, kernels y extensiones multiclase.</p>
-<p><a href="./supervisado/arboles-decision.html">Ir a árboles de decisión</a></p>
-</section>
-<section id="aprendizaje-por-refuerzo" class="level3 topic-card">
-<h3 class="anchored" data-anchor-id="aprendizaje-por-refuerzo">Aprendizaje por refuerzo</h3>
-<p>Agente, entorno, estados, acciones, recompensas, transición, retorno, política y exploración-explotación.</p>
-<p><a href="./refuerzo/fundamentos.html">Ir a aprendizaje por refuerzo</a></p>
-</section>
+<div class="concept-tags">
+<p><span class="concept-tag">Matriz de confusión</span> <span class="concept-tag">Accuracy</span> <span class="concept-tag">Precision</span> <span class="concept-tag">Recall</span> <span class="concept-tag">F1-score</span></p>
 </div>
+</div>
+<section id="de-las-predicciones-a-los-errores" class="level2">
+<h2 class="anchored" data-anchor-id="de-las-predicciones-a-los-errores">De las predicciones a los errores</h2>
+<p>Sea un conjunto evaluado de <span class="math inline">\(N\)</span> ejemplos</p>
+<p><span class="math display">\[
+\mathcal D_{\mathrm{eval}}=\{(x_i,y_i)\}_{i=1}^{N},
+\]</span></p>
+<p>donde <span class="math inline">\(x_i\)</span> es la entrada del ejemplo <span class="math inline">\(i\)</span>, <span class="math inline">\(y_i\)</span> es su <strong>clase real</strong> y <span class="math inline">\(N\)</span> es la cantidad de ejemplos. Un clasificador ya entrenado produce</p>
+<p><span class="math display">\[
+\widehat y_i=f(x_i),
+\]</span></p>
+<p>donde <span class="math inline">\(f\)</span> es el modelo y <span class="math inline">\(\widehat y_i\)</span> es la <strong>clase predicha</strong>. La predicción es correcta cuando <span class="math inline">\(\widehat y_i=y_i\)</span> y es un error de clasificación cuando <span class="math inline">\(\widehat y_i\ne y_i\)</span>.</p>
+<p>Evaluar no consiste solo en contar cuántos errores hubo. También interesa distinguir <strong>qué clases se confundieron</strong> y qué consecuencias tiene cada tipo de error. Bajo pérdida <em>zero-one</em>, todo desacuerdo entre <span class="math inline">\(y_i\)</span> y <span class="math inline">\(\widehat y_i\)</span> recibe el mismo costo; si los costos reales son distintos, una misma tasa de aciertos puede ocultar decisiones de calidad muy diferente <span class="citation" data-cites="duda2001">(<a href="#ref-duda2001" role="doc-biblioref">Duda et&nbsp;al. 2001</a>)</span>. Esta métrica de evaluación no debe confundirse con la función de pérdida que pudo haberse usado para entrenar el modelo.</p>
 </section>
-<section id="ruta-recomendada" class="level2">
-<h2 class="anchored" data-anchor-id="ruta-recomendada">Ruta recomendada</h2>
-<ol type="1">
-<li>Comprender qué distingue la <a href="./fundamentos/ia-aprendizaje.html">programación directa del aprendizaje</a>.</li>
-<li>Identificar los componentes de un <a href="./fundamentos/sistema-ml.html">sistema de aprendizaje de máquina</a>.</li>
-<li>Separar correctamente <a href="./datos/representacion.html">características, etiquetas e identificadores</a>.</li>
-<li>Entender por qué el error de entrenamiento no basta para medir <a href="./datos/generalizacion.html">generalización</a>.</li>
-<li>Elegir e interpretar medidas para la <a href="./fundamentos/evaluacion-clasificadores.html">evaluación de clasificadores</a>.</li>
-<li>Estudiar dos familias supervisadas: <a href="./supervisado/arboles-decision.html">árboles</a> y <a href="./supervisado/svm-margen.html">SVM</a>.</li>
-<li>Contrastar el aprendizaje supervisado con el <a href="./refuerzo/fundamentos.html">aprendizaje por refuerzo</a>.</li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled" title="Alcance actual">
+<section id="matriz-de-confusión" class="level2">
+<h2 class="anchored" data-anchor-id="matriz-de-confusión">Matriz de confusión</h2>
+<p>Una <strong>matriz de confusión</strong> cruza las clases reales con las clases predichas. Resume tanto los aciertos como el destino de los errores y, por ello, conserva más información que un único porcentaje.</p>
+<section id="clasificación-binaria" class="level3">
+<h3 class="anchored" data-anchor-id="clasificación-binaria">Clasificación binaria</h3>
+<p>Supongamos dos clases: positiva y negativa. En toda esta página se usa la convención <strong>filas = clase real</strong> y <strong>columnas = clase predicha</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;">Predicción positiva</th>
+<th style="text-align: right;">Predicción negativa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Real positiva</td>
+<td style="text-align: right;">TP</td>
+<td style="text-align: right;">FN</td>
+</tr>
+<tr class="even">
+<td>Real negativa</td>
+<td style="text-align: right;">FP</td>
+<td style="text-align: right;">TN</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>TP</strong> (<em>true positive</em>): positivo real predicho positivo;</li>
+<li><strong>FN</strong> (<em>false negative</em>): positivo real predicho negativo;</li>
+<li><strong>FP</strong> (<em>false positive</em>): negativo real predicho positivo;</li>
+<li><strong>TN</strong> (<em>true negative</em>): negativo real predicho negativo.</li>
+</ul>
+<p>Los términos «positivo» y «negativo» identifican las dos clases; no implican por sí mismos que una sea buena o mala. Esta organización coincide con una convención habitual en textos de aprendizaje estadístico <span class="citation" data-cites="hastie2009">(<a href="#ref-hastie2009" role="doc-biblioref">Hastie et&nbsp;al. 2009, 301</a>)</span>, pero la orientación no es universal: antes de interpretar cualquier matriz siempre deben leerse sus ejes.</p>
+</section>
+<section id="visualización-interactiva" class="level3">
+<h3 class="anchored" data-anchor-id="visualización-interactiva">Visualización interactiva</h3>
+<p>La visualización permite modificar los cuatro conteos y observar qué celdas afectan directamente a cada métrica. El ejemplo inicial también queda descrito en texto, de modo que la idea central se conserva si JavaScript no se ejecuta.</p>
+<div id="classifier-evaluation-playground" class="ml-eval" data-classifier-evaluation="" role="region" aria-label="Matriz de confusión interactiva y métricas de clasificación">
+<p class="ml-eval__fallback">
+Ejemplo inicial: TP = 12, TN = 24, FP = 4 y FN = 6. Accuracy ≈ 78.3 %, precision = 75.0 %, recall ≈ 66.7 % y F1 ≈ 70.6 %.
+</p>
+</div>
+<script defer="" src="../assets/js/visualizaciones/evaluacion-clasificadores.js"></script>
+<p>Con esos conteos hay <span class="math inline">\(46\)</span> ejemplos: <span class="math inline">\(36\)</span> aciertos, <span class="math inline">\(4\)</span> falsos positivos y <span class="math inline">\(6\)</span> falsos negativos. Las secciones siguientes muestran cómo se obtienen los porcentajes indicados.</p>
+</section>
+</section>
+<section id="accuracy" class="level2">
+<h2 class="anchored" data-anchor-id="accuracy">Accuracy</h2>
+<p>La <strong>accuracy</strong>, o proporción de aciertos, responde: «¿qué fracción de todos los ejemplos fue clasificada correctamente?».</p>
+<p><span class="math display">\[
+\operatorname{Accuracy}
+=
+\frac{TP+TN}{TP+TN+FP+FN}.
+\]</span></p>
+<p>El numerador reúne los dos tipos de acierto y el denominador contiene todos los ejemplos. Equivalentemente, sus errores complementarios son <span class="math inline">\(FP+FN\)</span>: la accuracy los agrega sin distinguir cuál ocurrió. Es intuitiva porque tiene una interpretación directa como porcentaje correcto. En el ejemplo interactivo,</p>
+<p><span class="math display">\[
+\operatorname{Accuracy}=\frac{12+24}{12+24+4+6}=\frac{36}{46}\approx 78.3\,\%.
+\]</span></p>
+<p>Sin embargo, una accuracy elevada puede estar dominada por la clase más frecuente y ocultar fallas sistemáticas sobre una clase minoritaria.</p>
+</section>
+<section id="precision" class="level2">
+<h2 class="anchored" data-anchor-id="precision">Precision</h2>
+<p>La <strong>precision</strong> responde: «entre las predicciones positivas, ¿qué fracción era realmente positiva?».</p>
+<p><span class="math display">\[
+\operatorname{Precision}
+=
+\frac{TP}{TP+FP}.
+\]</span></p>
+<p>Esta razón condiciona sobre lo que el modelo <strong>predijo como positivo</strong>. Por eso, los falsos positivos (<span class="math inline">\(FP\)</span>) son el error que reduce directamente la precision: resulta especialmente informativa cuando emitir una alarma positiva incorrecta es costoso. En el ejemplo,</p>
+<p><span class="math display">\[
+\operatorname{Precision}=\frac{12}{12+4}=75.0\,\%.
+\]</span></p>
+</section>
+<section id="recall" class="level2">
+<h2 class="anchored" data-anchor-id="recall">Recall</h2>
+<p>El <strong>recall</strong>, o cobertura de la clase positiva, responde: «entre los positivos reales, ¿qué fracción fue detectada?».</p>
+<p><span class="math display">\[
+\operatorname{Recall}
+=
+\frac{TP}{TP+FN}.
+\]</span></p>
+<p>Esta razón condiciona sobre los ejemplos <strong>realmente positivos</strong>. Los falsos negativos (<span class="math inline">\(FN\)</span>) son, por tanto, el error que reduce directamente el recall: resulta especialmente informativo cuando omitir un positivo es costoso. En el ejemplo,</p>
+<p><span class="math display">\[
+\operatorname{Recall}=\frac{12}{12+6}\approx 66.7\,\%.
+\]</span></p>
+<p>Las razones denominadas precision y recall se presentan también en recuperación de información; aplicadas algebraicamente a una clase positiva binaria, usan los mismos conteos <span class="math inline">\(TP\)</span>, <span class="math inline">\(FP\)</span> y <span class="math inline">\(FN\)</span> <span class="citation" data-cites="russell2010">(<a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010</a>, chap.&nbsp;22)</span>.</p>
+</section>
+<section id="f1-score" class="level2">
+<h2 class="anchored" data-anchor-id="f1-score">F1-score</h2>
+<p>El <strong>F1-score</strong> es la media armónica de precision y recall:</p>
+<p><span class="math display">\[
+F_1
+=
+2
+\frac{\operatorname{Precision}\operatorname{Recall}}
+{\operatorname{Precision}+\operatorname{Recall}}.
+\]</span></p>
+<p>La media armónica disminuye cuando una de las dos razones es baja. En el ejemplo, <span class="math inline">\(F_1\approx 70.6\,\%\)</span>. No es una medida universalmente superior: combina dos aspectos concretos de la clase positiva y debe elegirse solo cuando ese equilibrio responde al problema.</p>
+<p>Los verdaderos negativos (<span class="math inline">\(TN\)</span>) no aparecen directamente en su definición. En consecuencia, dos clasificadores pueden compartir el mismo F1 y comportarse de manera diferente sobre la clase negativa.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Razones con denominador cero">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Alcance actual
+<span class="screen-reader-only">Advertencia</span>Razones con denominador cero
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>El sitio se limita deliberadamente a los temas desarrollados en el material disponible. Su organización admite incorporar más adelante aprendizaje profundo, programación lógica y búsqueda sin alterar esta ruta inicial.</p>
+<p>Estas fórmulas son razones y pueden quedar indefinidas. Por ejemplo, si <span class="math inline">\(TP+FP=0\)</span>, el modelo no produjo predicciones positivas y la precision exige dividir por cero. Si <span class="math inline">\(TP+FN=0\)</span>, no hay positivos reales sobre los cuales calcular recall. Distintas bibliotecas pueden adoptar convenciones computacionales específicas —como devolver cero o emitir una advertencia—, que deben declararse al reportar resultados. Una convención de software no elimina el problema matemático.</p>
 </div>
 </div>
 </section>
-<section id="convenciones" class="level2">
-<h2 class="anchored" data-anchor-id="convenciones">Convenciones</h2>
+<section id="cuando-las-clases-están-desbalanceadas" class="level2">
+<h2 class="anchored" data-anchor-id="cuando-las-clases-están-desbalanceadas">Cuando las clases están desbalanceadas</h2>
+<p>Considérese un conjunto de <strong>100 observaciones</strong>: 95 pertenecen a la clase negativa y 5 a la positiva. Un clasificador que predice siempre «negativa» produce:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Conteo</th>
+<th style="text-align: right;">Valor</th>
+<th>Interpretación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(TP\)</span></td>
+<td style="text-align: right;">0</td>
+<td>no detecta ningún positivo</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(FP\)</span></td>
+<td style="text-align: right;">0</td>
+<td>nunca predice positivo</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(FN\)</span></td>
+<td style="text-align: right;">5</td>
+<td>omite los cinco positivos reales</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(TN\)</span></td>
+<td style="text-align: right;">95</td>
+<td>acierta las 95 negativas</td>
+</tr>
+</tbody>
+</table>
+<p>Por tanto,</p>
+<p><span class="math display">\[
+\operatorname{Accuracy}=\frac{0+95}{100}=95\,\%,
+\qquad
+\operatorname{Recall}=\frac{0}{0+5}=0.
+\]</span></p>
+<p>La precision queda indefinida porque <span class="math inline">\(TP+FP=0\)</span>: el modelo no produjo ninguna predicción positiva. El 95 % de accuracy describe correctamente la proporción total de aciertos, pero no demuestra capacidad para detectar la clase positiva. En datos desbalanceados conviene inspeccionar la matriz y métricas ligadas a los errores relevantes, no solo la frecuencia global de aciertos.</p>
+</section>
+<section id="matriz-de-confusión-multiclase" class="level2">
+<h2 class="anchored" data-anchor-id="matriz-de-confusión-multiclase">Matriz de confusión multiclase</h2>
+<p>Sean <span class="math inline">\(K\)</span> clases identificadas por <span class="math inline">\(1,\ldots,K\)</span>. Para los ejemplos evaluados, indexados por <span class="math inline">\(n\)</span>, se define</p>
+<p><span class="math display">\[
+C_{ij}
+=
+\#\{n:y_n=i,\widehat y_n=j\}.
+\]</span></p>
+<p>Aquí <span class="math inline">\(C_{ij}\)</span> es el número de ejemplos cuya clase real es <span class="math inline">\(i\)</span> y cuya clase predicha es <span class="math inline">\(j\)</span>. Con la convención de esta página:</p>
 <ul>
-<li>Los ejemplos son ficticios y se mantienen pequeños para hacer visible el procedimiento.</li>
-<li>En aprendizaje supervisado, un ejemplo se denota por <span class="math inline">\((x_i,y_i)\)</span>, con características <span class="math inline">\(x_i\)</span> y etiqueta <span class="math inline">\(y_i\)</span>.</li>
-<li>Los conjuntos de entrenamiento, validación y prueba cumplen funciones diferentes; no se intercambian después de observar resultados.</li>
-<li>Las referencias bibliográficas respaldan los conceptos, pero la exposición y la notación se mantienen autocontenidas. <span class="citation" data-cites="mitchell1997 russell2010 bishop2006">(<a href="#ref-mitchell1997" role="doc-biblioref">Mitchell 1997</a>; <a href="#ref-russell2010" role="doc-biblioref">Russell y Norvig 2010</a>; <a href="#ref-bishop2006" role="doc-biblioref">Bishop 2006</a>)</span></li>
+<li>la fila <span class="math inline">\(i\)</span> representa la clase real <span class="math inline">\(i\)</span>;</li>
+<li>la columna <span class="math inline">\(j\)</span> representa la clase predicha <span class="math inline">\(j\)</span>;</li>
+<li>la diagonal <span class="math inline">\(C_{ii}\)</span> contiene los aciertos;</li>
+<li>las celdas fuera de la diagonal muestran confusiones específicas.</li>
 </ul>
-
-
-
+<p>Por ejemplo, para tres clases <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> y <span class="math inline">\(C\)</span>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Clase real</th>
+<th style="text-align: right;">Predicción A</th>
+<th style="text-align: right;">Predicción B</th>
+<th style="text-align: right;">Predicción C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">11</td>
+</tr>
+</tbody>
+</table>
+<p>La celda de la fila <span class="math inline">\(B\)</span> y la columna <span class="math inline">\(C\)</span> indica tres ejemplos realmente <span class="math inline">\(B\)</span> predichos como <span class="math inline">\(C\)</span>. La matriz permite localizar esa confusión sin reducir todo el comportamiento a un solo número. Existen agregaciones multiclase adicionales, pero quedan fuera del alcance de esta introducción.</p>
 </section>
+<section id="comparación-de-modelos" class="level2">
+<h2 class="anchored" data-anchor-id="comparación-de-modelos">Comparación de modelos</h2>
+<p>Una diferencia de métricas solo es interpretable si los modelos se comparan bajo condiciones equivalentes:</p>
+<ul>
+<li>el mismo problema y los mismos datos pertinentes;</li>
+<li>el mismo protocolo de partición;</li>
+<li>la misma definición de clase positiva y de cada métrica, incluidas las convenciones ante denominadores cero;</li>
+<li>selección de modelos e hiperparámetros mediante validación o validación cruzada (<em>cross-validation</em>);</li>
+<li>un conjunto de prueba (<em>test set</em>) reservado para la evaluación final;</li>
+<li>más de una métrica cuando los tipos de error importan de manera distinta.</li>
+</ul>
+<p>La <strong>selección de modelos</strong> usa validación para escoger entre alternativas; la <strong>evaluación final</strong> estima el rendimiento del procedimiento ya escogido sobre prueba. Mirar repetidamente el test para decidir convierte esa información en parte del proceso de selección y debilita su independencia. La separación entre selección y evaluación, junto con el protocolo de validación cruzada, se desarrolla en <a href="../datos/generalizacion.html">Generalización y selección de modelos</a> <span class="citation" data-cites="hastie2009">(<a href="#ref-hastie2009" role="doc-biblioref">Hastie et&nbsp;al. 2009</a>, chap.&nbsp;7)</span>.</p>
+<p>Comparar varias métricas tampoco implica buscar un ganador automático. La decisión debe declarar qué errores son importantes en el contexto: precision pone el foco directo en <span class="math inline">\(FP\)</span>, recall en <span class="math inline">\(FN\)</span>, accuracy agrega ambos y F1 resume precision y recall sin incorporar <span class="math inline">\(TN\)</span> directamente.</p>
+<section id="resumen" class="level3 summary-box">
+<h3 class="anchored" data-anchor-id="resumen">Resumen</h3>
+<ul>
+<li>La matriz de confusión separa aciertos y tipos de error.</li>
+<li>Accuracy resume aciertos globales, pero puede ocultar fallas ante desbalance.</li>
+<li>Precision condiciona sobre predicciones positivas; recall, sobre positivos reales.</li>
+<li>F1 combina precision y recall, sin ser universalmente preferible.</li>
+<li>Una comparación válida conserva datos, particiones, definiciones y un test final independiente.</li>
+</ul>
+</section>
+</section>
+<section id="conceptos-relacionados" class="level2 related-links">
+<h2 class="anchored" data-anchor-id="conceptos-relacionados">Conceptos relacionados</h2>
+<ul>
+<li><a href="../datos/generalizacion.html">Generalización y selección de modelos</a></li>
+<li><a href="../supervisado/arboles-decision.html">Árboles de decisión</a></li>
+<li><a href="../supervisado/svm-margen.html">SVM y máximo margen</a></li>
+<li><a href="../supervisado/svm-multiclase.html">SVM multiclase y Exemplar-SVM</a></li>
+</ul>
+</section>
+
+
+
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-bishop2006" class="csl-entry" role="listitem">
-Bishop, Christopher M. 2006. <em>Pattern Recognition and Machine Learning</em>. Springer.
+<div id="ref-duda2001" class="csl-entry" role="listitem">
+Duda, Richard O., Peter E. Hart, y David G. Stork. 2001. <em>Pattern Classification</em>. 2.ª ed. Wiley.
 </div>
-<div id="ref-mitchell1997" class="csl-entry" role="listitem">
-Mitchell, Tom M. 1997. <em>Machine Learning</em>. McGraw-Hill.
+<div id="ref-hastie2009" class="csl-entry" role="listitem">
+Hastie, Trevor, Robert Tibshirani, y Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. 2.ª ed. Springer.
 </div>
 <div id="ref-russell2010" class="csl-entry" role="listitem">
 Russell, Stuart J., y Peter Norvig. 2010. <em>Artificial Intelligence: A Modern Approach</em>. 3.ª ed. Prentice Hall.
@@ -800,10 +1016,13 @@ Russell, Stuart J., y Peter Norvig. 2010. <em>Artificial Intelligence: A Modern 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../fundamentos/sistema-ml.html" class="pagination-link" aria-label="Anatomía de un sistema de ML">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Anatomía de un sistema de ML</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./fundamentos/ia-aprendizaje.html" class="pagination-link" aria-label="IA y aprendizaje de máquina">
-        <span class="nav-page-text">IA y aprendizaje de máquina</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../datos/representacion.html" class="pagination-link" aria-label="Representación de datos">
+        <span class="nav-page-text">Representación de datos</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -825,5 +1044,5 @@ Russell, Stuart J., y Peter Norvig. 2010. <em>Artificial Intelligence: A Modern 
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

@@ -1,0 +1,227 @@
+---
+title: "Evaluación de clasificadores"
+description: "Errores de clasificación, matriz de confusión, accuracy, precision, recall, F1 y comparación de modelos."
+---
+
+<div class="concept-section">
+<div class="concept-label">Conceptos clave</div>
+<div class="concept-tags">
+<span class="concept-tag">Matriz de confusión</span>
+<span class="concept-tag">Accuracy</span>
+<span class="concept-tag">Precision</span>
+<span class="concept-tag">Recall</span>
+<span class="concept-tag">F1-score</span>
+</div>
+</div>
+
+## De las predicciones a los errores
+
+Sea un conjunto evaluado de $N$ ejemplos
+
+$$
+\mathcal D_{\mathrm{eval}}=\{(x_i,y_i)\}_{i=1}^{N},
+$$
+
+donde $x_i$ es la entrada del ejemplo $i$, $y_i$ es su **clase real** y $N$ es la cantidad de ejemplos. Un clasificador ya entrenado produce
+
+$$
+\widehat y_i=f(x_i),
+$$
+
+donde $f$ es el modelo y $\widehat y_i$ es la **clase predicha**. La predicción es correcta cuando $\widehat y_i=y_i$ y es un error de clasificación cuando $\widehat y_i\ne y_i$.
+
+Evaluar no consiste solo en contar cuántos errores hubo. También interesa distinguir **qué clases se confundieron** y qué consecuencias tiene cada tipo de error. Bajo pérdida *zero-one*, todo desacuerdo entre $y_i$ y $\widehat y_i$ recibe el mismo costo; si los costos reales son distintos, una misma tasa de aciertos puede ocultar decisiones de calidad muy diferente [@duda2001]. Esta métrica de evaluación no debe confundirse con la función de pérdida que pudo haberse usado para entrenar el modelo.
+
+## Matriz de confusión
+
+Una **matriz de confusión** cruza las clases reales con las clases predichas. Resume tanto los aciertos como el destino de los errores y, por ello, conserva más información que un único porcentaje.
+
+### Clasificación binaria
+
+Supongamos dos clases: positiva y negativa. En toda esta página se usa la convención **filas = clase real** y **columnas = clase predicha**:
+
+| | Predicción positiva | Predicción negativa |
+|---|---:|---:|
+| Real positiva | TP | FN |
+| Real negativa | FP | TN |
+
+- **TP** (*true positive*): positivo real predicho positivo;
+- **FN** (*false negative*): positivo real predicho negativo;
+- **FP** (*false positive*): negativo real predicho positivo;
+- **TN** (*true negative*): negativo real predicho negativo.
+
+Los términos «positivo» y «negativo» identifican las dos clases; no implican por sí mismos que una sea buena o mala. Esta organización coincide con una convención habitual en textos de aprendizaje estadístico [@hastie2009, p. 301], pero la orientación no es universal: antes de interpretar cualquier matriz siempre deben leerse sus ejes.
+
+### Visualización interactiva
+
+La visualización permite modificar los cuatro conteos y observar qué celdas afectan directamente a cada métrica. El ejemplo inicial también queda descrito en texto, de modo que la idea central se conserva si JavaScript no se ejecuta.
+
+<div id="classifier-evaluation-playground"
+     class="ml-eval"
+     data-classifier-evaluation
+     role="region"
+     aria-label="Matriz de confusión interactiva y métricas de clasificación">
+ <p class="ml-eval__fallback">
+   Ejemplo inicial: TP = 12, TN = 24, FP = 4 y FN = 6.
+   Accuracy ≈ 78.3 %, precision = 75.0 %, recall ≈ 66.7 %
+   y F1 ≈ 70.6 %.
+ </p>
+</div>
+
+<script defer src="../assets/js/visualizaciones/evaluacion-clasificadores.js"></script>
+
+Con esos conteos hay $46$ ejemplos: $36$ aciertos, $4$ falsos positivos y $6$ falsos negativos. Las secciones siguientes muestran cómo se obtienen los porcentajes indicados.
+
+## Accuracy
+
+La **accuracy**, o proporción de aciertos, responde: «¿qué fracción de todos los ejemplos fue clasificada correctamente?».
+
+$$
+\operatorname{Accuracy}
+=
+\frac{TP+TN}{TP+TN+FP+FN}.
+$$
+
+El numerador reúne los dos tipos de acierto y el denominador contiene todos los ejemplos. Equivalentemente, sus errores complementarios son $FP+FN$: la accuracy los agrega sin distinguir cuál ocurrió. Es intuitiva porque tiene una interpretación directa como porcentaje correcto. En el ejemplo interactivo,
+
+$$
+\operatorname{Accuracy}=\frac{12+24}{12+24+4+6}=\frac{36}{46}\approx 78.3\,\%.
+$$
+
+Sin embargo, una accuracy elevada puede estar dominada por la clase más frecuente y ocultar fallas sistemáticas sobre una clase minoritaria.
+
+## Precision
+
+La **precision** responde: «entre las predicciones positivas, ¿qué fracción era realmente positiva?».
+
+$$
+\operatorname{Precision}
+=
+\frac{TP}{TP+FP}.
+$$
+
+Esta razón condiciona sobre lo que el modelo **predijo como positivo**. Por eso, los falsos positivos ($FP$) son el error que reduce directamente la precision: resulta especialmente informativa cuando emitir una alarma positiva incorrecta es costoso. En el ejemplo,
+
+$$
+\operatorname{Precision}=\frac{12}{12+4}=75.0\,\%.
+$$
+
+## Recall
+
+El **recall**, o cobertura de la clase positiva, responde: «entre los positivos reales, ¿qué fracción fue detectada?».
+
+$$
+\operatorname{Recall}
+=
+\frac{TP}{TP+FN}.
+$$
+
+Esta razón condiciona sobre los ejemplos **realmente positivos**. Los falsos negativos ($FN$) son, por tanto, el error que reduce directamente el recall: resulta especialmente informativo cuando omitir un positivo es costoso. En el ejemplo,
+
+$$
+\operatorname{Recall}=\frac{12}{12+6}\approx 66.7\,\%.
+$$
+
+Las razones denominadas precision y recall se presentan también en recuperación de información; aplicadas algebraicamente a una clase positiva binaria, usan los mismos conteos $TP$, $FP$ y $FN$ [@russell2010, chap. 22].
+
+## F1-score
+
+El **F1-score** es la media armónica de precision y recall:
+
+$$
+F_1
+=
+2
+\frac{\operatorname{Precision}\operatorname{Recall}}
+{\operatorname{Precision}+\operatorname{Recall}}.
+$$
+
+La media armónica disminuye cuando una de las dos razones es baja. En el ejemplo, $F_1\approx 70.6\,\%$. No es una medida universalmente superior: combina dos aspectos concretos de la clase positiva y debe elegirse solo cuando ese equilibrio responde al problema.
+
+Los verdaderos negativos ($TN$) no aparecen directamente en su definición. En consecuencia, dos clasificadores pueden compartir el mismo F1 y comportarse de manera diferente sobre la clase negativa.
+
+::: {.callout-warning title="Razones con denominador cero"}
+Estas fórmulas son razones y pueden quedar indefinidas. Por ejemplo, si $TP+FP=0$, el modelo no produjo predicciones positivas y la precision exige dividir por cero. Si $TP+FN=0$, no hay positivos reales sobre los cuales calcular recall. Distintas bibliotecas pueden adoptar convenciones computacionales específicas —como devolver cero o emitir una advertencia—, que deben declararse al reportar resultados. Una convención de software no elimina el problema matemático.
+:::
+
+## Cuando las clases están desbalanceadas
+
+Considérese un conjunto de **100 observaciones**: 95 pertenecen a la clase negativa y 5 a la positiva. Un clasificador que predice siempre «negativa» produce:
+
+| Conteo | Valor | Interpretación |
+|---|---:|---|
+| $TP$ | 0 | no detecta ningún positivo |
+| $FP$ | 0 | nunca predice positivo |
+| $FN$ | 5 | omite los cinco positivos reales |
+| $TN$ | 95 | acierta las 95 negativas |
+
+Por tanto,
+
+$$
+\operatorname{Accuracy}=\frac{0+95}{100}=95\,\%,
+\qquad
+\operatorname{Recall}=\frac{0}{0+5}=0.
+$$
+
+La precision queda indefinida porque $TP+FP=0$: el modelo no produjo ninguna predicción positiva. El 95 % de accuracy describe correctamente la proporción total de aciertos, pero no demuestra capacidad para detectar la clase positiva. En datos desbalanceados conviene inspeccionar la matriz y métricas ligadas a los errores relevantes, no solo la frecuencia global de aciertos.
+
+## Matriz de confusión multiclase
+
+Sean $K$ clases identificadas por $1,\ldots,K$. Para los ejemplos evaluados, indexados por $n$, se define
+
+$$
+C_{ij}
+=
+\#\{n:y_n=i,\widehat y_n=j\}.
+$$
+
+Aquí $C_{ij}$ es el número de ejemplos cuya clase real es $i$ y cuya clase predicha es $j$. Con la convención de esta página:
+
+- la fila $i$ representa la clase real $i$;
+- la columna $j$ representa la clase predicha $j$;
+- la diagonal $C_{ii}$ contiene los aciertos;
+- las celdas fuera de la diagonal muestran confusiones específicas.
+
+Por ejemplo, para tres clases $A$, $B$ y $C$:
+
+| Clase real | Predicción A | Predicción B | Predicción C |
+|---|---:|---:|---:|
+| A | 14 | 2 | 0 |
+| B | 1 | 9 | 3 |
+| C | 0 | 2 | 11 |
+
+La celda de la fila $B$ y la columna $C$ indica tres ejemplos realmente $B$ predichos como $C$. La matriz permite localizar esa confusión sin reducir todo el comportamiento a un solo número. Existen agregaciones multiclase adicionales, pero quedan fuera del alcance de esta introducción.
+
+## Comparación de modelos
+
+Una diferencia de métricas solo es interpretable si los modelos se comparan bajo condiciones equivalentes:
+
+- el mismo problema y los mismos datos pertinentes;
+- el mismo protocolo de partición;
+- la misma definición de clase positiva y de cada métrica, incluidas las convenciones ante denominadores cero;
+- selección de modelos e hiperparámetros mediante validación o validación cruzada (*cross-validation*);
+- un conjunto de prueba (*test set*) reservado para la evaluación final;
+- más de una métrica cuando los tipos de error importan de manera distinta.
+
+La **selección de modelos** usa validación para escoger entre alternativas; la **evaluación final** estima el rendimiento del procedimiento ya escogido sobre prueba. Mirar repetidamente el test para decidir convierte esa información en parte del proceso de selección y debilita su independencia. La separación entre selección y evaluación, junto con el protocolo de validación cruzada, se desarrolla en [Generalización y selección de modelos](../datos/generalizacion.qmd) [@hastie2009, chap. 7].
+
+Comparar varias métricas tampoco implica buscar un ganador automático. La decisión debe declarar qué errores son importantes en el contexto: precision pone el foco directo en $FP$, recall en $FN$, accuracy agrega ambos y F1 resume precision y recall sin incorporar $TN$ directamente.
+
+::: {.summary-box}
+### Resumen
+
+- La matriz de confusión separa aciertos y tipos de error.
+- Accuracy resume aciertos globales, pero puede ocultar fallas ante desbalance.
+- Precision condiciona sobre predicciones positivas; recall, sobre positivos reales.
+- F1 combina precision y recall, sin ser universalmente preferible.
+- Una comparación válida conserva datos, particiones, definiciones y un test final independiente.
+:::
+
+::: {.related-links}
+## Conceptos relacionados
+
+- [Generalización y selección de modelos](../datos/generalizacion.qmd)
+- [Árboles de decisión](../supervisado/arboles-decision.qmd)
+- [SVM y máximo margen](../supervisado/svm-margen.qmd)
+- [SVM multiclase y Exemplar-SVM](../supervisado/svm-multiclase.qmd)
+:::

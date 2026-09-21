@@ -59,8 +59,9 @@ Agente, entorno, estados, acciones, recompensas, transición, retorno, política
 2. Identificar los componentes de un [sistema de aprendizaje de máquina](fundamentos/sistema-ml.qmd).
 3. Separar correctamente [características, etiquetas e identificadores](datos/representacion.qmd).
 4. Entender por qué el error de entrenamiento no basta para medir [generalización](datos/generalizacion.qmd).
-5. Estudiar dos familias supervisadas: [árboles](supervisado/arboles-decision.qmd) y [SVM](supervisado/svm-margen.qmd).
-6. Contrastar el aprendizaje supervisado con el [aprendizaje por refuerzo](refuerzo/fundamentos.qmd).
+5. Elegir e interpretar medidas para la [evaluación de clasificadores](fundamentos/evaluacion-clasificadores.qmd).
+6. Estudiar dos familias supervisadas: [árboles](supervisado/arboles-decision.qmd) y [SVM](supervisado/svm-margen.qmd).
+7. Contrastar el aprendizaje supervisado con el [aprendizaje por refuerzo](refuerzo/fundamentos.qmd).
 
 ::: {.callout-note title="Alcance actual"}
 El sitio se limita deliberadamente a los temas desarrollados en el material disponible. Su organización admite incorporar más adelante aprendizaje profundo, programación lógica y búsqueda sin alterar esta ruta inicial.

@@ -91,5 +91,6 @@ Una cifra de rendimiento tampoco es una propiedad absoluta del sistema: depende 
 - [Anatomía de un sistema de ML](sistema-ml.qmd)
 - [Representación de datos](../datos/representacion.qmd)
 - [Generalización y selección de modelos](../datos/generalizacion.qmd)
+- [Evaluación de clasificadores](evaluacion-clasificadores.qmd)
 - [Fundamentos de aprendizaje por refuerzo](../refuerzo/fundamentos.qmd)
 :::

@@ -114,6 +114,7 @@ Esto reutiliza mejor datos limitados y muestra variabilidad entre particiones, p
 ## Conceptos relacionados
 
 - [Representación de datos](representacion.qmd)
+- [Evaluación de clasificadores](../fundamentos/evaluacion-clasificadores.qmd)
 - [Árboles de decisión](../supervisado/arboles-decision.qmd)
 - [SVM y máximo margen](../supervisado/svm-margen.qmd)
 - [Kernels y fronteras no lineales](../supervisado/svm-kernels.qmd)

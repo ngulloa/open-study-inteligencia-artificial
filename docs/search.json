@@ -275,157 +275,212 @@
     ]
   },
   {
-    "objectID": "fundamentos/ia-aprendizaje.html",
-    "href": "fundamentos/ia-aprendizaje.html",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "objectID": "fundamentos/evaluacion-clasificadores.html",
+    "href": "fundamentos/evaluacion-clasificadores.html",
+    "title": "Evaluación de clasificadores",
     "section": "",
-    "text": "Conceptos clave\n\n\nInteligencia artificial Aprendizaje inductivo Aprendizaje de máquina Generalización Supervisión",
+    "text": "Conceptos clave\n\n\nMatriz de confusión Accuracy Precision Recall F1-score",
     "crumbs": [
       "Fundamentos",
-      "IA y aprendizaje de máquina"
+      "Evaluación de clasificadores"
     ]
   },
   {
-    "objectID": "fundamentos/ia-aprendizaje.html#qué-es-la-inteligencia-artificial",
-    "href": "fundamentos/ia-aprendizaje.html#qué-es-la-inteligencia-artificial",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "¿Qué es la inteligencia artificial?",
-    "text": "¿Qué es la inteligencia artificial?\nEl término inteligencia artificial (IA) fue definido originalmente por John McCarthy en 1956, en la conferencia de Dartmouth. Propuso un proyecto de inteligencia artificial, en el que se estudiarían maneras de cómo las máquinas pueden realizar tareas que normalmente requieren inteligencia humana; uso de lenguaje, formas de abstracción, resolución de problemas, aprendizaje y adaptación (Russell y Norvig 2010).\nActualmente, la IA es un amplio campo de estudio que incluye muchas técnicas y enfoques para desarrollar sistemas capaces de percibir su entorno, procesar información y seleccionar acciones que les permitan alcanzar objetivos de manera racional. Actualmente, una de las principales formas de construir estos sistemas es a través del aprendizaje de máquina.",
+    "objectID": "fundamentos/evaluacion-clasificadores.html#de-las-predicciones-a-los-errores",
+    "href": "fundamentos/evaluacion-clasificadores.html#de-las-predicciones-a-los-errores",
+    "title": "Evaluación de clasificadores",
+    "section": "De las predicciones a los errores",
+    "text": "De las predicciones a los errores\nSea un conjunto evaluado de \\(N\\) ejemplos\n\\[\n\\mathcal D_{\\mathrm{eval}}=\\{(x_i,y_i)\\}_{i=1}^{N},\n\\]\ndonde \\(x_i\\) es la entrada del ejemplo \\(i\\), \\(y_i\\) es su clase real y \\(N\\) es la cantidad de ejemplos. Un clasificador ya entrenado produce\n\\[\n\\widehat y_i=f(x_i),\n\\]\ndonde \\(f\\) es el modelo y \\(\\widehat y_i\\) es la clase predicha. La predicción es correcta cuando \\(\\widehat y_i=y_i\\) y es un error de clasificación cuando \\(\\widehat y_i\\ne y_i\\).\nEvaluar no consiste solo en contar cuántos errores hubo. También interesa distinguir qué clases se confundieron y qué consecuencias tiene cada tipo de error. Bajo pérdida zero-one, todo desacuerdo entre \\(y_i\\) y \\(\\widehat y_i\\) recibe el mismo costo; si los costos reales son distintos, una misma tasa de aciertos puede ocultar decisiones de calidad muy diferente (Duda et al. 2001). Esta métrica de evaluación no debe confundirse con la función de pérdida que pudo haberse usado para entrenar el modelo.",
     "crumbs": [
       "Fundamentos",
-      "IA y aprendizaje de máquina"
+      "Evaluación de clasificadores"
     ]
   },
   {
-    "objectID": "fundamentos/ia-aprendizaje.html#qué-es-el-aprendizaje-de-máquina",
-    "href": "fundamentos/ia-aprendizaje.html#qué-es-el-aprendizaje-de-máquina",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "¿Qué es el aprendizaje de máquina?",
-    "text": "¿Qué es el aprendizaje de máquina?\nEl término aprendizaje de máquina fue utilizado por primera vez por Arthur Samuel en 1959, quien describió en un artículo un computador puede ser programado de manera que aprenda a jugar damas mejor que la persona por la que fue programado (Samuel 1959).\nPosteriormente, en 1997, Tom Mitchell propuso una definición formal: Se dice que un programa de computador aprende de la experiencia \\(E\\) con respecto a alguna clase de tareas \\(T\\) y una medida de desempeño \\(P\\), si su desempeño en las tareas de \\(T\\), medido mediante \\(P\\), mejora con la experiencia \\(E\\) (Mitchell 1997).\nPor ejemplo, para detectar vehículos:\n\n\\(T\\): clasificar una imagen como «vehículo» o «no vehículo»;\n\\(E\\): imágenes etiquetadas usadas para entrenar;\n\\(P\\): proporción de clasificaciones correctas o una medida que distinga tipos de error.\n\nLa idea central es inductiva: a partir de casos particulares se construye un modelo que debe funcionar en casos nuevos. En este sentido, se busca que un modelo aprenda a generalizar.",
+    "objectID": "fundamentos/evaluacion-clasificadores.html#matriz-de-confusión",
+    "href": "fundamentos/evaluacion-clasificadores.html#matriz-de-confusión",
+    "title": "Evaluación de clasificadores",
+    "section": "Matriz de confusión",
+    "text": "Matriz de confusión\nUna matriz de confusión cruza las clases reales con las clases predichas. Resume tanto los aciertos como el destino de los errores y, por ello, conserva más información que un único porcentaje.\n\nClasificación binaria\nSupongamos dos clases: positiva y negativa. En toda esta página se usa la convención filas = clase real y columnas = clase predicha:\n\n\n\n\nPredicción positiva\nPredicción negativa\n\n\n\n\nReal positiva\nTP\nFN\n\n\nReal negativa\nFP\nTN\n\n\n\n\nTP (true positive): positivo real predicho positivo;\nFN (false negative): positivo real predicho negativo;\nFP (false positive): negativo real predicho positivo;\nTN (true negative): negativo real predicho negativo.\n\nLos términos «positivo» y «negativo» identifican las dos clases; no implican por sí mismos que una sea buena o mala. Esta organización coincide con una convención habitual en textos de aprendizaje estadístico (Hastie et al. 2009, 301), pero la orientación no es universal: antes de interpretar cualquier matriz siempre deben leerse sus ejes.\n\n\nVisualización interactiva\nLa visualización permite modificar los cuatro conteos y observar qué celdas afectan directamente a cada métrica. El ejemplo inicial también queda descrito en texto, de modo que la idea central se conserva si JavaScript no se ejecuta.\n\n\nEjemplo inicial: TP = 12, TN = 24, FP = 4 y FN = 6. Accuracy ≈ 78.3 %, precision = 75.0 %, recall ≈ 66.7 % y F1 ≈ 70.6 %.\n\n\n\nCon esos conteos hay \\(46\\) ejemplos: \\(36\\) aciertos, \\(4\\) falsos positivos y \\(6\\) falsos negativos. Las secciones siguientes muestran cómo se obtienen los porcentajes indicados.",
     "crumbs": [
       "Fundamentos",
-      "IA y aprendizaje de máquina"
+      "Evaluación de clasificadores"
     ]
   },
   {
-    "objectID": "fundamentos/ia-aprendizaje.html#formas-de-aprendizaje",
-    "href": "fundamentos/ia-aprendizaje.html#formas-de-aprendizaje",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "Formas de aprendizaje",
-    "text": "Formas de aprendizaje\n\nAprendizaje supervisado\nEn aprendizaje supervisado, el conjunto de entrenamiento contiene pares \\((x_i,y_i)\\):\n\n\\(x_i\\) es un vector de características o atributos que describen un ejemplo (una imagen, un texto, un conjunto de mediciones, etc.);\n\\(y_i\\) es la etiqueta o valor objetivo que se desea predecir (en el entrenamiento, esto se conoce a priori, por eso es supervisado).\n\nEl objetivo es que el modelo, sistema o agente aprenda una función que mapee el conjunto de valores \\(x\\) al conjunto de valores \\(y\\). Se busca \\(f:x\\mapsto y\\). Si \\(y\\) pertenece a un conjunto de categorías (discreto), hablamos de clasificación; si es numérico continuo, hablamos de regresión (Russell y Norvig 2010, 695-96).\nEn clasificación, la salida predicha pertenece a un conjunto discreto de clases; en regresión, la salida es numérica:\n\\[\n\\widehat f(x^*) \\in \\{c_1,c_2\\},\n\\qquad\n\\widehat y^*=\\widehat f(x^*).\n\\]\nA continuación se muestra una representación bidimensional para clasificación y unidimensional para regresión (con fines pedagógicos). En general, los problemas supervisados pueden usar muchas características. La curva de regresión representa una función aprendida, no la función verdadera subyacente.\n\n\nCargando la visualización interactiva…\n\n\n\nAlgunos ejemplos de aprendizaje supervisado son:\n\nÁrboles de decisión, que pueden usarse tanto para clasificación como para regresión (Russell y Norvig 2010, 697-707).\nSupport Vector Machines (SVM), que también pueden usarse para clasificación y regresión. Una propiedad interesante de las máquinas de vectores de soporte es que la determinación de los parámetros del modelo corresponde a un problema de optimización convexa (Bishop 2006, 35).\n\nEn este sitio, las SVM se estudian principalmente como clasificadores.\n\n\nAprendizaje no supervisado\nLos datos no incluyen una etiqueta objetivo explícita. Se buscan regularidades en los datos, por ejemplo grupos o estructuras que permitan describirlos. Que no haya etiquetas no elimina las decisiones de diseño: la representación elegida y el criterio usado para definir qué constituye una estructura relevante siguen introduciendo supuestos (Duda et al. 2001, 17).\n\n\nAprendizaje por refuerzo\nUn agente actúa sobre un entorno, observa las consecuencias de sus acciones y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe aprender una política que produzca una alta recompensa acumulada. La experiencia es secuencial: las acciones del agente modifican el estado del entorno y, con ello, la experiencia que encontrará posteriormente (Mitchell 1997, 367-69).",
+    "objectID": "fundamentos/evaluacion-clasificadores.html#accuracy",
+    "href": "fundamentos/evaluacion-clasificadores.html#accuracy",
+    "title": "Evaluación de clasificadores",
+    "section": "Accuracy",
+    "text": "Accuracy\nLa accuracy, o proporción de aciertos, responde: «¿qué fracción de todos los ejemplos fue clasificada correctamente?».\n\\[\n\\operatorname{Accuracy}\n=\n\\frac{TP+TN}{TP+TN+FP+FN}.\n\\]\nEl numerador reúne los dos tipos de acierto y el denominador contiene todos los ejemplos. Equivalentemente, sus errores complementarios son \\(FP+FN\\): la accuracy los agrega sin distinguir cuál ocurrió. Es intuitiva porque tiene una interpretación directa como porcentaje correcto. En el ejemplo interactivo,\n\\[\n\\operatorname{Accuracy}=\\frac{12+24}{12+24+4+6}=\\frac{36}{46}\\approx 78.3\\,\\%.\n\\]\nSin embargo, una accuracy elevada puede estar dominada por la clase más frecuente y ocultar fallas sistemáticas sobre una clase minoritaria.",
     "crumbs": [
       "Fundamentos",
-      "IA y aprendizaje de máquina"
+      "Evaluación de clasificadores"
     ]
   },
   {
-    "objectID": "fundamentos/ia-aprendizaje.html#especialización-y-alcance",
-    "href": "fundamentos/ia-aprendizaje.html#especialización-y-alcance",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
-    "section": "Especialización y alcance",
-    "text": "Especialización y alcance\nMuchos sistemas de IA son altamente especializados: pueden alcanzar o superar el rendimiento humano en tareas concretas sin adquirir por ello competencia general fuera de ellas (Russell y Norvig 2010, 185, 1046-47).\nUna cifra de rendimiento tampoco es una propiedad absoluta del sistema: depende del criterio de evaluación adoptado y de la población o distribución sobre la que se mide la generalización (Hastie et al. 2009, 219-20).",
+    "objectID": "fundamentos/evaluacion-clasificadores.html#precision",
+    "href": "fundamentos/evaluacion-clasificadores.html#precision",
+    "title": "Evaluación de clasificadores",
+    "section": "Precision",
+    "text": "Precision\nLa precision responde: «entre las predicciones positivas, ¿qué fracción era realmente positiva?».\n\\[\n\\operatorname{Precision}\n=\n\\frac{TP}{TP+FP}.\n\\]\nEsta razón condiciona sobre lo que el modelo predijo como positivo. Por eso, los falsos positivos (\\(FP\\)) son el error que reduce directamente la precision: resulta especialmente informativa cuando emitir una alarma positiva incorrecta es costoso. En el ejemplo,\n\\[\n\\operatorname{Precision}=\\frac{12}{12+4}=75.0\\,\\%.\n\\]",
     "crumbs": [
       "Fundamentos",
-      "IA y aprendizaje de máquina"
+      "Evaluación de clasificadores"
     ]
   },
   {
-    "objectID": "fundamentos/ia-aprendizaje.html#conceptos-relacionados",
-    "href": "fundamentos/ia-aprendizaje.html#conceptos-relacionados",
-    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "objectID": "fundamentos/evaluacion-clasificadores.html#recall",
+    "href": "fundamentos/evaluacion-clasificadores.html#recall",
+    "title": "Evaluación de clasificadores",
+    "section": "Recall",
+    "text": "Recall\nEl recall, o cobertura de la clase positiva, responde: «entre los positivos reales, ¿qué fracción fue detectada?».\n\\[\n\\operatorname{Recall}\n=\n\\frac{TP}{TP+FN}.\n\\]\nEsta razón condiciona sobre los ejemplos realmente positivos. Los falsos negativos (\\(FN\\)) son, por tanto, el error que reduce directamente el recall: resulta especialmente informativo cuando omitir un positivo es costoso. En el ejemplo,\n\\[\n\\operatorname{Recall}=\\frac{12}{12+6}\\approx 66.7\\,\\%.\n\\]\nLas razones denominadas precision y recall se presentan también en recuperación de información; aplicadas algebraicamente a una clase positiva binaria, usan los mismos conteos \\(TP\\), \\(FP\\) y \\(FN\\) (Russell y Norvig 2010, chap. 22).",
+    "crumbs": [
+      "Fundamentos",
+      "Evaluación de clasificadores"
+    ]
+  },
+  {
+    "objectID": "fundamentos/evaluacion-clasificadores.html#f1-score",
+    "href": "fundamentos/evaluacion-clasificadores.html#f1-score",
+    "title": "Evaluación de clasificadores",
+    "section": "F1-score",
+    "text": "F1-score\nEl F1-score es la media armónica de precision y recall:\n\\[\nF_1\n=\n2\n\\frac{\\operatorname{Precision}\\operatorname{Recall}}\n{\\operatorname{Precision}+\\operatorname{Recall}}.\n\\]\nLa media armónica disminuye cuando una de las dos razones es baja. En el ejemplo, \\(F_1\\approx 70.6\\,\\%\\). No es una medida universalmente superior: combina dos aspectos concretos de la clase positiva y debe elegirse solo cuando ese equilibrio responde al problema.\nLos verdaderos negativos (\\(TN\\)) no aparecen directamente en su definición. En consecuencia, dos clasificadores pueden compartir el mismo F1 y comportarse de manera diferente sobre la clase negativa.\n\n\n\n\n\n\nAdvertenciaRazones con denominador cero\n\n\n\nEstas fórmulas son razones y pueden quedar indefinidas. Por ejemplo, si \\(TP+FP=0\\), el modelo no produjo predicciones positivas y la precision exige dividir por cero. Si \\(TP+FN=0\\), no hay positivos reales sobre los cuales calcular recall. Distintas bibliotecas pueden adoptar convenciones computacionales específicas —como devolver cero o emitir una advertencia—, que deben declararse al reportar resultados. Una convención de software no elimina el problema matemático.",
+    "crumbs": [
+      "Fundamentos",
+      "Evaluación de clasificadores"
+    ]
+  },
+  {
+    "objectID": "fundamentos/evaluacion-clasificadores.html#cuando-las-clases-están-desbalanceadas",
+    "href": "fundamentos/evaluacion-clasificadores.html#cuando-las-clases-están-desbalanceadas",
+    "title": "Evaluación de clasificadores",
+    "section": "Cuando las clases están desbalanceadas",
+    "text": "Cuando las clases están desbalanceadas\nConsidérese un conjunto de 100 observaciones: 95 pertenecen a la clase negativa y 5 a la positiva. Un clasificador que predice siempre «negativa» produce:\n\n\n\nConteo\nValor\nInterpretación\n\n\n\n\n\\(TP\\)\n0\nno detecta ningún positivo\n\n\n\\(FP\\)\n0\nnunca predice positivo\n\n\n\\(FN\\)\n5\nomite los cinco positivos reales\n\n\n\\(TN\\)\n95\nacierta las 95 negativas\n\n\n\nPor tanto,\n\\[\n\\operatorname{Accuracy}=\\frac{0+95}{100}=95\\,\\%,\n\\qquad\n\\operatorname{Recall}=\\frac{0}{0+5}=0.\n\\]\nLa precision queda indefinida porque \\(TP+FP=0\\): el modelo no produjo ninguna predicción positiva. El 95 % de accuracy describe correctamente la proporción total de aciertos, pero no demuestra capacidad para detectar la clase positiva. En datos desbalanceados conviene inspeccionar la matriz y métricas ligadas a los errores relevantes, no solo la frecuencia global de aciertos.",
+    "crumbs": [
+      "Fundamentos",
+      "Evaluación de clasificadores"
+    ]
+  },
+  {
+    "objectID": "fundamentos/evaluacion-clasificadores.html#matriz-de-confusión-multiclase",
+    "href": "fundamentos/evaluacion-clasificadores.html#matriz-de-confusión-multiclase",
+    "title": "Evaluación de clasificadores",
+    "section": "Matriz de confusión multiclase",
+    "text": "Matriz de confusión multiclase\nSean \\(K\\) clases identificadas por \\(1,\\ldots,K\\). Para los ejemplos evaluados, indexados por \\(n\\), se define\n\\[\nC_{ij}\n=\n\\#\\{n:y_n=i,\\widehat y_n=j\\}.\n\\]\nAquí \\(C_{ij}\\) es el número de ejemplos cuya clase real es \\(i\\) y cuya clase predicha es \\(j\\). Con la convención de esta página:\n\nla fila \\(i\\) representa la clase real \\(i\\);\nla columna \\(j\\) representa la clase predicha \\(j\\);\nla diagonal \\(C_{ii}\\) contiene los aciertos;\nlas celdas fuera de la diagonal muestran confusiones específicas.\n\nPor ejemplo, para tres clases \\(A\\), \\(B\\) y \\(C\\):\n\n\n\nClase real\nPredicción A\nPredicción B\nPredicción C\n\n\n\n\nA\n14\n2\n0\n\n\nB\n1\n9\n3\n\n\nC\n0\n2\n11\n\n\n\nLa celda de la fila \\(B\\) y la columna \\(C\\) indica tres ejemplos realmente \\(B\\) predichos como \\(C\\). La matriz permite localizar esa confusión sin reducir todo el comportamiento a un solo número. Existen agregaciones multiclase adicionales, pero quedan fuera del alcance de esta introducción.",
+    "crumbs": [
+      "Fundamentos",
+      "Evaluación de clasificadores"
+    ]
+  },
+  {
+    "objectID": "fundamentos/evaluacion-clasificadores.html#comparación-de-modelos",
+    "href": "fundamentos/evaluacion-clasificadores.html#comparación-de-modelos",
+    "title": "Evaluación de clasificadores",
+    "section": "Comparación de modelos",
+    "text": "Comparación de modelos\nUna diferencia de métricas solo es interpretable si los modelos se comparan bajo condiciones equivalentes:\n\nel mismo problema y los mismos datos pertinentes;\nel mismo protocolo de partición;\nla misma definición de clase positiva y de cada métrica, incluidas las convenciones ante denominadores cero;\nselección de modelos e hiperparámetros mediante validación o validación cruzada (cross-validation);\nun conjunto de prueba (test set) reservado para la evaluación final;\nmás de una métrica cuando los tipos de error importan de manera distinta.\n\nLa selección de modelos usa validación para escoger entre alternativas; la evaluación final estima el rendimiento del procedimiento ya escogido sobre prueba. Mirar repetidamente el test para decidir convierte esa información en parte del proceso de selección y debilita su independencia. La separación entre selección y evaluación, junto con el protocolo de validación cruzada, se desarrolla en Generalización y selección de modelos (Hastie et al. 2009, chap. 7).\nComparar varias métricas tampoco implica buscar un ganador automático. La decisión debe declarar qué errores son importantes en el contexto: precision pone el foco directo en \\(FP\\), recall en \\(FN\\), accuracy agrega ambos y F1 resume precision y recall sin incorporar \\(TN\\) directamente.\n\nResumen\n\nLa matriz de confusión separa aciertos y tipos de error.\nAccuracy resume aciertos globales, pero puede ocultar fallas ante desbalance.\nPrecision condiciona sobre predicciones positivas; recall, sobre positivos reales.\nF1 combina precision y recall, sin ser universalmente preferible.\nUna comparación válida conserva datos, particiones, definiciones y un test final independiente.",
+    "crumbs": [
+      "Fundamentos",
+      "Evaluación de clasificadores"
+    ]
+  },
+  {
+    "objectID": "fundamentos/evaluacion-clasificadores.html#conceptos-relacionados",
+    "href": "fundamentos/evaluacion-clasificadores.html#conceptos-relacionados",
+    "title": "Evaluación de clasificadores",
     "section": "Conceptos relacionados",
-    "text": "Conceptos relacionados\n\nAnatomía de un sistema de ML\nRepresentación de datos\nGeneralización y selección de modelos\nFundamentos de aprendizaje por refuerzo",
+    "text": "Conceptos relacionados\n\nGeneralización y selección de modelos\nÁrboles de decisión\nSVM y máximo margen\nSVM multiclase y Exemplar-SVM",
     "crumbs": [
       "Fundamentos",
-      "IA y aprendizaje de máquina"
+      "Evaluación de clasificadores"
     ]
   },
   {
-    "objectID": "datos/generalizacion.html",
-    "href": "datos/generalizacion.html",
-    "title": "Generalización y selección de modelos",
+    "objectID": "fundamentos/sistema-ml.html",
+    "href": "fundamentos/sistema-ml.html",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
     "section": "",
-    "text": "Conceptos clave\n\n\nGeneralización Holdout Sesgo-varianza Overfitting Cross-validation",
+    "text": "Conceptos clave\n\n\nEspacio de hipótesis Sesgo inductivo Pérdida Regularización Optimización",
     "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
     ]
   },
   {
-    "objectID": "datos/generalizacion.html#rendimiento-más-allá-del-entrenamiento",
-    "href": "datos/generalizacion.html#rendimiento-más-allá-del-entrenamiento",
-    "title": "Generalización y selección de modelos",
-    "section": "Rendimiento más allá del entrenamiento",
-    "text": "Rendimiento más allá del entrenamiento\nLa generalización es la capacidad de mantener buen rendimiento sobre datos nuevos procedentes de la situación de interés. El error de entrenamiento mide ajuste a ejemplos usados por el algoritmo; no es una estimación independiente del error futuro.\nEl método holdout separa datos disjuntos:\n\n\n\n\n\n\n\nConjunto\nFunción\n\n\n\n\nEntrenamiento\najustar parámetros del modelo\n\n\nValidación\nescoger hiperparámetros, representación o complejidad\n\n\nPrueba (test)\nestimar una sola vez el rendimiento del procedimiento ya escogido\n\n\n\nSi se consulta repetidamente el conjunto de prueba para tomar decisiones, deja de actuar como prueba independiente y se transforma, en la práctica, en otra fuente de validación.",
+    "objectID": "fundamentos/sistema-ml.html#esquema-general",
+    "href": "fundamentos/sistema-ml.html#esquema-general",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Esquema general",
+    "text": "Esquema general\nEn aprendizaje supervisado, los datos de entrenamiento alimentan un algoritmo de aprendizaje. El algoritmo busca un modelo predictivo dentro de un espacio de alternativas y devuelve una función que se utilizará sobre datos nuevos.\n\nDatos de entrenamiento \\(\\longrightarrow\\) algoritmo de aprendizaje\n\\(\\phantom{Datos de entrenamiento}\\quad\\) hipótesis + pérdida + búsqueda + sesgo inductivo\n\\(\\phantom{Datos de entrenamiento}\\longrightarrow\\) modelo entrenado \\(\\longrightarrow\\) predicción\n\nEsta estructura permite distinguir dos fases:\n\nentrenamiento: se eligen los parámetros usando datos y una función objetivo;\ninferencia: con los parámetros ya fijados, el modelo transforma una entrada nueva en una predicción.",
     "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
     ]
   },
   {
-    "objectID": "datos/generalizacion.html#sesgo-varianza-y-ruido",
-    "href": "datos/generalizacion.html#sesgo-varianza-y-ruido",
-    "title": "Generalización y selección de modelos",
-    "section": "Sesgo, varianza y ruido",
-    "text": "Sesgo, varianza y ruido\nEn regresión, supongamos\n\\[\nY=f(x)+\\varepsilon,\n\\qquad\n\\mathbb E[\\varepsilon]=0,\n\\qquad\n\\operatorname{Var}(\\varepsilon)=\\sigma^2.\n\\]\nSi \\(\\widehat f(x)\\) cambia según la muestra de entrenamiento, el error cuadrático esperado en un punto puede descomponerse como\n\\[\n\\mathbb E\\!\\left[(Y-\\widehat f(x))^2\\right]\n=\n\\underbrace{\\left(f(x)-\\mathbb E[\\widehat f(x)]\\right)^2}_{\\text{sesgo}^2}\n+\n\\underbrace{\\mathbb E\\!\\left[(\\widehat f(x)-\\mathbb E[\\widehat f(x)])^2\\right]}_{\\text{varianza}}\n+\n\\underbrace{\\sigma^2}_{\\text{error irreducible}}.\n\\]\n\nalto sesgo: el procedimiento es sistemáticamente poco flexible para el patrón relevante;\nalta varianza: pequeñas variaciones en los datos producen modelos muy distintos;\nerror irreducible: variabilidad que no puede eliminarse con la información disponible.\n\nEsta descomposición exacta corresponde a pérdida cuadrática y a los supuestos indicados. En clasificación, «sesgo-varianza» sigue siendo una intuición útil, pero no debe trasladarse mecánicamente como la misma identidad.",
+    "objectID": "fundamentos/sistema-ml.html#modelo-y-espacio-de-hipótesis",
+    "href": "fundamentos/sistema-ml.html#modelo-y-espacio-de-hipótesis",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Modelo y espacio de hipótesis",
+    "text": "Modelo y espacio de hipótesis\nUn modelo predictivo es una función parametrizada \\(f(x;W)\\), donde \\(x\\) es la entrada y \\(W\\) reúne los parámetros ajustables. El espacio de hipótesis \\(\\mathcal H\\) contiene las funciones que el procedimiento puede representar:\n\\[\n\\mathcal H=\\{f(\\cdot;W):W\\in\\Omega\\}.\n\\]\nElegir \\(\\mathcal H\\) restringe de antemano las soluciones posibles. Un clasificador lineal solo puede crear fronteras lineales en la representación original; un árbol profundo puede expresar reglas mucho más específicas.\nEl sesgo inductivo es el conjunto de preferencias o supuestos que permite escoger una generalización entre muchas compatibles con los datos. Puede aparecer en la forma del modelo, en la regularización o en la estrategia de búsqueda. Sin algún sesgo inductivo, los ejemplos observados no determinan por sí solos qué ocurrirá fuera de ellos. (Mitchell 1997)",
     "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
     ]
   },
   {
-    "objectID": "datos/generalizacion.html#subajuste-y-sobreajuste",
-    "href": "datos/generalizacion.html#subajuste-y-sobreajuste",
-    "title": "Generalización y selección de modelos",
-    "section": "Subajuste y sobreajuste",
-    "text": "Subajuste y sobreajuste\nEl subajuste (underfitting) ocurre cuando el modelo no captura patrones relevantes: suelen ser altos tanto el error de entrenamiento como el de validación.\nEl sobreajuste (overfitting) ocurre cuando el modelo captura particularidades o ruido del entrenamiento que no se sostienen fuera de esa muestra. El error de entrenamiento puede seguir bajando mientras el error de validación empeora.\n\n\n\n\n\n\nAdvertenciaComplejidad no es solo número de parámetros\n\n\n\nProfundidad de un árbol, intensidad de regularización, elección del kernel y escala de sus parámetros son formas diferentes de controlar flexibilidad. La complejidad relevante depende de la familia de modelos y del procedimiento completo.",
+    "objectID": "fundamentos/sistema-ml.html#pérdida-empírica",
+    "href": "fundamentos/sistema-ml.html#pérdida-empírica",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Pérdida empírica",
+    "text": "Pérdida empírica\nSea el conjunto de entrenamiento\n\\[\n\\mathcal D=\\{(x_i,y_i)\\}_{i=1}^{N}.\n\\]\nUna función de pérdida \\(\\mathcal L(f(x_i;W),y_i)\\) cuantifica el desacuerdo entre predicción y etiqueta. El riesgo empírico promedio es\n\\[\n\\widehat R(W)=\\frac{1}{N}\\sum_{i=1}^{N}\\mathcal L(f(x_i;W),y_i).\n\\]\nLa pérdida debe corresponder a la tarea. En regresión es habitual penalizar distancias numéricas; en clasificación interesa penalizar decisiones o márgenes incorrectos. Una métrica de evaluación y una pérdida de entrenamiento pueden estar relacionadas sin ser idénticas.",
     "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
     ]
   },
   {
-    "objectID": "datos/generalizacion.html#selección-mediante-validación",
-    "href": "datos/generalizacion.html#selección-mediante-validación",
-    "title": "Generalización y selección de modelos",
-    "section": "Selección mediante validación",
-    "text": "Selección mediante validación\nUn flujo correcto es:\n\nDefinir candidatos e hiperparámetros antes de mirar prueba.\nAjustar cada candidato con entrenamiento.\nCompararlos con la misma métrica en validación.\nElegir una configuración.\nCuando corresponda, reajustar con los datos destinados al desarrollo.\nEvaluar una vez en prueba.\n\nLa selección por validación busca equilibrar ajuste y capacidad de generalización. Russell y Norvig presentan la validación cruzada como una herramienta para comparar complejidad y bondad de ajuste; la regularización incorpora esa preferencia dentro del objetivo. (Russell y Norvig 2010)",
+    "objectID": "fundamentos/sistema-ml.html#regularización",
+    "href": "fundamentos/sistema-ml.html#regularización",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Regularización",
+    "text": "Regularización\nMinimizar solo la pérdida de entrenamiento puede favorecer una solución excesivamente compleja. Una formulación general añade un regularizador:\n\\[\nW^*=\\arg\\min_W\n\\left[\n\\lambda\\,\\mathcal R(W)\n+\\sum_{i=1}^{N}\\mathcal L(f(x_i;W),y_i)\n\\right].\n\\]\n\n\\(\\mathcal R(W)\\) penaliza propiedades no deseadas de los parámetros;\n\\(\\lambda\\ge 0\\) controla el peso relativo de esa preferencia;\nla suma mide el ajuste a los ejemplos observados.\n\nEl regularizador no «descubre» automáticamente la complejidad correcta. Su forma y su intensidad son decisiones que deben contrastarse mediante validación. En SVM, la norma de los pesos y las violaciones del margen materializan esta tensión.",
     "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
     ]
   },
   {
-    "objectID": "datos/generalizacion.html#validación-cruzada",
-    "href": "datos/generalizacion.html#validación-cruzada",
-    "title": "Generalización y selección de modelos",
-    "section": "Validación cruzada",
-    "text": "Validación cruzada\nEn validación cruzada de \\(K\\) particiones, el conjunto de desarrollo se divide en \\(K\\) bloques. Cada bloque actúa una vez como validación y los demás como entrenamiento. Si \\(M_k\\) es la métrica del bloque \\(k\\):\n\\[\n\\overline M_{CV}=\\frac{1}{K}\\sum_{k=1}^{K}M_k.\n\\]\nEsto reutiliza mejor datos limitados y muestra variabilidad entre particiones, pero requiere entrenar varias veces y no corrige por sí solo datos no representativos.",
+    "objectID": "fundamentos/sistema-ml.html#técnica-de-búsqueda",
+    "href": "fundamentos/sistema-ml.html#técnica-de-búsqueda",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Técnica de búsqueda",
+    "text": "Técnica de búsqueda\nDefinir el objetivo no indica todavía cómo encontrar su mínimo. La técnica de búsqueda u optimización determina cómo se exploran los parámetros o hipótesis. Según el modelo, puede ser un algoritmo recursivo que elige divisiones, un programa cuadrático o un método iterativo basado en gradientes.\nPor tanto, conviene no confundir:\n\n\n\nElemento\nPregunta que responde\n\n\n\n\nRepresentación\n¿Cómo describimos cada ejemplo?\n\n\nEspacio de hipótesis\n¿Qué funciones podemos expresar?\n\n\nPérdida\n¿Qué errores penalizamos?\n\n\nRegularización\n¿Qué soluciones preferimos?\n\n\nBúsqueda\n¿Cómo encontramos una buena solución?\n\n\nEvaluación\n¿Cómo estimamos su rendimiento futuro?",
     "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
     ]
   },
   {
-    "objectID": "datos/generalizacion.html#errores-frecuentes",
-    "href": "datos/generalizacion.html#errores-frecuentes",
-    "title": "Generalización y selección de modelos",
-    "section": "Errores frecuentes",
-    "text": "Errores frecuentes\n\npreprocesar antes de dividir los datos;\najustar hiperparámetros mirando prueba;\ncomparar modelos con particiones distintas sin control;\nreportar solo entrenamiento;\nmezclar registros relacionados entre particiones;\nasumir que más datos siempre compensan una etiqueta deficiente o un cambio de distribución.\n\n\nResumen\n\nGeneralizar es rendir bien en datos no usados para ajustar el procedimiento.\nEntrenamiento ajusta; validación selecciona; prueba estima el resultado final.\nEl equilibrio sesgo-varianza conecta flexibilidad, subajuste y sobreajuste.\nLa validación cruzada mejora el uso de datos, a cambio de más cómputo.\nEl preprocesamiento forma parte del entrenamiento y debe respetar las particiones.",
+    "objectID": "fundamentos/sistema-ml.html#ciclo-de-vida",
+    "href": "fundamentos/sistema-ml.html#ciclo-de-vida",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "section": "Ciclo de vida",
+    "text": "Ciclo de vida\nUn sistema de ML no termina al entrenar. Debe vigilarse si cambian los datos, la población o el contexto de uso. El rendimiento estimado durante el desarrollo solo es informativo mientras la distribución de evaluación sea relevante para el uso real.\n\n\n\n\n\n\nAdvertenciaError frecuente: evaluar con los datos de entrenamiento\n\n\n\nEl conjunto usado para ajustar \\(W\\) no entrega una estimación independiente del rendimiento. Para medir generalización se reservan datos que no intervinieron en el ajuste ni en la selección de hiperparámetros.\n\n\n\nResumen\n\nEl modelo \\(f(x;W)\\) pertenece a un espacio de hipótesis.\nLa pérdida mide ajuste; la regularización expresa una preferencia inductiva.\nEl algoritmo de aprendizaje busca parámetros que optimicen el objetivo.\nEntrenamiento e inferencia son fases distintas.\nLa evaluación independiente y el monitoreo completan el ciclo del sistema.",
     "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
     ]
   },
   {
-    "objectID": "datos/generalizacion.html#conceptos-relacionados",
-    "href": "datos/generalizacion.html#conceptos-relacionados",
-    "title": "Generalización y selección de modelos",
+    "objectID": "fundamentos/sistema-ml.html#conceptos-relacionados",
+    "href": "fundamentos/sistema-ml.html#conceptos-relacionados",
+    "title": "Anatomía de un sistema de aprendizaje de máquina",
     "section": "Conceptos relacionados",
-    "text": "Conceptos relacionados\n\nRepresentación de datos\nÁrboles de decisión\nSVM y máximo margen\nKernels y fronteras no lineales",
+    "text": "Conceptos relacionados\n\nIA y aprendizaje de máquina\nRepresentación de datos\nGeneralización y selección de modelos\nEvaluación de clasificadores\nSVM y máximo margen",
     "crumbs": [
-      "Datos y generalización",
-      "Generalización y selección de modelos"
+      "Fundamentos",
+      "Anatomía de un sistema de ML"
     ]
   },
   {
@@ -517,91 +572,157 @@
     ]
   },
   {
-    "objectID": "fundamentos/sistema-ml.html",
-    "href": "fundamentos/sistema-ml.html",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "objectID": "datos/generalizacion.html",
+    "href": "datos/generalizacion.html",
+    "title": "Generalización y selección de modelos",
     "section": "",
-    "text": "Conceptos clave\n\n\nEspacio de hipótesis Sesgo inductivo Pérdida Regularización Optimización",
+    "text": "Conceptos clave\n\n\nGeneralización Holdout Sesgo-varianza Overfitting Cross-validation",
     "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
+      "Datos y generalización",
+      "Generalización y selección de modelos"
     ]
   },
   {
-    "objectID": "fundamentos/sistema-ml.html#esquema-general",
-    "href": "fundamentos/sistema-ml.html#esquema-general",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Esquema general",
-    "text": "Esquema general\nEn aprendizaje supervisado, los datos de entrenamiento alimentan un algoritmo de aprendizaje. El algoritmo busca un modelo predictivo dentro de un espacio de alternativas y devuelve una función que se utilizará sobre datos nuevos.\n\nDatos de entrenamiento \\(\\longrightarrow\\) algoritmo de aprendizaje\n\\(\\phantom{Datos de entrenamiento}\\quad\\) hipótesis + pérdida + búsqueda + sesgo inductivo\n\\(\\phantom{Datos de entrenamiento}\\longrightarrow\\) modelo entrenado \\(\\longrightarrow\\) predicción\n\nEsta estructura permite distinguir dos fases:\n\nentrenamiento: se eligen los parámetros usando datos y una función objetivo;\ninferencia: con los parámetros ya fijados, el modelo transforma una entrada nueva en una predicción.",
+    "objectID": "datos/generalizacion.html#rendimiento-más-allá-del-entrenamiento",
+    "href": "datos/generalizacion.html#rendimiento-más-allá-del-entrenamiento",
+    "title": "Generalización y selección de modelos",
+    "section": "Rendimiento más allá del entrenamiento",
+    "text": "Rendimiento más allá del entrenamiento\nLa generalización es la capacidad de mantener buen rendimiento sobre datos nuevos procedentes de la situación de interés. El error de entrenamiento mide ajuste a ejemplos usados por el algoritmo; no es una estimación independiente del error futuro.\nEl método holdout separa datos disjuntos:\n\n\n\n\n\n\n\nConjunto\nFunción\n\n\n\n\nEntrenamiento\najustar parámetros del modelo\n\n\nValidación\nescoger hiperparámetros, representación o complejidad\n\n\nPrueba (test)\nestimar una sola vez el rendimiento del procedimiento ya escogido\n\n\n\nSi se consulta repetidamente el conjunto de prueba para tomar decisiones, deja de actuar como prueba independiente y se transforma, en la práctica, en otra fuente de validación.",
     "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
+      "Datos y generalización",
+      "Generalización y selección de modelos"
     ]
   },
   {
-    "objectID": "fundamentos/sistema-ml.html#modelo-y-espacio-de-hipótesis",
-    "href": "fundamentos/sistema-ml.html#modelo-y-espacio-de-hipótesis",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Modelo y espacio de hipótesis",
-    "text": "Modelo y espacio de hipótesis\nUn modelo predictivo es una función parametrizada \\(f(x;W)\\), donde \\(x\\) es la entrada y \\(W\\) reúne los parámetros ajustables. El espacio de hipótesis \\(\\mathcal H\\) contiene las funciones que el procedimiento puede representar:\n\\[\n\\mathcal H=\\{f(\\cdot;W):W\\in\\Omega\\}.\n\\]\nElegir \\(\\mathcal H\\) restringe de antemano las soluciones posibles. Un clasificador lineal solo puede crear fronteras lineales en la representación original; un árbol profundo puede expresar reglas mucho más específicas.\nEl sesgo inductivo es el conjunto de preferencias o supuestos que permite escoger una generalización entre muchas compatibles con los datos. Puede aparecer en la forma del modelo, en la regularización o en la estrategia de búsqueda. Sin algún sesgo inductivo, los ejemplos observados no determinan por sí solos qué ocurrirá fuera de ellos. (Mitchell 1997)",
+    "objectID": "datos/generalizacion.html#sesgo-varianza-y-ruido",
+    "href": "datos/generalizacion.html#sesgo-varianza-y-ruido",
+    "title": "Generalización y selección de modelos",
+    "section": "Sesgo, varianza y ruido",
+    "text": "Sesgo, varianza y ruido\nEn regresión, supongamos\n\\[\nY=f(x)+\\varepsilon,\n\\qquad\n\\mathbb E[\\varepsilon]=0,\n\\qquad\n\\operatorname{Var}(\\varepsilon)=\\sigma^2.\n\\]\nSi \\(\\widehat f(x)\\) cambia según la muestra de entrenamiento, el error cuadrático esperado en un punto puede descomponerse como\n\\[\n\\mathbb E\\!\\left[(Y-\\widehat f(x))^2\\right]\n=\n\\underbrace{\\left(f(x)-\\mathbb E[\\widehat f(x)]\\right)^2}_{\\text{sesgo}^2}\n+\n\\underbrace{\\mathbb E\\!\\left[(\\widehat f(x)-\\mathbb E[\\widehat f(x)])^2\\right]}_{\\text{varianza}}\n+\n\\underbrace{\\sigma^2}_{\\text{error irreducible}}.\n\\]\n\nalto sesgo: el procedimiento es sistemáticamente poco flexible para el patrón relevante;\nalta varianza: pequeñas variaciones en los datos producen modelos muy distintos;\nerror irreducible: variabilidad que no puede eliminarse con la información disponible.\n\nEsta descomposición exacta corresponde a pérdida cuadrática y a los supuestos indicados. En clasificación, «sesgo-varianza» sigue siendo una intuición útil, pero no debe trasladarse mecánicamente como la misma identidad.",
     "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
+      "Datos y generalización",
+      "Generalización y selección de modelos"
     ]
   },
   {
-    "objectID": "fundamentos/sistema-ml.html#pérdida-empírica",
-    "href": "fundamentos/sistema-ml.html#pérdida-empírica",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Pérdida empírica",
-    "text": "Pérdida empírica\nSea el conjunto de entrenamiento\n\\[\n\\mathcal D=\\{(x_i,y_i)\\}_{i=1}^{N}.\n\\]\nUna función de pérdida \\(\\mathcal L(f(x_i;W),y_i)\\) cuantifica el desacuerdo entre predicción y etiqueta. El riesgo empírico promedio es\n\\[\n\\widehat R(W)=\\frac{1}{N}\\sum_{i=1}^{N}\\mathcal L(f(x_i;W),y_i).\n\\]\nLa pérdida debe corresponder a la tarea. En regresión es habitual penalizar distancias numéricas; en clasificación interesa penalizar decisiones o márgenes incorrectos. Una métrica de evaluación y una pérdida de entrenamiento pueden estar relacionadas sin ser idénticas.",
+    "objectID": "datos/generalizacion.html#subajuste-y-sobreajuste",
+    "href": "datos/generalizacion.html#subajuste-y-sobreajuste",
+    "title": "Generalización y selección de modelos",
+    "section": "Subajuste y sobreajuste",
+    "text": "Subajuste y sobreajuste\nEl subajuste (underfitting) ocurre cuando el modelo no captura patrones relevantes: suelen ser altos tanto el error de entrenamiento como el de validación.\nEl sobreajuste (overfitting) ocurre cuando el modelo captura particularidades o ruido del entrenamiento que no se sostienen fuera de esa muestra. El error de entrenamiento puede seguir bajando mientras el error de validación empeora.\n\n\n\n\n\n\nAdvertenciaComplejidad no es solo número de parámetros\n\n\n\nProfundidad de un árbol, intensidad de regularización, elección del kernel y escala de sus parámetros son formas diferentes de controlar flexibilidad. La complejidad relevante depende de la familia de modelos y del procedimiento completo.",
     "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
+      "Datos y generalización",
+      "Generalización y selección de modelos"
     ]
   },
   {
-    "objectID": "fundamentos/sistema-ml.html#regularización",
-    "href": "fundamentos/sistema-ml.html#regularización",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Regularización",
-    "text": "Regularización\nMinimizar solo la pérdida de entrenamiento puede favorecer una solución excesivamente compleja. Una formulación general añade un regularizador:\n\\[\nW^*=\\arg\\min_W\n\\left[\n\\lambda\\,\\mathcal R(W)\n+\\sum_{i=1}^{N}\\mathcal L(f(x_i;W),y_i)\n\\right].\n\\]\n\n\\(\\mathcal R(W)\\) penaliza propiedades no deseadas de los parámetros;\n\\(\\lambda\\ge 0\\) controla el peso relativo de esa preferencia;\nla suma mide el ajuste a los ejemplos observados.\n\nEl regularizador no «descubre» automáticamente la complejidad correcta. Su forma y su intensidad son decisiones que deben contrastarse mediante validación. En SVM, la norma de los pesos y las violaciones del margen materializan esta tensión.",
+    "objectID": "datos/generalizacion.html#selección-mediante-validación",
+    "href": "datos/generalizacion.html#selección-mediante-validación",
+    "title": "Generalización y selección de modelos",
+    "section": "Selección mediante validación",
+    "text": "Selección mediante validación\nUn flujo correcto es:\n\nDefinir candidatos e hiperparámetros antes de mirar prueba.\nAjustar cada candidato con entrenamiento.\nCompararlos con la misma métrica en validación.\nElegir una configuración.\nCuando corresponda, reajustar con los datos destinados al desarrollo.\nEvaluar una vez en prueba.\n\nLa selección por validación busca equilibrar ajuste y capacidad de generalización. Russell y Norvig presentan la validación cruzada como una herramienta para comparar complejidad y bondad de ajuste; la regularización incorpora esa preferencia dentro del objetivo. (Russell y Norvig 2010)",
     "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
+      "Datos y generalización",
+      "Generalización y selección de modelos"
     ]
   },
   {
-    "objectID": "fundamentos/sistema-ml.html#técnica-de-búsqueda",
-    "href": "fundamentos/sistema-ml.html#técnica-de-búsqueda",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Técnica de búsqueda",
-    "text": "Técnica de búsqueda\nDefinir el objetivo no indica todavía cómo encontrar su mínimo. La técnica de búsqueda u optimización determina cómo se exploran los parámetros o hipótesis. Según el modelo, puede ser un algoritmo recursivo que elige divisiones, un programa cuadrático o un método iterativo basado en gradientes.\nPor tanto, conviene no confundir:\n\n\n\nElemento\nPregunta que responde\n\n\n\n\nRepresentación\n¿Cómo describimos cada ejemplo?\n\n\nEspacio de hipótesis\n¿Qué funciones podemos expresar?\n\n\nPérdida\n¿Qué errores penalizamos?\n\n\nRegularización\n¿Qué soluciones preferimos?\n\n\nBúsqueda\n¿Cómo encontramos una buena solución?\n\n\nEvaluación\n¿Cómo estimamos su rendimiento futuro?",
+    "objectID": "datos/generalizacion.html#validación-cruzada",
+    "href": "datos/generalizacion.html#validación-cruzada",
+    "title": "Generalización y selección de modelos",
+    "section": "Validación cruzada",
+    "text": "Validación cruzada\nEn validación cruzada de \\(K\\) particiones, el conjunto de desarrollo se divide en \\(K\\) bloques. Cada bloque actúa una vez como validación y los demás como entrenamiento. Si \\(M_k\\) es la métrica del bloque \\(k\\):\n\\[\n\\overline M_{CV}=\\frac{1}{K}\\sum_{k=1}^{K}M_k.\n\\]\nEsto reutiliza mejor datos limitados y muestra variabilidad entre particiones, pero requiere entrenar varias veces y no corrige por sí solo datos no representativos.",
     "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
+      "Datos y generalización",
+      "Generalización y selección de modelos"
     ]
   },
   {
-    "objectID": "fundamentos/sistema-ml.html#ciclo-de-vida",
-    "href": "fundamentos/sistema-ml.html#ciclo-de-vida",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
-    "section": "Ciclo de vida",
-    "text": "Ciclo de vida\nUn sistema de ML no termina al entrenar. Debe vigilarse si cambian los datos, la población o el contexto de uso. El rendimiento estimado durante el desarrollo solo es informativo mientras la distribución de evaluación sea relevante para el uso real.\n\n\n\n\n\n\nAdvertenciaError frecuente: evaluar con los datos de entrenamiento\n\n\n\nEl conjunto usado para ajustar \\(W\\) no entrega una estimación independiente del rendimiento. Para medir generalización se reservan datos que no intervinieron en el ajuste ni en la selección de hiperparámetros.\n\n\n\nResumen\n\nEl modelo \\(f(x;W)\\) pertenece a un espacio de hipótesis.\nLa pérdida mide ajuste; la regularización expresa una preferencia inductiva.\nEl algoritmo de aprendizaje busca parámetros que optimicen el objetivo.\nEntrenamiento e inferencia son fases distintas.\nLa evaluación independiente y el monitoreo completan el ciclo del sistema.",
+    "objectID": "datos/generalizacion.html#errores-frecuentes",
+    "href": "datos/generalizacion.html#errores-frecuentes",
+    "title": "Generalización y selección de modelos",
+    "section": "Errores frecuentes",
+    "text": "Errores frecuentes\n\npreprocesar antes de dividir los datos;\najustar hiperparámetros mirando prueba;\ncomparar modelos con particiones distintas sin control;\nreportar solo entrenamiento;\nmezclar registros relacionados entre particiones;\nasumir que más datos siempre compensan una etiqueta deficiente o un cambio de distribución.\n\n\nResumen\n\nGeneralizar es rendir bien en datos no usados para ajustar el procedimiento.\nEntrenamiento ajusta; validación selecciona; prueba estima el resultado final.\nEl equilibrio sesgo-varianza conecta flexibilidad, subajuste y sobreajuste.\nLa validación cruzada mejora el uso de datos, a cambio de más cómputo.\nEl preprocesamiento forma parte del entrenamiento y debe respetar las particiones.",
     "crumbs": [
-      "Fundamentos",
-      "Anatomía de un sistema de ML"
+      "Datos y generalización",
+      "Generalización y selección de modelos"
     ]
   },
   {
-    "objectID": "fundamentos/sistema-ml.html#conceptos-relacionados",
-    "href": "fundamentos/sistema-ml.html#conceptos-relacionados",
-    "title": "Anatomía de un sistema de aprendizaje de máquina",
+    "objectID": "datos/generalizacion.html#conceptos-relacionados",
+    "href": "datos/generalizacion.html#conceptos-relacionados",
+    "title": "Generalización y selección de modelos",
     "section": "Conceptos relacionados",
-    "text": "Conceptos relacionados\n\nIA y aprendizaje de máquina\nRepresentación de datos\nGeneralización y selección de modelos\nSVM y máximo margen",
+    "text": "Conceptos relacionados\n\nRepresentación de datos\nEvaluación de clasificadores\nÁrboles de decisión\nSVM y máximo margen\nKernels y fronteras no lineales",
+    "crumbs": [
+      "Datos y generalización",
+      "Generalización y selección de modelos"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html",
+    "href": "fundamentos/ia-aprendizaje.html",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "",
+    "text": "Conceptos clave\n\n\nInteligencia artificial Aprendizaje inductivo Aprendizaje de máquina Generalización Supervisión",
     "crumbs": [
       "Fundamentos",
-      "Anatomía de un sistema de ML"
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#qué-es-la-inteligencia-artificial",
+    "href": "fundamentos/ia-aprendizaje.html#qué-es-la-inteligencia-artificial",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "¿Qué es la inteligencia artificial?",
+    "text": "¿Qué es la inteligencia artificial?\nEl término inteligencia artificial (IA) fue definido originalmente por John McCarthy en 1956, en la conferencia de Dartmouth. Propuso un proyecto de inteligencia artificial, en el que se estudiarían maneras de cómo las máquinas pueden realizar tareas que normalmente requieren inteligencia humana; uso de lenguaje, formas de abstracción, resolución de problemas, aprendizaje y adaptación (Russell y Norvig 2010).\nActualmente, la IA es un amplio campo de estudio que incluye muchas técnicas y enfoques para desarrollar sistemas capaces de percibir su entorno, procesar información y seleccionar acciones que les permitan alcanzar objetivos de manera racional. Actualmente, una de las principales formas de construir estos sistemas es a través del aprendizaje de máquina.",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#qué-es-el-aprendizaje-de-máquina",
+    "href": "fundamentos/ia-aprendizaje.html#qué-es-el-aprendizaje-de-máquina",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "¿Qué es el aprendizaje de máquina?",
+    "text": "¿Qué es el aprendizaje de máquina?\nEl término aprendizaje de máquina fue utilizado por primera vez por Arthur Samuel en 1959, quien describió en un artículo un computador puede ser programado de manera que aprenda a jugar damas mejor que la persona por la que fue programado (Samuel 1959).\nPosteriormente, en 1997, Tom Mitchell propuso una definición formal: Se dice que un programa de computador aprende de la experiencia \\(E\\) con respecto a alguna clase de tareas \\(T\\) y una medida de desempeño \\(P\\), si su desempeño en las tareas de \\(T\\), medido mediante \\(P\\), mejora con la experiencia \\(E\\) (Mitchell 1997).\nPor ejemplo, para detectar vehículos:\n\n\\(T\\): clasificar una imagen como «vehículo» o «no vehículo»;\n\\(E\\): imágenes etiquetadas usadas para entrenar;\n\\(P\\): proporción de clasificaciones correctas o una medida que distinga tipos de error.\n\nLa idea central es inductiva: a partir de casos particulares se construye un modelo que debe funcionar en casos nuevos. En este sentido, se busca que un modelo aprenda a generalizar.",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#formas-de-aprendizaje",
+    "href": "fundamentos/ia-aprendizaje.html#formas-de-aprendizaje",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "Formas de aprendizaje",
+    "text": "Formas de aprendizaje\n\nAprendizaje supervisado\nEn aprendizaje supervisado, el conjunto de entrenamiento contiene pares \\((x_i,y_i)\\):\n\n\\(x_i\\) es un vector de características o atributos que describen un ejemplo (una imagen, un texto, un conjunto de mediciones, etc.);\n\\(y_i\\) es la etiqueta o valor objetivo que se desea predecir (en el entrenamiento, esto se conoce a priori, por eso es supervisado).\n\nEl objetivo es que el modelo, sistema o agente aprenda una función que mapee el conjunto de valores \\(x\\) al conjunto de valores \\(y\\). Se busca \\(f:X\\mapsto Y\\). Si \\(y\\) pertenece a un conjunto de categorías (discreto), hablamos de clasificación; si es numérico continuo, hablamos de regresión (Russell y Norvig 2010, 695-96).\nEn clasificación, la salida predicha pertenece a un conjunto discreto de clases; en regresión, la salida es numérica:\n\\[\n\\widehat f(x^*) \\in \\{c_1,c_2\\},\n\\qquad\n\\widehat y^*=\\widehat f(x^*).\n\\]\nA continuación se muestra una representación bidimensional para clasificación y unidimensional para regresión (con fines pedagógicos). En general, los problemas supervisados pueden usar muchas características. La curva de regresión representa una función aprendida, no la función verdadera subyacente.\n\n\nCargando la visualización interactiva…\n\n\n\nAlgunos ejemplos de aprendizaje supervisado son:\n\nÁrboles de decisión, que pueden usarse tanto para clasificación como para regresión (Russell y Norvig 2010, 697-707).\nSupport Vector Machines (SVM), que también pueden usarse para clasificación y regresión. Una propiedad interesante de las máquinas de vectores de soporte es que la determinación de los parámetros del modelo corresponde a un problema de optimización convexa (Bishop 2006, 35).\n\nEn este sitio, las SVM se estudian principalmente como clasificadores.\n\n\nAprendizaje no supervisado\nLos datos no incluyen una etiqueta objetivo explícita. Se buscan regularidades en los datos, por ejemplo grupos o estructuras que permitan describirlos. Que no haya etiquetas no elimina las decisiones de diseño: la representación elegida y el criterio usado para definir qué constituye una estructura relevante siguen introduciendo supuestos (Duda et al. 2001, 17).\n\n\nAprendizaje por refuerzo\nUn agente actúa sobre un entorno, observa las consecuencias de sus acciones y recibe recompensas. No se le entrega para cada situación la «acción correcta»; debe aprender una política que produzca una alta recompensa acumulada. La experiencia es secuencial: las acciones del agente modifican el estado del entorno y, con ello, la experiencia que encontrará posteriormente (Mitchell 1997, 367-69).",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#especialización-y-alcance",
+    "href": "fundamentos/ia-aprendizaje.html#especialización-y-alcance",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "Especialización y alcance",
+    "text": "Especialización y alcance\nMuchos sistemas de IA son altamente especializados: pueden alcanzar o superar el rendimiento humano en tareas concretas sin adquirir por ello competencia general fuera de ellas (Russell y Norvig 2010, 185, 1046-47).\nUna cifra de rendimiento tampoco es una propiedad absoluta del sistema: depende del criterio de evaluación adoptado y de la población o distribución sobre la que se mide la generalización (Hastie et al. 2009, 219-20).",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
+    ]
+  },
+  {
+    "objectID": "fundamentos/ia-aprendizaje.html#conceptos-relacionados",
+    "href": "fundamentos/ia-aprendizaje.html#conceptos-relacionados",
+    "title": "Inteligencia artificial y aprendizaje de máquina",
+    "section": "Conceptos relacionados",
+    "text": "Conceptos relacionados\n\nAnatomía de un sistema de ML\nRepresentación de datos\nGeneralización y selección de modelos\nEvaluación de clasificadores\nFundamentos de aprendizaje por refuerzo",
+    "crumbs": [
+      "Fundamentos",
+      "IA y aprendizaje de máquina"
     ]
   },
   {
@@ -639,7 +760,7 @@
     "href": "index.html#ruta-recomendada",
     "title": "Inteligencia Artificial I",
     "section": "Ruta recomendada",
-    "text": "Ruta recomendada\n\nComprender qué distingue la programación directa del aprendizaje.\nIdentificar los componentes de un sistema de aprendizaje de máquina.\nSeparar correctamente características, etiquetas e identificadores.\nEntender por qué el error de entrenamiento no basta para medir generalización.\nEstudiar dos familias supervisadas: árboles y SVM.\nContrastar el aprendizaje supervisado con el aprendizaje por refuerzo.\n\n\n\n\n\n\n\nNotaAlcance actual\n\n\n\nEl sitio se limita deliberadamente a los temas desarrollados en el material disponible. Su organización admite incorporar más adelante aprendizaje profundo, programación lógica y búsqueda sin alterar esta ruta inicial.",
+    "text": "Ruta recomendada\n\nComprender qué distingue la programación directa del aprendizaje.\nIdentificar los componentes de un sistema de aprendizaje de máquina.\nSeparar correctamente características, etiquetas e identificadores.\nEntender por qué el error de entrenamiento no basta para medir generalización.\nElegir e interpretar medidas para la evaluación de clasificadores.\nEstudiar dos familias supervisadas: árboles y SVM.\nContrastar el aprendizaje supervisado con el aprendizaje por refuerzo.\n\n\n\n\n\n\n\nNotaAlcance actual\n\n\n\nEl sitio se limita deliberadamente a los temas desarrollados en el material disponible. Su organización admite incorporar más adelante aprendizaje profundo, programación lógica y búsqueda sin alterar esta ruta inicial.",
     "crumbs": [
       "Inicio"
     ]

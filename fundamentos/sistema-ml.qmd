@@ -114,5 +114,6 @@ El conjunto usado para ajustar $W$ no entrega una estimación independiente del 
 - [IA y aprendizaje de máquina](ia-aprendizaje.qmd)
 - [Representación de datos](../datos/representacion.qmd)
 - [Generalización y selección de modelos](../datos/generalizacion.qmd)
+- [Evaluación de clasificadores](evaluacion-clasificadores.qmd)
 - [SVM y máximo margen](../supervisado/svm-margen.qmd)
 :::
