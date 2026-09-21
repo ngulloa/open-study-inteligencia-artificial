@@ -42,7 +42,7 @@ En aprendizaje supervisado, el conjunto de entrenamiento contiene pares $(x_i,y_
 - $x_i$ es un vector de características o atributos que describen un ejemplo (una imagen, un texto, un conjunto de mediciones, etc.);
 - $y_i$ es la etiqueta o valor objetivo que se desea predecir (en el entrenamiento, esto se conoce a priori, por eso es **supervisado**).
 
-El objetivo es que el modelo, sistema o agente aprenda una función que mapee el conjunto de valores $x$ al conjunto de valores $y$. Se busca $f:x\mapsto y$. Si $y$ pertenece a un conjunto de categorías (discreto), hablamos de **clasificación**; si es numérico continuo, hablamos de **regresión** [@russell2010, pp. 695-696].
+El objetivo es que el modelo, sistema o agente aprenda una función que mapee el conjunto de valores $x$ al conjunto de valores $y$. Se busca $f:X\mapsto Y$. Si $y$ pertenece a un conjunto de categorías (discreto), hablamos de **clasificación**; si es numérico continuo, hablamos de **regresión** [@russell2010, pp. 695-696].
 
 
 En clasificación, la salida predicha pertenece a un conjunto discreto de clases; en regresión, la salida es numérica:
